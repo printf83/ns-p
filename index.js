@@ -5613,25 +5613,80 @@ var menu_c2 = [
 	{ label: "Paging", onclick: "showexample(this,'e_paging')" },
 ];
 
+var menu_c3 = [
+	{ label: "Home", icon: "home", onclick: "window.location='index.html'" },
+	{ label: "List query test", icon: "flask", onclick: "window.location='list_query_test.html'" },
+];
+
+var menu_c4 = [
+	{ onclick: "changeTheme(this,null);", label: "Default", active: true },
+	{ onclick: "changeTheme(this,'cerulean');", label: "Cerulean (L|G)" },
+	{ onclick: "changeTheme(this,'cosmo');", label: "Cosmo (L|S)" },
+	{ onclick: "changeTheme(this,'cyborg');", label: "Cyborg (D|S)" },
+	{ onclick: "changeTheme(this,'darkly');", label: "Darkly (D|S)" },
+	{ onclick: "changeTheme(this,'flatly');", label: "Flatly (L|S)" },
+	{ onclick: "changeTheme(this,'journal');", label: "Journal (L|S)" },
+	{ onclick: "changeTheme(this,'litera');", label: "Litera (L|S)" },
+	{ onclick: "changeTheme(this,'lumen');", label: "Lumen (L|S)" },
+	{ onclick: "changeTheme(this,'lux');", label: "Lux (L|S)" },
+	{ onclick: "changeTheme(this,'materia');", label: "Materia (L|G)" },
+	{ onclick: "changeTheme(this,'minty');", label: "Minty (L|S)" },
+	{ onclick: "changeTheme(this,'morph');", label: "Morph (L|G)" },
+	{ onclick: "changeTheme(this,'pulse');", label: "Pulse (L|S)" },
+	{ onclick: "changeTheme(this,'quartz');", label: "Quartz (D|G)" },
+	{ onclick: "changeTheme(this,'sandstone');", label: "Sandstone (L|S)" },
+	{ onclick: "changeTheme(this,'simplex');", label: "Simplex (L|G)" },
+	{ onclick: "changeTheme(this,'sketchy');", label: "Sketchy (L|S)" },
+	{ onclick: "changeTheme(this,'slate');", label: "Slate (D|G)" },
+	{ onclick: "changeTheme(this,'solar');", label: "Solar (D|S)" },
+	{ onclick: "changeTheme(this,'spacelab');", label: "Spacelab (L|G)" },
+	{ onclick: "changeTheme(this,'superhero');", label: "Superhero (D|S)" },
+	{ onclick: "changeTheme(this,'united');", label: "United (L|S)" },
+	{ onclick: "changeTheme(this,'vapor');", label: "Vapor (D|G)" },
+	{ onclick: "changeTheme(this,'yeti');", label: "Yeti (L|S)" },
+	{ onclick: "changeTheme(this,'zephyr');", label: "Zephyr (L|S)" },
+];
+
 function showexample(sender, arg) {
 	if (sender) {
-		var sidebar = $("#sidebar").get();
-		$(sidebar).find(".active").removeClass("active");
+		$(".exmenu .active").removeClass("active");
 		$(sender).addClass("active");
 	}
 
 	var root = $("#root").get();
+	var menu = window[arg];
 
 	$(root).empty();
-	ns.build.append(root, window[arg]);
+	ns.build.append(root, menu);
 	ns.build.init(root);
 	PR.prettyPrint();
+
+	var anchor = $(root).find(".anchorjs-link");
+	var li = [];
+
+	$.each(anchor, function (xi, i) {
+		var parent = $(i).parent();
+		li.push(ns.listgroup.item({ href: "javascript:void(0);", elems: $(parent).text(), onclick: `focusExample("${$(parent).attr("id")}");` }));
+	});
+
+	var nextbar = $("#nextbar").get();
+	$(nextbar).empty();
+	ns.build.append(nextbar, ns.listgroup.container({ type: "div", elems: li }));
+}
+
+function focusExample(id) {
+	ns.core.focus($(`#${id}`));
+}
+
+function changeTheme(sender, theme) {
+	ns.core.theme(theme);
+	$(".thememenu .active").removeClass("active");
+	$(sender).addClass("active");
 }
 
 $(document).ready(() => {
 	//list container
 	var navbar = $("#navbar").get();
-	var navbarid = ns.core.UUID();
 	ns.build.append(
 		navbar,
 		ns.navbar.container({
@@ -5641,52 +5696,12 @@ $(document).ready(() => {
 			position: "fixed-top",
 			containerfluid: true,
 			elems: [
-				ns.navbar.toggler({
-					id: "sidebar",
-					toggle: "collapse",
-				}),
-
 				ns.navbar.brand({
-					label: "NS",
+					label: "BS5 Js Builder",
 					icon: {
 						icon: "fire",
 						color: "danger",
 					},
-				}),
-
-				ns.navbar.toggler({
-					id: navbarid,
-					toggle: "collapse",
-				}),
-
-				ns.navbar.collapsecontainer({
-					id: navbarid,
-					elems: [
-						ns.navbar.itemcontainer({
-							parenttype: "collapse",
-							elems: [
-								ns.navbar.item({ label: "Home", icon: "address-book", href: "index.html" }),
-								ns.navbar.item({ label: "Example", icon: "user", active: true, href: "example.html" }),
-							],
-						}),
-						{ tag: "hr", class: "d-block-sm d-none-md" },
-						ns.navbar.itemcontainer({
-							mxauto: false,
-							elems: [
-								ns.navbar.item({
-									label: "User",
-									icon: "user",
-									option: [
-										{ href: "", label: "Profile", icon: "user-edit" },
-										{ href: "", label: "Setting", icon: "user-cog" },
-										{ onclick: "ns.core.themeEditor()", label: "Theme", icon: "swatchbook" },
-										{ value: "-", label: "" },
-										{ onclick: "", label: "Sign Out", icon: "sign-out-alt" },
-									],
-								}),
-							],
-						}),
-					],
 				}),
 			],
 		})
@@ -5696,20 +5711,23 @@ $(document).ready(() => {
 	ns.build.append(sidebar, [
 		ns.menu.container({
 			title: "Forms",
+			class: "exmenu",
 			item: ns.menu.item(menu_c1),
 		}),
 		ns.menu.container({
 			title: "Components",
+			class: "exmenu",
 			active: true,
 			item: ns.menu.item(menu_c2),
 		}),
 		ns.menu.container({
 			title: "Others",
-			item: ns.menu.item([
-				{ label: "Home", icon: "award", onclick: "window.location='index.html'" },
-				{ label: "Example", icon: "baby", onclick: "window.location='example.html'", active: true },
-				{ label: "Change Theme", icon: "swatchbook", onclick: "ns.core.themeEditor()" },
-			]),
+			item: ns.menu.item(menu_c3),
+		}),
+		ns.menu.container({
+			title: "Theme",
+			class: "thememenu",
+			item: ns.menu.item(menu_c4),
 		}),
 	]);
 
