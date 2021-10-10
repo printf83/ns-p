@@ -745,28 +745,28 @@ var e_dlg = [
 					])
 				)
 				.then((d) => {
-					ns.toast("!", `Result : <code>${JSON.stringify(d)}</code>`);
+					ns.toast("!", `Result : <b>${JSON.stringify(d)}</b>`);
 				});
 		},
 	}),
-	//ns.dlg.confirmbox
+
 	ns.example({
-		title: "ConfirmBox",
-		label: "Show Confirmbox",
+		title: "Confirmbox",
+		label: "Show simple confirmbox",
 		code: function () {
 			ns.dlg
-				.confirmbox("?", "This is test confirmbox", "yesnocancel")
+				.confirmbox("?", "This is example msgbox with <b>yesno</b> button", "yesno")
 				.then((d) => {
-					ns.toast("/", `First button pressed`);
+					ns.toast("/", `"Yes" button pressed`);
 				})
 				.catch((err) => {
-					ns.toast("x", `Not first button`);
+					ns.toast("x", `"No" first button`);
 				});
 		},
 	}),
-	//ns.dlg.box
+
 	ns.example({
-		title: "Dialog Box",
+		title: "Dialogbox",
 		label: "Show dialog box",
 		close: true,
 		code: function () {
