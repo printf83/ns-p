@@ -1,6 +1,25 @@
 "use strict";
 
-var lipsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet sit amet sapien at fermentum. Mauris fermentum nunc et sem euismod, vel fermentum dui rutrum. In porta id magna non rutrum. Nunc porta eget nibh in convallis. Suspendisse potenti. Curabitur in mi id leo euismod facilisis. Sed iaculis convallis eros, a imperdiet elit pharetra at. Cras elementum quis purus eu condimentum. Suspendisse sed nunc pulvinar, dignissim diam quis, dictum risus. Suspendisse magna ligula, gravida a ullamcorper a, vulputate ac felis. Integer lobortis justo sit amet lectus consequat viverra. Vivamus tincidunt lorem vitae tellus tincidunt, vitae lacinia purus luctus.`;
+var lipsumindex = -1;
+var lipsumdb = [
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elit massa, elementum vel metus id, congue sollicitudin lectus. Praesent ultricies felis eget nisl volutpat gravida. In eleifend iaculis viverra. Proin ut gravida elit, id posuere velit. Nulla congue enim at odio eleifend accumsan. Curabitur felis quam, feugiat in tincidunt ac, pulvinar eu diam. Nullam non erat orci. Sed gravida, ante sed vestibulum accumsan, elit metus feugiat ex, in gravida dolor nunc fermentum magna.",
+	"Nam tempor maximus ante vel malesuada. Vivamus nibh neque, cursus finibus risus vel, porttitor accumsan lacus. Nulla facilisi. Sed sit amet sagittis magna, id cursus est. Quisque convallis vel magna quis vestibulum. Curabitur placerat diam odio, in tincidunt felis viverra ac. Aenean quis ante diam. Sed sit amet lectus rutrum tortor feugiat auctor. Fusce euismod est nec posuere accumsan. Donec sodales cursus maximus. Nulla tincidunt quam quis lacus suscipit, ut lobortis erat fringilla. Praesent id diam nec metus mollis maximus. Nam vestibulum lectus quis velit dictum ornare. Phasellus vitae accumsan nisl, sed aliquet nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+	"Donec vehicula elit vel purus euismod, et aliquet nisl molestie. Phasellus at porttitor neque. Donec et orci mi. Nulla a laoreet tortor. Cras ac massa ipsum. Suspendisse mi diam, sodales nec felis sit amet, ullamcorper aliquet tellus. In vitae urna ipsum. Donec cursus rutrum magna. Quisque sed nisi a lacus accumsan mollis.",
+	"Cras felis orci, feugiat ac volutpat non, porttitor at leo. Mauris sit amet eros tincidunt, cursus felis sit amet, molestie erat. Cras rutrum mi sed nunc tempor, id viverra metus aliquet. Sed aliquet scelerisque rutrum. Donec blandit ante et mauris scelerisque, congue venenatis tortor vehicula. Sed ornare ipsum sed cursus euismod. Aenean placerat nibh nisi, ac pretium nulla aliquet vitae. Mauris vel mauris urna. Morbi ultrices enim tellus, quis volutpat velit feugiat vitae. Vivamus hendrerit consequat rhoncus. In at efficitur lectus, vel volutpat massa. Donec consectetur scelerisque lacinia. Sed tristique risus ac mi efficitur consequat.",
+	"Phasellus quis feugiat magna. Fusce placerat, metus eget tempor placerat, velit neque aliquam turpis, vel gravida ex leo sit amet diam. Aenean facilisis vulputate metus, ac dapibus felis vulputate non. Sed vehicula ante nec odio dapibus, id convallis libero auctor. Vivamus facilisis sed tellus a mattis. Donec bibendum imperdiet dui eget porttitor. Nam aliquam mi a nunc luctus rutrum.",
+];
+
+var lipsum = function (tag) {
+	lipsumindex++;
+	if (lipsumindex >= lipsumdb.length) {
+		lipsumindex = 0;
+	}
+	if (tag) {
+		return { tag: tag, elems: lipsumdb[lipsumindex] };
+	} else {
+		return lipsumdb[lipsumindex];
+	}
+};
 
 var picsumimgurlindex = 300;
 var picsumimgurl = function (width, height) {
@@ -87,218 +106,6 @@ var e_paging = [
 				total: 1260,
 				max: 3,
 				onchange: null,
-			});
-		},
-	}),
-];
-
-var e_tab = [
-	//tab
-	ns.example({
-		title: "Tab",
-		code: function () {
-			return ns.nav({
-				style: "tab",
-				elems: [
-					{ label: "first", icon: "home", elems: "This is first tab " + lipsum },
-					{ label: "second", icon: "plus", elems: "This is second tab " + lipsum },
-					{ label: "third", active: true, elems: "This is third tab " + lipsum },
-					{ label: "forth", icon: "trash", elems: "This is last tab " + lipsum },
-				],
-			});
-		},
-	}),
-	//tab pill
-	ns.example({
-		title: "Vertical Tab",
-		code: function () {
-			return ns.nav({
-				style: "pill",
-				align: "vertical",
-				size: "col-sm-12 col-md-6 col-lg-4",
-				elems: [
-					{ label: "first", icon: "home", elems: "This is first tab " + lipsum },
-					{ label: "second", icon: "plus", elems: "This is second tab " + lipsum },
-					{ label: "third", active: true, elems: "This is third tab " + lipsum },
-					{ label: "forth", icon: "trash", elems: "This is last tab " + lipsum },
-				],
-			});
-		},
-	}),
-	//tab pill
-	ns.example({
-		title: "Vertical Right Tab",
-		code: function () {
-			return ns.nav({
-				style: "pill",
-				align: "vertical-right",
-				size: "col-sm-12 col-md-6 col-lg-4",
-				elems: [
-					{ label: "first", icon: "home", elems: "This is first tab " + lipsum },
-					{ label: "second", icon: "plus", elems: "This is second tab " + lipsum },
-					{ label: "third", active: true, elems: "This is third tab " + lipsum },
-					{ label: "forth", icon: "trash", elems: "This is last tab " + lipsum },
-				],
-			});
-		},
-	}),
-	//tab with option
-	ns.example({
-		title: "Tab",
-		code: function () {
-			return ns.nav({
-				style: "tab",
-				align: "right",
-				elems: [
-					{ label: "first", icon: "home", elems: "This is first tab " + lipsum },
-					{
-						label: "second",
-						icon: "plus",
-						elems: "This is second tab " + lipsum,
-						option: [
-							{ value: "a1", label: "Action" },
-							{ value: "a2", label: "Another action" },
-							{ value: "-", label: "" },
-							{ value: "a3", label: "Something else here" },
-						],
-					},
-					{ label: "third", active: true, elems: "This is third tab " + lipsum },
-					{ label: "forth", icon: "trash", disabled: true, elems: "This is last tab " + lipsum },
-				],
-			});
-		},
-	}),
-	//tab in dialog
-	ns.example({
-		title: "Tab in Dialog",
-		label: "Show Tab in Dialog",
-		code: function () {
-			ns.dlg.box({
-				title: "Test Dialog With Tab",
-				hastab: true, //!important
-				elems: ns.nav({
-					style: "pill",
-					align: "center",
-					border: false, //!important
-					rounded: false, //!important
-					elems: [
-						{ label: "first", icon: "home", elems: "This is first tab " + lipsum },
-						{ label: "second", icon: "plus", elems: "This is second tab " + lipsum },
-						{ label: "third", active: true, elems: "This is third tab " + lipsum },
-						{ label: "forth", icon: "trash", elems: "This is last tab " + lipsum },
-					],
-				}),
-				button: "yesdeletenocancel",
-			});
-		},
-	}),
-];
-
-var e_navbar = [
-	//navbar
-	ns.example({
-		title: "Navbar",
-		code: function () {
-			var id = ns.core.UUID();
-			return ns.navbar.container({
-				expand: "lg",
-				color: "light",
-				light: "light",
-				elems: [
-					ns.navbar.toggler({
-						id,
-						toggle: "collapse",
-					}),
-
-					ns.navbar.brand({
-						label: "Navbar",
-						icon: {
-							icon: "fire",
-							color: "danger",
-						},
-					}),
-
-					ns.navbar.collapsecontainer({
-						id: id,
-						elems: [
-							ns.navbar.itemcontainer({
-								parenttype: "collapse",
-								elems: [
-									ns.navbar.item({ label: "Theme", largeicon: true, icon: "home", active: true, onclick: "ns.core.themeEditor()" }),
-									ns.navbar.item("Link"),
-									ns.navbar.item({
-										label: "Dropdown",
-										option: [
-											{ value: "", label: "Action" },
-											{ value: "", label: "Another action" },
-											{ value: "-", label: "" },
-											{ value: "", label: "Something else here" },
-										],
-									}),
-									ns.navbar.item({ label: "Disabled", disabled: true }),
-								],
-							}),
-							ns.navbar.formcontainer([
-								ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
-								ns.button({ label: "Search", color: "success", outline: true }),
-							]),
-						],
-					}),
-				],
-			});
-		},
-	}),
-
-	//navbar
-	ns.example({
-		title: "Navbar",
-		code: function () {
-			var id = ns.core.UUID();
-			return ns.navbar.container({
-				expand: "lg",
-				color: "dark",
-				light: "dark",
-				elems: [
-					ns.navbar.brand({
-						label: "Navbar",
-						icon: {
-							icon: "fire",
-							color: "danger",
-						},
-					}),
-
-					ns.navbar.toggler({
-						id,
-						toggle: "collapse",
-					}),
-
-					ns.navbar.collapsecontainer({
-						id: id,
-						elems: [
-							ns.navbar.itemcontainer({
-								parenttype: "collapse",
-								elems: [
-									ns.navbar.item({ label: "Theme", largeicon: true, icon: "home", active: true, onclick: "ns.core.themeEditor()" }),
-									ns.navbar.item("Link"),
-									ns.navbar.item({
-										label: "Dropdown",
-										option: [
-											{ value: "", label: "Action" },
-											{ value: "", label: "Another action" },
-											{ value: "-", label: "" },
-											{ value: "", label: "Something else here" },
-										],
-									}),
-									ns.navbar.item({ label: "Disabled", disabled: true }),
-								],
-							}),
-							ns.navbar.formcontainer([
-								ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
-								ns.button({ label: "Search", color: "success", outline: true }),
-							]),
-						],
-					}),
-				],
 			});
 		},
 	}),
@@ -670,13 +477,366 @@ var e_menu = [
 	}),
 ];
 
+var e_navbar = [
+	//navbar
+	ns.example({
+		title: "Navbar",
+		code: function () {
+			var id = ns.core.UUID();
+			return ns.navbar.container({
+				expand: "lg",
+				color: "light",
+				light: "light",
+				elems: [
+					ns.navbar.toggler({
+						id,
+						toggle: "collapse",
+					}),
+
+					ns.navbar.brand({
+						label: "Navbar",
+						icon: {
+							icon: "fire",
+							color: "danger",
+						},
+					}),
+
+					ns.navbar.collapsecontainer({
+						id: id,
+						elems: [
+							ns.navbar.itemcontainer({
+								parenttype: "collapse",
+								elems: [
+									ns.navbar.item({ label: "Theme", largeicon: true, icon: "home", active: true, onclick: "ns.core.themeEditor()" }),
+									ns.navbar.item("Link"),
+									ns.navbar.item({
+										label: "Dropdown",
+										option: [
+											{ value: "", label: "Action" },
+											{ value: "", label: "Another action" },
+											{ value: "-", label: "" },
+											{ value: "", label: "Something else here" },
+										],
+									}),
+									ns.navbar.item({ label: "Disabled", disabled: true }),
+								],
+							}),
+							ns.navbar.formcontainer([
+								ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+								ns.button({ label: "Search", color: "success", outline: true }),
+							]),
+						],
+					}),
+				],
+			});
+		},
+	}),
+
+	//navbar
+	ns.example({
+		title: "Navbar",
+		code: function () {
+			var id = ns.core.UUID();
+			return ns.navbar.container({
+				expand: "lg",
+				color: "dark",
+				light: "dark",
+				elems: [
+					ns.navbar.brand({
+						label: "Navbar",
+						icon: {
+							icon: "fire",
+							color: "danger",
+						},
+					}),
+
+					ns.navbar.toggler({
+						id,
+						toggle: "collapse",
+					}),
+
+					ns.navbar.collapsecontainer({
+						id: id,
+						elems: [
+							ns.navbar.itemcontainer({
+								parenttype: "collapse",
+								elems: [
+									ns.navbar.item({ label: "Theme", largeicon: true, icon: "home", active: true, onclick: "ns.core.themeEditor()" }),
+									ns.navbar.item("Link"),
+									ns.navbar.item({
+										label: "Dropdown",
+										option: [
+											{ value: "", label: "Action" },
+											{ value: "", label: "Another action" },
+											{ value: "-", label: "" },
+											{ value: "", label: "Something else here" },
+										],
+									}),
+									ns.navbar.item({ label: "Disabled", disabled: true }),
+								],
+							}),
+							ns.navbar.formcontainer([
+								ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+								ns.button({ label: "Search", color: "success", outline: true }),
+							]),
+						],
+					}),
+				],
+			});
+		},
+	}),
+];
+
+//sample tab [start]
+var sampletab = [
+	{ label: "First", elems: "This is first tab. " + lipsum() },
+	{ label: "Second", elems: "This is second tab. " + lipsum() },
+	{ label: "Third", elems: "This is third tab. " + lipsum() },
+	{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
+];
+
+var sampledropdowntab = [
+	{ label: "First", elems: "This is first tab. " + lipsum() },
+	{
+		label: "Second",
+		elems: "This is second tab. " + lipsum(),
+		option: [
+			{ href: "javascript:void(0);", label: "Action" },
+			{ href: "javascript:void(0);", label: "Another action" },
+			{ value: "-", label: "" },
+			{ href: "javascript:void(0);", label: "Something else here" },
+		],
+	},
+	{ label: "Third", elems: "This is third tab. " + lipsum() },
+	{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
+];
+//sample tab [end]
+
+var e_tab = [
+	ns.example({
+		title: "Base nav",
+		code: function () {
+			return ns.nav({
+				style: null,
+				elems: [
+					//sample tab
+					{ label: "First", elems: "This is first tab. " + lipsum() },
+					{ label: "Second", elems: "This is second tab. " + lipsum() },
+					{ label: "Third", elems: "This is third tab. " + lipsum() },
+					{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
+				],
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Nav tab",
+		code: function () {
+			return ns.nav({
+				style: "tab",
+				elems: sampletab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Nav pill",
+		code: function () {
+			return ns.nav({
+				style: "pill",
+				elems: sampletab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Horizontal center alignment",
+		code: function () {
+			return ns.nav({
+				style: "pill",
+				align: "center",
+				elems: sampletab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Horizontal right alignment",
+		code: function () {
+			return ns.nav({
+				style: "pill",
+				align: "right",
+				elems: sampletab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Vertical left",
+		code: function () {
+			return ns.nav({
+				style: "pill",
+				align: "vertical",
+				size: "col-sm-12 col-md-6 col-lg-4",
+				elems: sampletab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Vertical right",
+		code: function () {
+			return ns.nav({
+				style: "pill",
+				align: "vertical-right",
+				size: "col-sm-12 col-md-6 col-lg-4",
+				elems: sampletab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Fill",
+		code: function () {
+			return ns.nav({
+				style: "pill",
+				align: "fill",
+				elems: sampletab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Dropdown tab",
+		code: function () {
+			return ns.nav({
+				style: "tab",
+				elems: [
+					//sampledropdowntab
+					{ label: "First", elems: "This is first tab. " + lipsum() },
+					{
+						label: "Second",
+						elems: "This is second tab. " + lipsum(),
+						option: [
+							{ href: "javascript:void(0);", label: "Action" },
+							{ href: "javascript:void(0);", label: "Another action" },
+							{ value: "-", label: "" },
+							{ href: "javascript:void(0);", label: "Something else here" },
+						],
+					},
+					{ label: "Third", elems: "This is third tab. " + lipsum() },
+					{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
+				],
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Dropdown pill",
+		code: function () {
+			return ns.nav({
+				style: "pill",
+				elems: sampledropdowntab,
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Nav tab in dialog",
+		label: "Show nav tab in dialog",
+		code: function () {
+			return ns.dlg.box({
+				title: "Modal title",
+				hastab: true, //!important
+				elems: ns.nav({
+					style: "tab",
+					border: false, //!important
+					rounded: false, //!important
+					elems: sampledropdowntab,
+				}),
+				button: "understandclose",
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Tab nav pill in dialog",
+		label: "Show nav pill in dialog",
+		code: function () {
+			return ns.dlg.box({
+				title: "Modal title",
+				hastab: true, //!important
+				elems: ns.nav({
+					style: "pill",
+					border: false, //!important
+					rounded: false, //!important
+					elems: sampledropdowntab,
+				}),
+				button: "understandclose",
+			});
+		},
+	}),
+];
+
+//sample [start]
+var dlgFn = function (reipient) {
+	ns.dlg
+		.box({
+			title: "Modal title",
+			elems: ns.cont.singlecolumnform([
+				ns.input({ type: "text", name: "reipient", label: "Recipient:", value: reipient }),
+				ns.input({ type: "textarea", name: "message", label: "Message:", value: "" }),
+			]),
+			button: "sendmessageclose",
+		})
+		.then((data) => {
+			ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+		})
+		.catch((err) => {});
+};
+
+var dlgFirstModal = function () {
+	ns.dlg.box({
+		title: "Modal 1",
+		elems: "Show a second modal and close this one with the button below.",
+		button: [{ label: "Show second modal", onclick: "dlgSecondModal()" }],
+	});
+};
+
+var dlgSecondModal = function () {
+	ns.dlg.box({
+		title: "Modal 2",
+		elems: "Close this modal and show the first with the button below.",
+		button: [{ label: "Show first modal", onclick: "dlgFirstModal()" }],
+	});
+};
+
+var dlgFullscreenFn = function (fullscreen) {
+	ns.dlg.box({
+		fullscreen: fullscreen,
+		title: "Modal title",
+		elems: `Dialog with {{fullscreen : <b>${fullscreen}</b>}} option`,
+		button: "okayonly",
+	});
+};
+
+var dlgSizeFn = function (size) {
+	ns.dlg.box({
+		size: size,
+		title: "Modal title",
+		elems: `Dialog with {{size : <b>${size}</b>}} option`,
+		button: "okayonly",
+	});
+};
+//sample [end]
+
 var e_dlg = [
 	ns.example({
 		title: "Message box",
 		label: "Show simple msgbox",
 		code: function () {
 			ns.dlg.msgbox("i", "This is example msgbox").then(() => {
-				ns.toast("i", "After user click Okay");
+				ns.toast("i", "After user click <b>Okay</b> button");
 			});
 		},
 	}),
@@ -688,7 +848,7 @@ var e_dlg = [
 		code: function () {
 			ns.dlg.inputbox("text", "Type anything").then((d) => {
 				if (d?.value) {
-					ns.toast("/", `You type ${d.value} in inputbox`);
+					ns.toast("/", `You type <b>${d.value}</b> in inputbox`);
 				} else {
 					ns.toast("x", `You not type anything in inputbox`);
 				}
@@ -745,7 +905,14 @@ var e_dlg = [
 					])
 				)
 				.then((d) => {
-					ns.toast("!", `Result : <b>${JSON.stringify(d)}</b>`);
+					ns.toast({
+						delay: 10000,
+						bgcolor: "success",
+						textcolor: "light",
+						icon: "dove",
+						title: "Result",
+						message: `${JSON.stringify(d)}`,
+					});
 				});
 		},
 	}),
@@ -760,29 +927,304 @@ var e_dlg = [
 					ns.toast("/", `"Yes" button pressed`);
 				})
 				.catch((err) => {
-					ns.toast("x", `"No" first button`);
+					ns.toast("x", `"No" button pressed`);
 				});
 		},
 	}),
 
 	ns.example({
-		title: "Dialogbox",
-		label: "Show dialog box",
-		close: true,
+		title: "Example",
+		label: "Show modal dialog",
 		code: function () {
 			ns.dlg
 				.box({
-					title: "Test Get Data Modal",
-					elems: [ns.input({ type: "text", name: "txt1", label: "Text #1" }), ns.input({ type: "number", name: "int2", label: "Number #2" })],
-					footer: ns.input({ type: "switch", label: "Hello", name: "hello" }),
-					button: "okaycancel",
+					title: "Modal title",
+					elems: "Modal body text goes here.",
+					button: "savechangesclose",
+					static: false, //by default static backdrop is on
 				})
 				.then((data) => {
-					ns.dlg.msgbox("i", `Result from dialog is <code>${JSON.stringify(data)}</code>`);
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
 				.catch((err) => {});
 		},
 	}),
+
+	ns.example({
+		title: "Static backdrop",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: "I will not close if you click outside me. Don't even try to press escape key.",
+					button: "understandclose",
+					static: true,
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch((err) => {});
+		},
+	}),
+
+	ns.example({
+		title: "Scrolling long content",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: [lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p")],
+					button: "understandclose",
+					center: false,
+					scrollable: true,
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch((err) => {});
+		},
+	}),
+
+	ns.example({
+		title: "Vertically centered",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: "This is a vertically centered modal.",
+					button: "savechangesclose",
+					center: true,
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch((err) => {});
+		},
+	}),
+
+	ns.example({
+		title: "Vertically centered scrollable dialog",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: [lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p")],
+					button: "savechangesclose",
+					center: true,
+					scrollable: true,
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch((err) => {});
+		},
+	}),
+
+	ns.example({
+		title: "Tooltips and popovers",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: [
+						{
+							tag: "h5",
+							elems: "Popover in a modal",
+						},
+						{
+							tag: "p",
+							elems: [
+								"This ",
+								ns.button({
+									color: "secondary",
+									label: "button",
+									tooltip: {
+										type: "popover",
+										placement: "right",
+										title: "Popover title",
+										msg: "Popover body content is set in this attribute.",
+									},
+								}),
+								" triggers a popover on click.",
+							],
+						},
+						{ tag: "hr" },
+						{
+							tag: "h5",
+							elems: "Tooltips in a modal",
+						},
+						{
+							tag: "p",
+							elems: [
+								ns.a({ href: "javascript:void(0);", label: "This link", tooltip: { type: "tooltip", msg: "Tooltip" } }),
+								" and ",
+								ns.a({ href: "javascript:void(0);", label: "that link", tooltip: { type: "tooltip", msg: "Tooltip" } }),
+								" have tooltips on hover.",
+							],
+						},
+					],
+					button: "savechangesclose",
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch((err) => {});
+		},
+	}),
+
+	ns.example({
+		title: "Using the grid",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: `todo : ns.cont.grid`,
+					button: "savechangesclose",
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch((err) => {});
+		},
+	}),
+
+	ns.example({
+		title: "Varying modal content",
+		container: stackcontainer,
+		item: itemcontainer,
+		code: function () {
+			var dlgFn = function (reipient) {
+				ns.dlg
+					.box({
+						title: "Modal title",
+						elems: ns.cont.singlecolumnform([
+							ns.input({ type: "text", name: "reipient", label: "Recipient:", value: reipient }),
+							ns.input({ type: "textarea", name: "message", label: "Message:", value: "" }),
+						]),
+						button: "sendmessageclose",
+					})
+					.then((data) => {
+						ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+					})
+					.catch((err) => {});
+			};
+
+			return [
+				ns.button({ label: "Message for @mdo", color: "primary", onclick: "dlgFn('@mdo');" }),
+				ns.button({ label: "Message for @fat", color: "primary", onclick: "dlgFn('@fat');" }),
+				ns.button({ label: "Message for @getbootstrap", color: "primary", onclick: "dlgFn('@getbootstrap');" }),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Toggle between modals",
+		label: "Show first modal",
+		code: function () {
+			var dlgFirstModal = function () {
+				ns.dlg.box({
+					title: "Modal 1",
+					elems: "Show a second modal and close this one with the button below.",
+					button: [{ label: "Show second modal", onclick: "dlgSecondModal()" }],
+				});
+			};
+
+			var dlgSecondModal = function () {
+				ns.dlg.box({
+					title: "Modal 2",
+					elems: "Close this modal and show the first with the button below.",
+					button: [{ label: "Show first modal", onclick: "dlgFirstModal()" }],
+				});
+			};
+
+			dlgFirstModal();
+		},
+	}),
+
+	ns.example({
+		title: "Remove animation",
+		label: "Show simple dialog",
+		code: function () {
+			ns.dlg.box({
+				animate: false,
+				title: "Modal title",
+				elems: "Dialog without fade effect",
+				button: "okayonly",
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Optional sizes",
+		container: stackcontainer,
+		item: itemcontainer,
+		code: function () {
+			var dlgSizeFn = function (size) {
+				ns.dlg.box({
+					size: size,
+					title: "Modal title",
+					elems: `Dialog with {{size : <b>${size}</b>}} option`,
+					button: "okayonly",
+				});
+			};
+
+			return [
+				ns.button({ label: "Extra large modal", color: "primary", onclick: "dlgSizeFn('xl')" }),
+				ns.button({ label: "Large modal", color: "primary", onclick: "dlgSizeFn('lg')" }),
+				ns.button({ label: "Small modal", color: "primary", onclick: "dlgSizeFn('sm')" }),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Fullscreen Modal",
+		container: stackcontainer,
+		item: itemcontainer,
+		code: function () {
+			var dlgFullscreenFn = function (fullscreen) {
+				ns.dlg.box({
+					fullscreen: fullscreen,
+					title: "Modal title",
+					elems: `Dialog with {{fullscreen : <b>${fullscreen}</b>}} option`,
+					button: "okayonly",
+				});
+			};
+
+			return [
+				ns.button({ label: "Full screen", color: "primary", onclick: "dlgFullscreenFn(true)" }),
+				ns.button({ label: "Full screen below sm", color: "primary", onclick: "dlgFullscreenFn('sm-down')" }),
+				ns.button({ label: "Full screen below md", color: "primary", onclick: "dlgFullscreenFn('md-down')" }),
+				ns.button({ label: "Full screen below lg", color: "primary", onclick: "dlgFullscreenFn('lg-down')" }),
+				ns.button({ label: "Full screen below xl", color: "primary", onclick: "dlgFullscreenFn('xl-down')" }),
+				ns.button({ label: "Full screen below xxl", color: "primary", onclick: "dlgFullscreenFn('xxl-down')" }),
+			];
+		},
+	}),
+
+	// ns.example({
+	// 	title: "Dialogbox",
+	// 	label: "Show dialog box",
+	// 	close: true,
+	// 	code: function () {
+	// 		ns.dlg
+	// 			.box({
+	// 				title: "Title",
+	// 				elems: [ns.input({ type: "text", name: "txt1", label: "Text #1" }), ns.input({ type: "number", name: "int2", label: "Number #2" })],
+	// 				footer: ns.input({ type: "switch", label: "Hello", name: "hello" }),
+	// 				button: "okayonly",
+	// 			})
+	// 			.then((data) => {
+	// 				ns.dlg.msgbox("i", `Result from dialog is <code>${JSON.stringify(data)}</code>`);
+	// 			})
+	// 			.catch((err) => {});
+	// 	},
+	// }),
 ];
 
 //listgroup sample [start]
@@ -2492,9 +2934,9 @@ var e_card = [
 			return ns.nav({
 				style: "tab",
 				elems: [
-					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", lipsum].join("") },
-					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", lipsum].join("") },
-					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", lipsum].join("") },
+					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", lipsum()].join("") },
+					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", lipsum()].join("") },
+					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", lipsum()].join("") },
 				],
 			});
 		},
@@ -2506,9 +2948,9 @@ var e_card = [
 			return ns.nav({
 				style: "pill",
 				elems: [
-					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", lipsum].join("") },
-					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", lipsum].join("") },
-					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", lipsum].join("") },
+					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", lipsum()].join("") },
+					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", lipsum()].join("") },
+					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", lipsum()].join("") },
 				],
 			});
 		},
@@ -3161,16 +3603,15 @@ var e_btngroup = [
 				elems: [
 					ns.button({ label: "1", color: "primary" }),
 					ns.button({ label: "2", color: "primary" }),
-					ns.btngroup(
-						ns.button({
-							label: "Dropdown",
-							color: "primary",
-							option: [
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-							],
-						})
-					),
+					ns.dropdown({
+						label: "Dropdown",
+						color: "primary",
+						container: "btn-group",
+						option: [
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+						],
+					}),
 				],
 			});
 		},
@@ -3201,48 +3642,44 @@ var e_btngroup = [
 				elems: [
 					ns.button({ label: "Button", color: "primary" }),
 					ns.button({ label: "Button", color: "primary" }),
-					ns.btngroup(
-						ns.button({
-							label: "Dropdown",
-							color: "primary",
-							option: [
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-							],
-						})
-					),
+					ns.dropdown({
+						label: "Dropdown",
+						color: "primary",
+						container: "btn-group",
+						option: [
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+						],
+					}),
 					ns.button({ label: "Button", color: "primary" }),
 					ns.button({ label: "Button", color: "primary" }),
-					ns.btngroup(
-						ns.button({
-							label: "Dropdown",
-							color: "primary",
-							option: [
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-							],
-						})
-					),
-					ns.btngroup(
-						ns.button({
-							label: "Dropdown",
-							color: "primary",
-							option: [
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-							],
-						})
-					),
-					ns.btngroup(
-						ns.button({
-							label: "Dropdown",
-							color: "primary",
-							option: [
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-								{ href: "javascript:void(0);", label: "Dropdown link" },
-							],
-						})
-					),
+					ns.dropdown({
+						label: "Dropdown",
+						color: "primary",
+						container: "btn-group",
+						option: [
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+						],
+					}),
+					ns.dropdown({
+						label: "Dropdown",
+						color: "primary",
+						container: "btn-group",
+						option: [
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+						],
+					}),
+					ns.dropdown({
+						label: "Dropdown",
+						color: "primary",
+						container: "btn-group",
+						option: [
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+							{ href: "javascript:void(0);", label: "Dropdown link" },
+						],
+					}),
 				],
 			});
 		},
@@ -3747,9 +4184,9 @@ var e_accordion = [
 		code: function () {
 			return ns.accordion({
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum].join("") },
+					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum()].join("") },
 				],
 			});
 		},
@@ -3762,9 +4199,9 @@ var e_accordion = [
 			return ns.accordion({
 				flush: true,
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum].join("") },
+					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum()].join("") },
 				],
 			});
 		},
@@ -3777,9 +4214,9 @@ var e_accordion = [
 			return ns.accordion({
 				autoclose: false,
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum].join("") },
+					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum()].join("") },
 				],
 			});
 		},
@@ -4459,12 +4896,12 @@ var e_inputgroup = [
 				ns.input({
 					hiddenlabel: "Text input with dropdown button",
 					type: "text",
-					beforetype: "button",
-					before: ns.button({
+					beforetype: "dropdown",
+					before: ns.dropdown({
 						outline: true,
 						color: "secondary",
 						label: "Dropdown",
-						hascontainer: false,
+						container: null,
 						option: [
 							//simpledropdownitem
 							{ href: "javascript:void(0);", label: "Action" },
@@ -4478,12 +4915,12 @@ var e_inputgroup = [
 				ns.input({
 					hiddenlabel: "Text input with dropdown button",
 					type: "text",
-					aftertype: "button",
-					after: ns.button({
+					aftertype: "dropdown",
+					after: ns.dropdown({
 						outline: true,
 						color: "secondary",
 						label: "Dropdown",
-						hascontainer: false,
+						container: null,
 						option: simpledropdownitem,
 					}),
 				}),
@@ -4491,20 +4928,20 @@ var e_inputgroup = [
 				ns.input({
 					hiddenlabel: "Text input with dropdown button",
 					type: "text",
-					beforetype: "button",
-					before: ns.button({
+					beforetype: "dropdown",
+					before: ns.dropdown({
 						outline: true,
 						color: "secondary",
 						label: "Dropdown",
-						hascontainer: false,
+						container: null,
 						option: simpledropdownitem,
 					}),
-					aftertype: "button",
-					after: ns.button({
+					aftertype: "dropdown",
+					after: ns.dropdown({
 						outline: true,
 						color: "secondary",
 						label: "Dropdown",
-						hascontainer: false,
+						container: null,
 						option: simpledropdownitem,
 					}),
 				}),
@@ -4520,12 +4957,12 @@ var e_inputgroup = [
 				ns.input({
 					hiddenlabel: "Text input with dropdown button",
 					type: "text",
-					beforetype: "button",
-					before: ns.button({
+					beforetype: "dropdown",
+					before: ns.dropdown({
 						outline: true,
 						color: "secondary",
 						label: "Action",
-						hascontainer: false,
+						container: null,
 						segmenttoggle: true,
 						option: simpledropdownitem,
 					}),
@@ -4534,12 +4971,12 @@ var e_inputgroup = [
 				ns.input({
 					hiddenlabel: "Text input with dropdown button",
 					type: "text",
-					aftertype: "button",
-					after: ns.button({
+					aftertype: "dropdown",
+					after: ns.dropdown({
 						outline: true,
 						color: "secondary",
 						label: "Action",
-						hascontainer: false,
+						container: null,
 						segmenttoggle: true,
 						option: simpledropdownitem,
 					}),
@@ -4817,7 +5254,9 @@ var menu_c2 = [
 	{ label: "Collapse", onclick: "showexample(this,'e_collapse')" },
 	{ label: "Dropdown", onclick: "showexample(this,'e_dropdown')" },
 	{ label: "List group", onclick: "showexample(this,'e_listgroup')" },
-	{ label: "Modal", onclick: "showexample(this,'e_dlg')", active: true },
+	{ label: "Modal", onclick: "showexample(this,'e_dlg')" },
+	{ label: "Tab", onclick: "showexample(this,'e_tab')" },
+	{ label: "Navbar", onclick: "showexample(this,'e_navbar')", active: true },
 
 	{ label: "Icon", onclick: "showexample(this,'e_icon')" },
 	{ label: "Image", onclick: "showexample(this,'e_img')" },
@@ -4827,8 +5266,6 @@ var menu_c2 = [
 	{ label: "Table", onclick: "showexample(this,'e_table')" },
 	{ label: "Offcanvas", onclick: "showexample(this,'e_offcanvas')" },
 
-	{ label: "Navbar", onclick: "showexample(this,'e_navbar')" },
-	{ label: "Tab", onclick: "showexample(this,'e_tab')" },
 	{ label: "Paging", onclick: "showexample(this,'e_paging')" },
 ];
 
@@ -4932,5 +5369,5 @@ $(document).ready(() => {
 		}),
 	]);
 
-	showexample(null, "e_dlg");
+	showexample(null, "e_navbar");
 });
