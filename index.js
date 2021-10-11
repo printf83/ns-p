@@ -1,5 +1,7 @@
 "use strict";
 
+//const { option } = require("commander");
+
 var lipsumindex = -1;
 var lipsumdb = [
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elit massa, elementum vel metus id, congue sollicitudin lectus. Praesent ultricies felis eget nisl volutpat gravida. In eleifend iaculis viverra. Proin ut gravida elit, id posuere velit. Nulla congue enim at odio eleifend accumsan. Curabitur felis quam, feugiat in tincidunt ac, pulvinar eu diam. Nullam non erat orci. Sed gravida, ante sed vestibulum accumsan, elit metus feugiat ex, in gravida dolor nunc fermentum magna.",
@@ -5661,17 +5663,24 @@ function showexample(sender, arg) {
 	ns.build.init(root);
 	PR.prettyPrint();
 
-	var anchor = $(root).find(".anchorjs-link");
-	var li = [];
-
-	$.each(anchor, function (xi, i) {
-		var parent = $(i).parent();
-		li.push(ns.listgroup.item({ href: "javascript:void(0);", elems: $(parent).text(), onclick: `focusExample("${$(parent).attr("id")}");` }));
-	});
-
+	//build TOC
 	var nextbar = $("#nextbar").get();
 	$(nextbar).empty();
-	ns.build.append(nextbar, ns.listgroup.container({ type: "div", elems: li }));
+
+	var li = [];
+	$.each($(root).find(".anchorjs-link"), function (xi, i) {
+		var parent = $(i).parent();
+		console.log(parent.text() + ":" + parent[0].nodeName);
+		li.push({ label: parent.text(), level: parent[0].nodeName === "H4" ? 1 : 0, onclick: `focusExample("${parent.attr("id")}");` });
+	});
+
+	ns.build.append(
+		nextbar,
+		ns.toc({
+			label: "On this page",
+			elems: li,
+		})
+	);
 }
 
 function focusExample(id) {
@@ -5701,6 +5710,10 @@ $(document).ready(() => {
 					icon: {
 						icon: "fire",
 						color: "danger",
+					},
+					href: "javascript:void(0);",
+					onclick: function () {
+						ns.core.focus(document.body);
 					},
 				}),
 			],

@@ -1,0 +1,156 @@
+@keyframes nsanimation {
+	0% {
+		background-color: rgba(112, 112, 112, 0);
+	}
+	50% {
+		background-color: rgba(112, 112, 112, 0.3);
+	}
+	100% {
+		background-color: rgba(112, 112, 112, 0);
+	}
+}
+
+.ns-highlight {
+	animation-name: nsanimation;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+}
+
+/* list group */
+.list-group.ns-list-group,
+.ns-list-container .ns-list-control {
+	/* inherits from bootstrap */
+	margin-bottom: 1em; /* mb-3 */
+}
+
+/* list item */
+.list-group.ns-list-group .list-group-item {
+	/* inherits from bootstrap */
+	justify-content: space-between !important; /* justify-content-between */
+	display: flex !important; /* d-flex */
+	cursor: pointer;
+}
+
+/* front part */
+.list-group.ns-list-group .list-group-item > div:first-child {
+	/* inherits from bootstrap */
+	align-items: center !important; /* align-items-stretch */
+	justify-content: flex-start !important; /* justify-content-start */
+	display: flex !important; /* d-flex */
+}
+
+/* icon part */
+.list-group.ns-list-group .ns-item-picture,
+.list-group.ns-list-group .ns-item-icon,
+.list-group.ns-list-group .ns-item-check,
+.ns-list-header .ns-item-picture,
+.ns-list-header .ns-item-icon {
+	/* inherits from bootstrap */
+	margin-right: 1rem !important; /* me-3 */
+	align-items: center !important; /* align-items-center */
+}
+
+/* check part if NOT check mode*/
+.ns-list-container .ns-item-check {
+	display: none !important; /* d-none */
+}
+
+.ns-mode-check .ns-item-check {
+	display: flex !important; /* d-flex */
+}
+
+/* check part color mode on checked*/
+.ns-list-container .ns-item-check i.fa-stack-2x {
+	/* color: #6c757d !important; */
+	color: var(--bs-secondary) !important;
+}
+
+.ns-list-container .list-group-item.ns-checked .ns-item-check i.fa-stack-2x {
+	/* color: #198754 !important; */
+	color: var(--bs-success) !important;
+}
+
+/* icon, picture and control part if NOT check mode*/
+.ns-item-picture,
+.ns-item-icon {
+	display: flex !important; /* d-flex */
+}
+/* .ns-item-control {
+	display: flex !important;
+} */
+
+/* icon, picture and control part if check mode*/
+.ns-mode-check .ns-item-icon,
+.ns-mode-check .ns-item-picture,
+.ns-mode-check .ns-item-control {
+	display: none !important; /* d-none */
+}
+
+/* picture container part */
+.list-group.ns-list-group .ns-item-picture > div,
+.ns-list-header .ns-item-picture > div {
+	border-radius: 50%;
+	width: 2.7em;
+	height: 2.7em;
+	overflow: hidden;
+	margin: 0 0.3em;
+
+	/* inherits from bootstrap */
+	border: 1px solid #dee2e6 !important; /* border */
+	display: flex !important; /* d-flex */
+}
+
+/* picture part */
+.list-group.ns-list-group .ns-item-picture img,
+.ns-list-header .ns-item-picture img {
+	width: 2.8em;
+}
+
+/**/
+
+/* back part */
+/* .list-group.ns-list-group .ns-item-control { */
+/* inherits from bootstrap */
+/* align-items: center !important; align-items-center */
+/* margin: -0.5em; m-n1 */
+/* } */
+
+/* .list-group.ns-list-group .ns-item-control .btn-group,
+.list-group.ns-list-group .ns-item-control .dropdown { */
+/* inherits from bootstrap */
+/* margin: 0.5em; m-1 */
+/* } */
+
+/*
+header
+*/
+
+.ns-list-header {
+	/* inherits from bootstrap */
+	margin-bottom: 1em !important; /* mb-3 */
+	justify-content: center !important; /* justify-content-center */
+	display: flex; /* d-flex */
+	align-items: center !important; /* align-items-center */
+}
+
+.ns-list-header h5 {
+	margin-bottom: 0 !important; /* mb-0 */
+}
+
+/*
+controller
+*/
+.ns-list-control.ns-mode-normal,
+.ns-mode-check .ns-list-control.ns-mode-check {
+	display: flex !important; /* row */
+	flex-wrap: wrap;
+}
+
+.ns-mode-check .ns-list-control.ns-mode-normal,
+.ns-list-control.ns-mode-check {
+	display: none !important; /* d-none */
+}
+
+/* .ns-list-control > *:not(:last-child) {
+	margin-right: 0.5rem;
+} */

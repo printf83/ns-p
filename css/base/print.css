@@ -1,0 +1,17 @@
+body.print {
+	background-color: none !important;
+}
+
+body.print .ns-list-control,
+body.print .ns-item-control,
+body.print .ns-item-check {
+	display: none !important;
+}
+
+body.print .ns-list-group {
+	border-radius: 0% i !important;
+}
+
+body.print .list-group-item {
+	border-color: black !important;
+}
