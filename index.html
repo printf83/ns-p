@@ -20,20 +20,24 @@
 	</head>
 	<body>
 		<div id="navbar"></div>
-		<!-- <nav class="navbar" id="navbardummy">
-			<div class="container"><span class="navbar-brand">NS</span></div>
-		</nav> -->
 
-		<div class="row g-2 mt-5 py-3 px-2">
-			<div id="sidebar" class="col col-12 col-md-3 col-lg-2 show-md overflow-auto collapse show order-1"></div>
+		<div class="container-lg pt-3">
+			<div class="row">
+				<div class="col col-12 col-md-3 col-xl-2 order-1 order-md-1">
+					<div id="sidebar" class="sticky-md-top overflow-auto collapse navbar-collapse d-md-block"></div>
+				</div>
 
-			<div class="col col-12 col-md-6 col-lg-8 px-3 order-3 order-md-2">
-				<div id="root">
-					<div class="d-flex justify-content-center align-items-center w-100 h-100"><span class="display-3">Loading</span></div>
+				<div class="col col-12 col-md-6 col-xl-8 order-3 order-md-2">
+					<!-- <div id="root" data-bs-spy="scroll" data-bs-target="#nextbar" data-bs-offset="0" tabindex="0"> -->
+					<div id="root">
+						<div class="d-flex justify-content-center align-items-center w-100 h-100"><span class="display-3">Loading</span></div>
+					</div>
+				</div>
+
+				<div class="col col-12 col-md-3 col-xl-2 order-2 order-md-3">
+					<div id="nextbar" class="sticky-md-top overflow-auto"></div>
 				</div>
 			</div>
-
-			<div id="nextbar" class="col col-12 col-md-3 col-lg-2 px-3 order-2 order-md-3"></div>
 		</div>
 
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

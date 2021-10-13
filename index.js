@@ -1,522 +1,426 @@
 "use strict";
-
-//const { option } = require("commander");
-
-var lipsumindex = -1;
-var lipsumdb = [
-	"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elit massa, elementum vel metus id, congue sollicitudin lectus. Praesent ultricies felis eget nisl volutpat gravida. In eleifend iaculis viverra. Proin ut gravida elit, id posuere velit. Nulla congue enim at odio eleifend accumsan. Curabitur felis quam, feugiat in tincidunt ac, pulvinar eu diam. Nullam non erat orci. Sed gravida, ante sed vestibulum accumsan, elit metus feugiat ex, in gravida dolor nunc fermentum magna.",
-	"Nam tempor maximus ante vel malesuada. Vivamus nibh neque, cursus finibus risus vel, porttitor accumsan lacus. Nulla facilisi. Sed sit amet sagittis magna, id cursus est. Quisque convallis vel magna quis vestibulum. Curabitur placerat diam odio, in tincidunt felis viverra ac. Aenean quis ante diam. Sed sit amet lectus rutrum tortor feugiat auctor. Fusce euismod est nec posuere accumsan. Donec sodales cursus maximus. Nulla tincidunt quam quis lacus suscipit, ut lobortis erat fringilla. Praesent id diam nec metus mollis maximus. Nam vestibulum lectus quis velit dictum ornare. Phasellus vitae accumsan nisl, sed aliquet nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
-	"Donec vehicula elit vel purus euismod, et aliquet nisl molestie. Phasellus at porttitor neque. Donec et orci mi. Nulla a laoreet tortor. Cras ac massa ipsum. Suspendisse mi diam, sodales nec felis sit amet, ullamcorper aliquet tellus. In vitae urna ipsum. Donec cursus rutrum magna. Quisque sed nisi a lacus accumsan mollis.",
-	"Cras felis orci, feugiat ac volutpat non, porttitor at leo. Mauris sit amet eros tincidunt, cursus felis sit amet, molestie erat. Cras rutrum mi sed nunc tempor, id viverra metus aliquet. Sed aliquet scelerisque rutrum. Donec blandit ante et mauris scelerisque, congue venenatis tortor vehicula. Sed ornare ipsum sed cursus euismod. Aenean placerat nibh nisi, ac pretium nulla aliquet vitae. Mauris vel mauris urna. Morbi ultrices enim tellus, quis volutpat velit feugiat vitae. Vivamus hendrerit consequat rhoncus. In at efficitur lectus, vel volutpat massa. Donec consectetur scelerisque lacinia. Sed tristique risus ac mi efficitur consequat.",
-	"Phasellus quis feugiat magna. Fusce placerat, metus eget tempor placerat, velit neque aliquam turpis, vel gravida ex leo sit amet diam. Aenean facilisis vulputate metus, ac dapibus felis vulputate non. Sed vehicula ante nec odio dapibus, id convallis libero auctor. Vivamus facilisis sed tellus a mattis. Donec bibendum imperdiet dui eget porttitor. Nam aliquam mi a nunc luctus rutrum.",
-];
-
-var lipsum = function (tag) {
-	lipsumindex++;
-	if (lipsumindex >= lipsumdb.length) {
-		lipsumindex = 0;
-	}
-	if (tag) {
-		return { tag: tag, elems: lipsumdb[lipsumindex] };
-	} else {
-		return lipsumdb[lipsumindex];
-	}
-};
-
-var picsumimgurlindex = 300;
-var picsumimgurl = function (width, height) {
-	picsumimgurlindex++;
-	return `https://picsum.photos/seed/${picsumimgurlindex}/${width ? width : 800}/${height ? height : 400}.webp`;
-};
-
-var fluidcontainer = function (elems) {
-	return {
-		tag: "div",
-		class: "container-fluid p-0",
-		elems: elems,
-	};
-};
-
-var formcontainer = function (elems) {
-	return {
-		tag: "div",
-		class: "container-fluid p-0",
-		elems: {
-			tag: "div",
-			class: "row row-cols-1 row-cols-md-2 row-cols-lg-2 g-3",
-			elems: elems,
-		},
-	};
-};
-
-var singleformcontainer = function (elems) {
-	return {
-		tag: "div",
-		class: "container-fluid p-0",
-		elems: {
-			tag: "div",
-			class: "row row-cols-1 g-3",
-			elems: elems,
-		},
-	};
-};
-
-var stackcontainer = function (elems) {
-	return {
-		tag: "div",
-		class: "container-fluid p-0",
-		elems: {
-			tag: "div",
-			class: "row row-cols-auto g-2 align-items-center",
-			elems: elems,
-		},
-	};
-};
-
-var itemcontainer = function (elems) {
-	return {
-		tag: "div",
-		class: "col",
-		elems: elems,
-	};
-};
-
-var rowcontainer = function (elems) {
-	return {
-		tag: "div",
-		class: "row g-2",
-		elems: elems,
-	};
-};
-
-var singleitemcontainer = function (elems) {
-	return {
-		tag: "div",
-		class: "py-1",
-		elems: elems,
-	};
-};
-
-//sample tab [start]
-var sampletab = [
-	{ label: "First", elems: "This is first tab. " + lipsum() },
-	{ label: "Second", elems: "This is second tab. " + lipsum() },
-	{ label: "Third", elems: "This is third tab. " + lipsum() },
-	{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
-];
-
-var sampledropdowntab = [
-	{ label: "First", elems: "This is first tab. " + lipsum() },
-	{
-		label: "Second",
-		elems: "This is second tab. " + lipsum(),
-		option: [
-			{ href: "javascript:void(0);", label: "Action" },
-			{ href: "javascript:void(0);", label: "Another action" },
-			{ value: "-", label: "" },
-			{ href: "javascript:void(0);", label: "Something else here" },
-		],
-	},
-	{ label: "Third", elems: "This is third tab. " + lipsum() },
-	{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
-];
-//sample tab [end]
-
-//sample [start]
-var dlgFn = function (reipient) {
-	ns.dlg
-		.box({
-			title: "Modal title",
-			elems: ns.cont.singlecolumnform([
-				ns.input({ type: "text", name: "reipient", label: "Recipient:", value: reipient }),
-				ns.input({ type: "textarea", name: "message", label: "Message:", value: "" }),
-			]),
-			button: "sendmessageclose",
-		})
-		.then((data) => {
-			ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
-		})
-		.catch((err) => {});
-};
-
-var dlgFirstModal = function () {
-	ns.dlg.box({
-		title: "Modal 1",
-		elems: "Show a second modal and close this one with the button below.",
-		button: [{ label: "Show second modal", onclick: "dlgSecondModal()" }],
-	});
-};
-
-var dlgSecondModal = function () {
-	ns.dlg.box({
-		title: "Modal 2",
-		elems: "Close this modal and show the first with the button below.",
-		button: [{ label: "Show first modal", onclick: "dlgFirstModal()" }],
-	});
-};
-
-var dlgFullscreenFn = function (fullscreen) {
-	ns.dlg.box({
-		fullscreen: fullscreen,
-		title: "Modal title",
-		elems: `Dialog with {{fullscreen : <b>${fullscreen}</b>}} option`,
-		button: "okayonly",
-	});
-};
-
-var dlgSizeFn = function (size) {
-	ns.dlg.box({
-		size: size,
-		title: "Modal title",
-		elems: `Dialog with {{size : <b>${size}</b>}} option`,
-		button: "okayonly",
-	});
-};
-//sample [end]
-
-//listgroup sample [start]
-var simplelistgroupitem = [
-	ns.listgroup.item("An item"),
-	ns.listgroup.item("A second item"),
-	ns.listgroup.item("A third item"),
-	ns.listgroup.item("A fourth item"),
-	ns.listgroup.item("And a fifth one"),
-];
-
-var simplelistgroupitemcustomcontent = {
-	class: "d-flex justify-content-between align-items-start",
-	elems: [
-		{
-			tag: "div",
-			class: "ms-2 me-auto",
-			elems: [{ tag: "div", class: "fw-bold", elems: "Subheading" }, "Cras justo odio"],
-		},
-		ns.badge({
-			pill: true,
-			color: "primary",
-			label: "14",
-		}),
-	],
-};
-
-var samplelistgroupitem3 = [ns.listgroup.item("An item"), ns.listgroup.item("A second item"), ns.listgroup.item("A third item")];
-
-var fnClick = function (sender) {
-	ns.toast("i", `${$(sender).text()} is clicked`);
-};
-//listgroup sample [end]
-
-//sample option [start]
-var sampledropdownitem = [
-	{ href: "javascript:void(0);", label: "Action" },
-	{ href: "javascript:void(0);", label: "Another action" },
-	{ href: "javascript:void(0);", label: "Something else here" },
-	{ value: "-" },
-	{ href: "javascript:void(0);", label: "Separated link" },
-];
-//sample option [end]
-
-//sample card [start]
-var samplecard = [
-	ns.card.container({
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([
-				ns.card.title("Card Title"),
-				ns.card.text(
-					"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-				),
-			]),
-		],
-	}),
-	ns.card.container({
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([ns.card.title("Card Title"), ns.card.text("This card has supporting text below as a natural lead-in to additional content.")]),
-		],
-	}),
-	ns.card.container({
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([ns.card.title("Card Title"), ns.card.text("This card has supporting text below as a natural lead-in to additional content.")]),
-		],
-	}),
-	ns.card.container({
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([
-				ns.card.title("Card Title"),
-				ns.card.text(
-					"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
-				),
-			]),
-		],
-	}),
-];
-
-var samplecardwithfooter = [
-	ns.card.container({
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([
-				ns.card.title("Card Title"),
-				ns.card.text(
-					"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
-				),
-			]),
-			ns.card.footer("Last updated 3 mins ago"),
-		],
-	}),
-	ns.card.container({
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([ns.card.title("Card Title"), ns.card.text("This card has supporting text below as a natural lead-in to additional content.")]),
-			ns.card.footer("Last updated 3 mins ago"),
-		],
-	}),
-	ns.card.container({
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([
-				ns.card.title("Card Title"),
-				ns.card.text(
-					"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-				),
-			]),
-			ns.card.footer("Last updated 3 mins ago"),
-		],
-	}),
-];
-
-var samplecardh100 = [
-	ns.card.container({
-		class: "h-100",
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([
-				ns.card.title("Card Title"),
-				ns.card.text(
-					"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
-				),
-			]),
-		],
-	}),
-	ns.card.container({
-		class: "h-100",
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([ns.card.title("Card Title"), ns.card.text("This card has supporting text below as a natural lead-in to additional content.")]),
-		],
-	}),
-	ns.card.container({
-		class: "h-100",
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([ns.card.title("Card Title")]),
-			ns.card.text("This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."),
-		],
-	}),
-];
-
-var samplecardwithfooterh100 = [
-	ns.card.container({
-		class: "h-100",
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([
-				ns.card.title("Card Title"),
-				ns.card.text(
-					"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
-				),
-			]),
-			ns.card.footer("Last updated 3 mins ago"),
-		],
-	}),
-	ns.card.container({
-		class: "h-100",
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([ns.card.title("Card Title"), ns.card.text("This card has supporting text below as a natural lead-in to additional content.")]),
-			ns.card.footer("Last updated 3 mins ago"),
-		],
-	}),
-	ns.card.container({
-		class: "h-100",
-		elems: [
-			ns.card.img({
-				placement: "top",
-				src: picsumimgurl(),
-			}),
-			ns.card.body([
-				ns.card.title("Card Title"),
-				ns.card.text(
-					"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-				),
-			]),
-			ns.card.footer("Last updated 3 mins ago"),
-		],
-	}),
-];
-//sample card [end]
-
-//sample navbar [start]
-var samplenavbaritem = function (id) {
-	return [
-		ns.navbar.toggler({
-			id: id,
-			toggle: "collapse",
-		}),
-
-		ns.navbar.brand({
-			label: "Navbar",
-		}),
-
-		ns.navbar.collapsecontainer({
-			id: id,
-			elems: [
-				ns.navbar.itemcontainer({
-					parenttype: "collapse",
-					elems: [
-						ns.navbar.item({ label: "Home", active: true }),
-						ns.navbar.item("Link"),
-						ns.navbar.item({
-							label: "Dropdown",
-							option: sampledropdownitem,
-						}),
-						ns.navbar.item({ label: "Disabled", disabled: true }),
-					],
-				}),
-				ns.navbar.formcontainer([
-					ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
-					ns.button({ label: "Search", color: "success", outline: true }),
-				]),
-			],
-		}),
+const ex = {};
+(function (ex) {
+	var textindex = -1;
+	var textdb = [
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elit massa, elementum vel metus id, congue sollicitudin lectus. Praesent ultricies felis eget nisl volutpat gravida. In eleifend iaculis viverra. Proin ut gravida elit, id posuere velit. Nulla congue enim at odio eleifend accumsan. Curabitur felis quam, feugiat in tincidunt ac, pulvinar eu diam. Nullam non erat orci. Sed gravida, ante sed vestibulum accumsan, elit metus feugiat ex, in gravida dolor nunc fermentum magna.",
+		"Nam tempor maximus ante vel malesuada. Vivamus nibh neque, cursus finibus risus vel, porttitor accumsan lacus. Nulla facilisi. Sed sit amet sagittis magna, id cursus est. Quisque convallis vel magna quis vestibulum. Curabitur placerat diam odio, in tincidunt felis viverra ac. Aenean quis ante diam. Sed sit amet lectus rutrum tortor feugiat auctor. Fusce euismod est nec posuere accumsan. Donec sodales cursus maximus. Nulla tincidunt quam quis lacus suscipit, ut lobortis erat fringilla. Praesent id diam nec metus mollis maximus. Nam vestibulum lectus quis velit dictum ornare. Phasellus vitae accumsan nisl, sed aliquet nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+		"Donec vehicula elit vel purus euismod, et aliquet nisl molestie. Phasellus at porttitor neque. Donec et orci mi. Nulla a laoreet tortor. Cras ac massa ipsum. Suspendisse mi diam, sodales nec felis sit amet, ullamcorper aliquet tellus. In vitae urna ipsum. Donec cursus rutrum magna. Quisque sed nisi a lacus accumsan mollis.",
+		"Cras felis orci, feugiat ac volutpat non, porttitor at leo. Mauris sit amet eros tincidunt, cursus felis sit amet, molestie erat. Cras rutrum mi sed nunc tempor, id viverra metus aliquet. Sed aliquet scelerisque rutrum. Donec blandit ante et mauris scelerisque, congue venenatis tortor vehicula. Sed ornare ipsum sed cursus euismod. Aenean placerat nibh nisi, ac pretium nulla aliquet vitae. Mauris vel mauris urna. Morbi ultrices enim tellus, quis volutpat velit feugiat vitae. Vivamus hendrerit consequat rhoncus. In at efficitur lectus, vel volutpat massa. Donec consectetur scelerisque lacinia. Sed tristique risus ac mi efficitur consequat.",
+		"Phasellus quis feugiat magna. Fusce placerat, metus eget tempor placerat, velit neque aliquam turpis, vel gravida ex leo sit amet diam. Aenean facilisis vulputate metus, ac dapibus felis vulputate non. Sed vehicula ante nec odio dapibus, id convallis libero auctor. Vivamus facilisis sed tellus a mattis. Donec bibendum imperdiet dui eget porttitor. Nam aliquam mi a nunc luctus rutrum.",
 	];
-};
-//sampe navbar [end]
 
-var e_paging = [
-	//paging
-	ns.example({
-		title: "Paging",
-		code: function () {
-			return ns.pagination({
-				limit: 10,
-				skip: 20,
-				total: 1260,
-				max: 3,
-				onchange: null,
+	var text = function (tag) {
+		textindex++;
+		if (textindex >= textdb.length) {
+			textindex = 0;
+		}
+		if (tag) {
+			return { tag: tag, elems: textdb[textindex] };
+		} else {
+			return textdb[textindex];
+		}
+	};
+
+	var imgurlindex = 0;
+	var imgurl = function (width, height) {
+		return `https://picsum.photos/seed/${++imgurlindex}/${width ? width : 800}/${height ? height : 400}.webp`;
+	};
+
+	ex.sample = {
+		text: text,
+		imgurl: imgurl,
+
+		offcanvasbody: function () {
+			return {
+				tag: "div",
+				elems: [
+					"Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.",
+					ns.dropdown({
+						label: "Drowdown button",
+						color: "secondary",
+						option: [
+							{ href: "javascript:void(0);", label: "Action" },
+							{ href: "javascript:void(0);", label: "Another action" },
+							{ href: "javascript:void(0);", label: "Something else here" },
+							{ value: "-" },
+							{ href: "javascript:void(0);", label: "Separated link" },
+						],
+					}),
+				],
+			};
+		},
+
+		tab: function () {
+			return [
+				{ label: "First", elems: "This is first tab. " + text() },
+				{ label: "Second", elems: "This is second tab. " + text() },
+				{ label: "Third", elems: "This is third tab. " + text() },
+				{ label: "Disabled", disabled: true, elems: "This is last tab. " + text() },
+			];
+		},
+
+		optionitem: function () {
+			return [
+				{ value: "", label: "Open this select menu", selected: true },
+				{ value: "1", label: "One" },
+				{ value: "2", label: "Two" },
+				{ value: "3", label: "Three" },
+			];
+		},
+
+		dropdowntab: function () {
+			return [
+				{ label: "First", elems: "This is first tab. " + text() },
+				{
+					label: "Second",
+					elems: "This is second tab. " + text(),
+					option: [
+						{ href: "javascript:void(0);", label: "Action" },
+						{ href: "javascript:void(0);", label: "Another action" },
+						{ value: "-", label: "" },
+						{ href: "javascript:void(0);", label: "Something else here" },
+					],
+				},
+				{ label: "Third", elems: "This is third tab. " + text() },
+				{ label: "Disabled", disabled: true, elems: "This is last tab. " + text() },
+			];
+		},
+
+		dlgFn: function (recipient) {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: ns.cont.singlecolumn([
+						ns.input({ type: "text", name: "recipient", label: "Recipient:", value: recipient }),
+						ns.input({ type: "textarea", name: "message", label: "Message:", value: "" }),
+					]),
+					button: "sendmessageclose",
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch((err) => {});
+		},
+
+		dlgFirstModal: function () {
+			ns.dlg.box({
+				title: "Modal 1",
+				elems: "Show a second modal and close this one with the button below.",
+				button: [{ label: "Show second modal", onclick: "ex.sample.dlgSecondModal()" }],
 			});
 		},
-	}),
-];
 
-var e_offcanvas = [
-	//offcanvas
-	ns.example({
-		title: "Offcanvas",
-		code: function () {
+		dlgSecondModal: function () {
+			ns.dlg.box({
+				title: "Modal 2",
+				elems: "Close this modal and show the first with the button below.",
+				button: [{ label: "Show first modal", onclick: "ex.sample.dlgFirstModal()" }],
+			});
+		},
+
+		dlgFullscreenFn: function (fullscreen) {
+			ns.dlg.box({
+				fullscreen: fullscreen,
+				title: "Modal title",
+				elems: `Dialog with {{fullscreen : <b>${fullscreen}</b>}} option`,
+				button: "okayonly",
+			});
+		},
+
+		dlgSizeFn: function (size) {
+			ns.dlg.box({
+				size: size,
+				title: "Modal title",
+				elems: `Dialog with {{size : <b>${size}</b>}} option`,
+				button: "okayonly",
+			});
+		},
+
+		listgroupitem: function () {
 			return [
-				ns.offcanvasbtn({ id: "exampleCanvas", class: "btn btn-primary", icon: "fire", label: "Show Canvas" }),
-				ns.offcanvas({
-					id: "exampleCanvas",
-					close: true,
-					backdrop: true,
-					bgcolor: "light",
-					textcolor: "primary",
-					title: "Offcanvas",
-					elems: {
+				ns.listgroup.item("An item"),
+				ns.listgroup.item("A second item"),
+				ns.listgroup.item("A third item"),
+				ns.listgroup.item("A fourth item"),
+				ns.listgroup.item("And a fifth one"),
+			];
+		},
+
+		listgroupitemcustomcontent: function () {
+			return {
+				class: "d-flex justify-content-between align-items-start",
+				elems: [
+					{
 						tag: "div",
-						elems: [
-							ns.menu.container({
-								title: "Category 1",
-								active: true,
-								item: ns.menu.item([
-									{ label: "Test", icon: "address-book", onclick: "window.location='ctl_test.html'", active: true },
-									{ label: "Home", icon: "award", onclick: "window.location='index.html'" },
-									{ label: "Example", icon: "baby", onclick: "window.location='example.html'" },
-									{ label: "Change Theme", icon: "swatchbook", onclick: "ns.core.themeEditor()" },
-								]),
-							}),
-							ns.menu.container({
-								title: "Category 2",
-								item: ns.menu.item([
-									{ label: "Bath", icon: "bath" },
-									{ label: "Scale", icon: "balance-scale" },
-									{ label: "Birthday", icon: "birthday-cake" },
-									{ label: "Book", icon: "book" },
-								]),
-							}),
-							ns.menu.container({
-								title: "Category 3",
-								item: ns.menu.item([
-									{ label: "Bus", icon: "bus-alt" },
-									{ label: "Coffee", icon: "coffee" },
-									{ label: "Download", icon: "cloud-download-alt" },
-									{ label: "Setting", icon: "cogs" },
-								]),
-							}),
-							{
-								tag: "hr",
-								class: "m-1",
-							},
-							ns.menu.container({
-								title: "Animal",
-								item: ns.menu.item([
-									{ label: "Dragon", icon: "dragon" },
-									{ label: "Crow", icon: "crow" },
-									{ label: "Fish", icon: "fish" },
-									{ label: "Dove", icon: "dove" },
-									{ label: "Frog", icon: "frog" },
-									{ label: "Cat", icon: "cat" },
-									{ label: "Hippo", icon: "hippo" },
-									{ label: "Spider", icon: "spider" },
-								]),
-							}),
-						],
+						class: "ms-2 me-auto",
+						elems: [{ tag: "div", class: "fw-bold", elems: "Subheading" }, "Cras justo odio"],
 					},
+					ns.badge({
+						pill: true,
+						color: "primary",
+						label: "14",
+					}),
+				],
+			};
+		},
+
+		listgroupitem3: function () {
+			return [ns.listgroup.item("An item"), ns.listgroup.item("A second item"), ns.listgroup.item("A third item")];
+		},
+
+		fnClick: function (sender) {
+			ns.toast("i", `${$(sender).text()} is clicked`);
+		},
+
+		dropdownitem: function () {
+			return [
+				{ href: "javascript:void(0);", label: "Action" },
+				{ href: "javascript:void(0);", label: "Another action" },
+				{ href: "javascript:void(0);", label: "Something else here" },
+				{ value: "-" },
+				{ href: "javascript:void(0);", label: "Separated link" },
+			];
+		},
+
+		card: function () {
+			return [
+				ns.card.container({
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+							),
+						]),
+					],
+				}),
+				ns.card.container({
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+						]),
+					],
+				}),
+				ns.card.container({
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+						]),
+					],
+				}),
+				ns.card.container({
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
+							),
+						]),
+					],
 				}),
 			];
 		},
-	}),
-];
+
+		cardwithfooter: function () {
+			return [
+				ns.card.container({
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
+							),
+						]),
+						ns.card.footer("Last updated 3 mins ago"),
+					],
+				}),
+				ns.card.container({
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+						]),
+						ns.card.footer("Last updated 3 mins ago"),
+					],
+				}),
+				ns.card.container({
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+							),
+						]),
+						ns.card.footer("Last updated 3 mins ago"),
+					],
+				}),
+			];
+		},
+
+		cardh100: function () {
+			return [
+				ns.card.container({
+					class: "h-100",
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
+							),
+						]),
+					],
+				}),
+				ns.card.container({
+					class: "h-100",
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+						]),
+					],
+				}),
+				ns.card.container({
+					class: "h-100",
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([ns.card.title("Card Title")]),
+						ns.card.text(
+							"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+						),
+					],
+				}),
+			];
+		},
+
+		cardwithfooterh100: function () {
+			return [
+				ns.card.container({
+					class: "h-100",
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action."
+							),
+						]),
+						ns.card.footer("Last updated 3 mins ago"),
+					],
+				}),
+				ns.card.container({
+					class: "h-100",
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+						]),
+						ns.card.footer("Last updated 3 mins ago"),
+					],
+				}),
+				ns.card.container({
+					class: "h-100",
+					elems: [
+						ns.card.img({
+							placement: "top",
+							src: imgurl(),
+						}),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+							),
+						]),
+						ns.card.footer("Last updated 3 mins ago"),
+					],
+				}),
+			];
+		},
+
+		navbaritem: function (id, title) {
+			return [
+				ns.navbar.toggler({
+					id: id,
+					toggle: "collapse",
+				}),
+
+				ns.navbar.brand({
+					label: title ? title : "Navbar",
+				}),
+
+				ns.navbar.collapsecontainer({
+					id: id,
+					elems: [
+						ns.navbar.itemcontainer({
+							parenttype: "collapse",
+							elems: [
+								ns.navbar.item({ label: "Home", active: true }),
+								ns.navbar.item("Link"),
+								ns.navbar.item({
+									label: "Dropdown",
+									option: ex.sample.dropdownitem(),
+								}),
+								ns.navbar.item({ label: "Disabled", disabled: true }),
+							],
+						}),
+						ns.navbar.formcontainer([
+							ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+							ns.button({ label: "Search", color: "success", outline: true }),
+						]),
+					],
+				}),
+			];
+		},
+	};
+})(ex);
 
 var e_table = [
 	//table
@@ -609,8 +513,7 @@ var e_icon = [
 	//ns.icon
 	ns.example({
 		title: "Example Icon",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		msg: [
 			"This is an example to create {{icon}}. All icon from {{fontawesome}} are supported. The {{ns.icon}} will generate the {{i}} tag",
 			ns.table([
@@ -654,8 +557,7 @@ var e_img = [
 	ns.example({
 		title: "Example Image",
 		msg: "This is an example to create image",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.img("./img/favicon-32x32.png"),
@@ -678,8 +580,7 @@ var e_link = [
 	//$.a
 	ns.example({
 		title: "Link",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.a("Default"),
@@ -814,47 +715,745 @@ var e_menu = [
 	}),
 ];
 
+var e_toast = [
+	ns.example({
+		title: "Basic",
+		label: "Show toast",
+		code: function () {
+			ns.toast({
+				icon: { icon: "fire", color: "primary" },
+				title: "Toast header",
+				msg: "Hello, world! This is a toast message.",
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Basic",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.button({
+					color: "primary",
+					label: "primary",
+					onclick: function () {
+						ns.toast("i", "Example primary toast");
+					},
+				}),
+				ns.button({
+					color: "warning",
+					label: "Warning",
+					onclick: function () {
+						ns.toast("!", "Example warning toast");
+					},
+				}),
+
+				ns.button({
+					color: "success",
+					label: "Success",
+					onclick: function () {
+						ns.toast("/", "Example success toast");
+					},
+				}),
+
+				ns.button({
+					color: "danger",
+					label: "Danger",
+					onclick: function () {
+						ns.toast("x", "Example danger toast");
+					},
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Disable autoclose",
+		label: "Show toast",
+		code: function () {
+			ns.toast({
+				autohide: false,
+				bgcolor: "warning",
+				icon: { icon: "fire", color: "primary" },
+				title: "Toast header",
+				msg: "Hello, world! This is a toast message.",
+			});
+		},
+	}),
+];
+
+var e_spinner = [
+	ns.example({
+		title: "Border spinner",
+		code: function () {
+			return ns.spinner();
+		},
+	}),
+
+	ns.example({
+		title: "Colors",
+		container: ns.cont.stack,
+		code: function () {
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+				return ns.spinner({ color: i });
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Growing spinner",
+		code: function () {
+			return ns.spinner({ grow: true });
+		},
+	}),
+
+	ns.example({
+		title: "Colors",
+		container: ns.cont.stack,
+		code: function () {
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+				return ns.spinner({ grow: true, color: i });
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Aligment",
+	}),
+
+	ns.example({
+		title: "Margin",
+		code: function () {
+			return ns.spinner({ class: "m-5" });
+		},
+	}),
+
+	ns.example({
+		title: "Placement",
+	}),
+
+	ns.example({
+		title: "Flex",
+		code: function () {
+			return {
+				tag: "div",
+				class: "d-flex justify-content-between",
+				elems: ns.spinner(),
+			};
+		},
+	}),
+
+	ns.example({
+		code: function () {
+			return {
+				tag: "div",
+				class: "d-flex justify-content-between",
+				elems: [{ tag: "strong", elems: "Loading..." }, ns.spinner({ label: "" })],
+			};
+		},
+	}),
+
+	ns.example({
+		title: "Floats",
+		code: function () {
+			return {
+				tag: "div",
+				class: "clearfix",
+				elems: ns.spinner(),
+			};
+		},
+	}),
+
+	ns.example({
+		title: "Text align",
+		code: function () {
+			return {
+				tag: "div",
+				class: "text-center",
+				elems: ns.spinner(),
+			};
+		},
+	}),
+
+	ns.example({
+		title: "Size",
+		container: ns.cont.stack,
+		code: function () {
+			return [ns.spinner({ weight: "sm" }), ns.spinner({ grow: true, weight: "sm" })];
+		},
+	}),
+
+	ns.example({
+		container: ns.cont.stack,
+		code: function () {
+			return [ns.spinner({ style: { width: "3rem", height: "3rem" } }), ns.spinner({ grow: true, style: { width: "3rem", height: "3rem" } })];
+		},
+	}),
+
+	// ns.example({
+	// 	title: "Button",
+	// 	container: ns.cont.stack,
+	// 	code: function () {
+	// 		return [
+	// 			ns.button({
+	// 				disabled: true,
+	// 				class: "loading",
+	// 				color: "primary",
+	// 				icon: { icon: "circle-notch", spin: true },
+	// 			}),
+	// 			ns.button({
+	// 				disabled: true,
+	// 				class: "loading",
+	// 				color: "primary",
+	// 				icon: { icon: "circle-notch", spin: true },
+	// 				label: "Loading...",
+	// 			}),
+	// 		];
+	// 	},
+	// }),
+
+	ns.example({
+		title: "Button",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.button({
+					disabled: true,
+					color: "primary",
+					icon: ns.spinner({ weight: "sm" }),
+				}),
+				ns.button({
+					disabled: true,
+					color: "primary",
+					icon: ns.spinner({ weight: "sm" }),
+					label: "Loading...",
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Button",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.button({
+					disabled: true,
+					color: "primary",
+					icon: ns.spinner({ grow: true, weight: "sm" }),
+				}),
+				ns.button({
+					disabled: true,
+					color: "primary",
+					icon: ns.spinner({ grow: true, weight: "sm" }),
+					label: "Loading...",
+				}),
+			];
+		},
+	}),
+];
+
+var e_progress = [
+	ns.example({
+		title: "Example",
+		code: function () {
+			return [ns.progress(0), ns.progress(25), ns.progress(50), ns.progress(75), ns.progress(100)];
+		},
+	}),
+
+	ns.example({
+		title: "Label",
+		code: function () {
+			return ns.progress([{ label: true, value: 25 }]);
+		},
+	}),
+
+	ns.example({
+		title: "Min & max",
+		code: function () {
+			return ns.progress([{ label: true, value: 154, min: 75, max: 300 }]);
+		},
+	}),
+
+	ns.example({
+		title: "Color",
+		code: function () {
+			return [
+				ns.progress([{ color: "success", value: 25 }]),
+				ns.progress([{ color: "info", value: 35 }]),
+				ns.progress([{ color: "warning", value: 55 }]),
+				ns.progress([{ color: "danger", value: 75 }]),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Height",
+		code: function () {
+			return [ns.progress({ height: 1, bar: [25] }), ns.progress({ height: 20, bar: [75] })];
+		},
+	}),
+
+	ns.example({
+		title: "Multiple bars",
+		code: function () {
+			return ns.progress([
+				{ color: "primary", value: 15 },
+				{ color: "secondary", value: 30 },
+				{ color: "info", value: 20 },
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Striped",
+		code: function () {
+			return [
+				ns.progress([{ stripe: true, color: "primary", value: 10 }]),
+				ns.progress([{ stripe: true, color: "success", value: 25 }]),
+				ns.progress([{ stripe: true, color: "info", value: 50 }]),
+				ns.progress([{ stripe: true, color: "warning", value: 75 }]),
+				ns.progress([{ stripe: true, color: "danger", value: 100 }]),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Animated",
+		code: function () {
+			return ns.progress([{ stripe: true, animate: true, color: "primary", value: 50 }]);
+		},
+	}),
+
+	ns.example({
+		title: "Kitchen Sink",
+		code: function () {
+			return ns.progress({
+				height: 30,
+				id: ns.core.UUID(),
+				bar: [
+					{ label: true, color: "success", value: 15 },
+					{
+						stripe: true,
+						color: "warning",
+						value: 30,
+						tooltip: { type: "tooltip", msg: "Tooltip over progress bar is supported" },
+					},
+					{ label: true, stripe: true, animate: true, color: "danger", value: 99 },
+				],
+			});
+		},
+	}),
+];
+
+var e_popover = [
+	ns.example({
+		title: "Popover",
+		code: function () {
+			return ns.button({
+				label: "Click to toggle popover",
+				weight: "lg",
+				color: "danger",
+				tooltip: {
+					type: "popover",
+					title: "Popover title",
+					msg: "And here's some amazing content. It's very engaging. Right?",
+					placement: "right",
+					trigger: null,
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Four direction",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.button({
+					label: "Popover on top",
+					color: "secondary",
+					tooltip: {
+						type: "popover",
+						msg: "Top popover",
+						placement: "top",
+						trigger: null,
+					},
+				}),
+
+				ns.button({
+					label: "Popover on left",
+					color: "secondary",
+					tooltip: {
+						type: "popover",
+						msg: "Left popover",
+						placement: "left",
+						trigger: null,
+					},
+				}),
+
+				ns.button({
+					label: "Popover on right",
+					color: "secondary",
+					tooltip: {
+						type: "popover",
+						msg: "Right popover",
+						placement: "right",
+						trigger: null,
+					},
+				}),
+
+				ns.button({
+					label: "Popover on bottom",
+					color: "secondary",
+					tooltip: {
+						type: "popover",
+						msg: "Bottom popover",
+						placement: "bottom",
+						trigger: null,
+					},
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Dismiss on next click",
+		code: function () {
+			return ns.button({
+				label: "Dismissible popover",
+				weight: "lg",
+				color: "danger",
+				tooltip: {
+					type: "popover",
+					title: "Popover title",
+					msg: "And here's some amazing content. It's very engaging. Right?",
+					placement: "right",
+					trigger: "focus", //set dismiss on focus another element
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Disabled elements",
+		msg: [
+			"Elements with the disabled attribute aren’t interactive, meaning users cannot hover or click them to trigger a popover (or tooltip). As a workaround, you’ll want to trigger the popover from a wrapper {{div}} or {{span}}, ideally made keyboard-focusable using {{tabindex='0'}}.",
+			"For disabled popover triggers, you may also prefer {{trigger:'hover focus'}} on {{ns.tooltip}} option so that the popover appears as immediate visual feedback to your users as they may not expect to click on a disabled element.",
+		],
+		code: function () {
+			return ns.tooltip(
+				{
+					type: "popover",
+					title: "Popover title",
+					msg: "And here's some amazing content. It's very engaging. Right?",
+					placement: "right",
+					trigger: "focus hover", //set dismiss on focus or hover another element
+				},
+				{
+					tag: "span",
+					class: "d-inline-block",
+					attr: { tabindex: "0" },
+					elems: ns.button({
+						label: "Dismissible popover",
+						color: "primary",
+						disabled: true,
+					}),
+				}
+			);
+		},
+	}),
+];
+
+var e_paging = [
+	ns.example({
+		title: "Example",
+		code: function () {
+			return ns.pagination({
+				limit: 10, // limit record in one page
+				skip: 20, // record number to show
+				total: 1260, // total record
+				max: 3, // max number show in control
+				onchange: function (skip, sender) {
+					//function called when skip change
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Show 5 button ",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 5,
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Change icon ",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 3,
+				firstlabel: "1st",
+				lastlabel: "lst",
+				nextlabel: "nxt",
+				prevlabel: "prv",
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Hide first and last control",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 3,
+				showfirstlast: false,
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Hide next and prev control",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 3,
+				shownextprev: false,
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Size",
+	}),
+
+	ns.example({
+		title: "Large",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 3,
+				weight: "lg",
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Small",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 3,
+				weight: "sm",
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Aligment",
+	}),
+
+	ns.example({
+		title: "Start",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 3,
+				align: "start",
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+
+	ns.example({
+		title: "End",
+		code: function () {
+			return ns.pagination({
+				limit: 10,
+				skip: 60,
+				total: 1260,
+				max: 3,
+				align: "end",
+				onchange: function (skip, sender) {
+					ns.toast("i", `Skip changed to ${skip}`);
+				},
+			});
+		},
+	}),
+];
+
+var e_offcanvas = [
+	ns.example({
+		title: "Offcanvas",
+		label: "Show offcanvas",
+		sample: { "ex.sample.offcanvasbody": ex.sample.offcanvasbody },
+		code: function () {
+			ns.offcanvas({
+				close: true,
+				backdrop: true,
+				bgcolor: "light",
+				title: "Offcanvas",
+				elems: ex.sample.offcanvasbody(),
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Placement",
+	}),
+
+	ns.example({
+		title: "Top",
+		label: "Show top offcanvas",
+		sample: { "ex.sample.offcanvasbody": ex.sample.offcanvasbody },
+		code: function () {
+			ns.offcanvas({
+				close: true,
+				backdrop: true,
+				placement: "top",
+				bgcolor: "light",
+				title: "Offcanvas",
+				elems: ex.sample.offcanvasbody(),
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Bottom",
+		label: "Show bottom offcanvas",
+		sample: { "ex.sample.offcanvasbody": ex.sample.offcanvasbody },
+		code: function () {
+			ns.offcanvas({
+				close: true,
+				backdrop: true,
+				placement: "bottom",
+				bgcolor: "light",
+				title: "Offcanvas",
+				elems: ex.sample.offcanvasbody(),
+			});
+		},
+	}),
+
+	ns.example({
+		title: "End",
+		label: "Show end offcanvas",
+		sample: { "ex.sample.offcanvasbody": ex.sample.offcanvasbody },
+		code: function () {
+			ns.offcanvas({
+				close: true,
+				backdrop: true,
+				placement: "end",
+				bgcolor: "light",
+				title: "Offcanvas",
+				elems: ex.sample.offcanvasbody(),
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Backdrop",
+		container: ns.cont.stack,
+		sample: { "ex.sample.offcanvasbody": ex.sample.offcanvasbody },
+		code: function () {
+			return [
+				ns.button({
+					label: "Enable body scrolling",
+					color: "primary",
+					onclick: function () {
+						ns.offcanvas({
+							close: true,
+							scroll: true,
+							backdrop: false,
+							bgcolor: "light",
+							title: "Offcanvas",
+							elems: ex.sample.offcanvasbody(),
+						});
+					},
+				}),
+
+				ns.button({
+					label: "Enable backdrop",
+					color: "primary",
+					onclick: function () {
+						ns.offcanvas({
+							close: true,
+							scroll: false,
+							backdrop: true,
+							bgcolor: "light",
+							title: "Offcanvas",
+							elems: ex.sample.offcanvasbody(),
+						});
+					},
+				}),
+
+				ns.button({
+					label: "Enable both scrolling & backdrop",
+					color: "primary",
+					onclick: function () {
+						ns.offcanvas({
+							close: true,
+							backdrop: true,
+							scroll: true,
+							bgcolor: "light",
+							title: "Offcanvas",
+							elems: ex.sample.offcanvasbody(),
+						});
+					},
+				}),
+			];
+		},
+	}),
+];
+
 var e_navbar = [
 	ns.example({
 		title: "Supported content",
+		sample: { "ex.sample.navbaritem": ex.sample.navbaritem },
 		code: function () {
 			var id = ns.core.UUID();
 			return ns.navbar.container({
 				expand: "lg",
 				color: "light",
-				elems: [
-					//samplenavbaritem
-					ns.navbar.toggler({
-						id: id,
-						toggle: "collapse",
-					}),
-
-					ns.navbar.brand({
-						label: "Navbar",
-					}),
-
-					ns.navbar.collapsecontainer({
-						id: id,
-						elems: [
-							ns.navbar.itemcontainer({
-								parenttype: "collapse",
-								elems: [
-									ns.navbar.item({ label: "Home", active: true }),
-									ns.navbar.item("Link"),
-									ns.navbar.item({
-										label: "Dropdown",
-										option: sampledropdownitem,
-									}),
-									ns.navbar.item({ label: "Disabled", disabled: true }),
-								],
-							}),
-							ns.navbar.formcontainer([
-								ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
-								ns.button({ label: "Search", color: "success", outline: true }),
-							]),
-						],
-					}),
-				],
+				elems: ex.sample.navbaritem(),
 			});
 		},
 	}),
@@ -866,8 +1465,6 @@ var e_navbar = [
 	ns.example({
 		title: "Text",
 		msg: "Add your text within an element with the {{ns.navbar.brand}}.",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.navbar.container({
@@ -896,8 +1493,6 @@ var e_navbar = [
 
 	ns.example({
 		title: "Icon",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return ns.navbar.container({
 				expand: "lg",
@@ -914,8 +1509,6 @@ var e_navbar = [
 
 	ns.example({
 		title: "Icon and text",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return ns.navbar.container({
 				expand: "lg",
@@ -973,6 +1566,7 @@ var e_navbar = [
 
 	ns.example({
 		title: "Nav item dropdown",
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			var id = ns.core.UUID();
 			return ns.navbar.container({
@@ -998,7 +1592,7 @@ var e_navbar = [
 									ns.navbar.item({ label: "Features", href: "javascript:void(0);" }),
 									ns.navbar.item({
 										label: "Pricing",
-										option: sampledropdownitem,
+										option: ex.sample.dropdownitem(),
 									}),
 									ns.navbar.item({ label: "Disabled", href: "javascript:void(0);", disabled: true }),
 								],
@@ -1137,8 +1731,7 @@ var e_navbar = [
 
 	ns.example({
 		title: "Color schemes",
-		container: singleformcontainer,
-		item: itemcontainer,
+		sample: { "ex.sample.navbaritem": ex.sample.navbaritem },
 		code: function () {
 			var id1 = ns.core.UUID();
 			var id2 = ns.core.UUID();
@@ -1149,18 +1742,18 @@ var e_navbar = [
 					expand: "lg",
 					color: "dark",
 					light: "dark",
-					elems: samplenavbaritem(id1),
+					elems: ex.sample.navbaritem(id1),
 				}),
 				ns.navbar.container({
 					expand: "lg",
 					color: "primary",
 					light: "dark",
-					elems: samplenavbaritem(id2),
+					elems: ex.sample.navbaritem(id2),
 				}),
 				ns.navbar.container({
 					expand: "lg",
 					style: { backgroundColor: "#e3f2fd" },
-					elems: samplenavbaritem(id3),
+					elems: ex.sample.navbaritem(id3),
 				}),
 			];
 		},
@@ -1172,8 +1765,6 @@ var e_navbar = [
 
 	ns.example({
 		title: "Inside container",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return {
 				tag: "div",
@@ -1194,8 +1785,6 @@ var e_navbar = [
 
 	ns.example({
 		title: "Change container fluid",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return ns.navbar.container({
 				expand: "lg",
@@ -1212,9 +1801,7 @@ var e_navbar = [
 	}),
 
 	ns.example({
-		title: "Navbar position",
-		container: singleformcontainer,
-		item: itemcontainer,
+		title: "Position",
 		code: function () {
 			return ns.navbar.container({
 				expand: "lg",
@@ -1229,6 +1816,236 @@ var e_navbar = [
 			});
 		},
 	}),
+
+	ns.example({
+		title: "Scrolling",
+		msg: [
+			"Add {{scroll:'height'}} option to a {{ns.navbar.itemcontainer}} to enable vertical scrolling within the toggleable contents of a collapsed navbar. At larger viewports when the navbar is expanded, content will appear as it does in a default navbar.",
+			"Please note that this behavior comes with a potential drawback of overflow—when setting overflow-y: auto (required to scroll the content here), overflow-x is the equivalent of auto, which will crop some horizontal content.",
+			"Here’s an example navbar using {{scroll:'height'}}, with some extra margin utilities for optimum spacing.",
+		],
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
+		code: function () {
+			var id = ns.core.UUID();
+			return ns.navbar.container({
+				expand: "lg",
+				color: "light",
+				elems: [
+					ns.navbar.toggler({
+						id: id,
+						toggle: "collapse",
+					}),
+
+					ns.navbar.brand({
+						label: "Navbar",
+					}),
+
+					ns.navbar.collapsecontainer({
+						id: id,
+						elems: [
+							ns.navbar.itemcontainer({
+								parenttype: "collapse",
+								scroll: "100px", //set scroll height here
+								elems: [
+									ns.navbar.item({ label: "Home", active: true }),
+									ns.navbar.item("Link"),
+									ns.navbar.item({
+										label: "Dropdown",
+										option: ex.sample.dropdownitem(),
+									}),
+									ns.navbar.item({ label: "Disabled", disabled: true }),
+								],
+							}),
+							ns.navbar.formcontainer([
+								ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+								ns.button({ label: "Search", color: "success", outline: true }),
+							]),
+						],
+					}),
+				],
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Responsive behaviors",
+		msg: [
+			"{{ns.navbar.container}} can use {{ns.navbar.toggler}}, {{ns.navbar.collapsecontainer}}, and add {{expand:'sm|md|lg|xl|xxl'}} option into {{ns.navbar.container}} to determine when their content collapses behind a button. In combination with other option, you can easily choose when to show or hide particular elements.",
+			"For {{ns.navbar.container}} that never collapse, add the {{expand:''}} option on the {{ns.navbar.container}}. For {{ns.navbar.container}} that always collapse, don’t add any .navbar-expand class.",
+		],
+		sample: { "ex.sample.navbaritem": ex.sample.navbaritem },
+		code: function () {
+			var id1 = ns.core.UUID();
+			var id2 = ns.core.UUID();
+			var id3 = ns.core.UUID();
+			return [
+				ns.navbar.container({
+					expand: "lg",
+					color: "light",
+					elems: ex.sample.navbaritem(id1, "lg"),
+				}),
+				ns.navbar.container({
+					expand: "",
+					color: "light",
+					elems: ex.sample.navbaritem(id2, '""'),
+				}),
+				ns.navbar.container({
+					expand: null,
+					color: "light",
+					elems: ex.sample.navbaritem(id3, "null"),
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Toggler",
+		msg: [
+			"Navbar togglers are left-aligned by default, but should they follow a sibling element like a .navbar-brand, they’ll automatically be aligned to the far right. Reversing your markup will reverse the placement of the toggler. Below are examples of different toggle styles.",
+			"With no .navbar-brand shown at the smallest breakpoint",
+		],
+		code: function () {
+			var id1 = ns.core.UUID();
+			var id2 = ns.core.UUID();
+			var id3 = ns.core.UUID();
+			return [
+				ns.navbar.container({
+					expand: "lg",
+					color: "light",
+					elems: [
+						ns.navbar.toggler({
+							id: id1,
+							toggle: "collapse",
+						}),
+
+						ns.navbar.collapsecontainer({
+							id: id1,
+							elems: [
+								ns.navbar.brand({
+									//brand inside collapsecontainer
+									label: "Hidden brand",
+								}),
+								ns.navbar.itemcontainer({
+									parenttype: "collapse",
+									elems: [
+										ns.navbar.item({ label: "Home", active: true }),
+										ns.navbar.item("Link"),
+										ns.navbar.item({ label: "Disabled", disabled: true }),
+									],
+								}),
+								ns.navbar.formcontainer([
+									ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+									ns.button({ label: "Search", color: "success", outline: true }),
+								]),
+							],
+						}),
+					],
+				}),
+				ns.navbar.container({
+					expand: "lg",
+					color: "light",
+					elems: [
+						ns.navbar.brand({
+							//brand before toggle
+							label: "Navbar",
+						}),
+
+						ns.navbar.toggler({
+							id: id2,
+							toggle: "collapse",
+						}),
+
+						ns.navbar.collapsecontainer({
+							id: id2,
+							elems: [
+								ns.navbar.itemcontainer({
+									parenttype: "collapse",
+									elems: [
+										ns.navbar.item({ label: "Home", active: true }),
+										ns.navbar.item("Link"),
+										ns.navbar.item({ label: "Disabled", disabled: true }),
+									],
+								}),
+								ns.navbar.formcontainer([
+									ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+									ns.button({ label: "Search", color: "success", outline: true }),
+								]),
+							],
+						}),
+					],
+				}),
+				ns.navbar.container({
+					expand: "lg",
+					color: "light",
+					elems: [
+						ns.navbar.toggler({
+							id: id3,
+							toggle: "collapse",
+						}),
+
+						ns.navbar.brand({
+							//brand after toggle
+							label: "Navbar",
+						}),
+
+						ns.navbar.collapsecontainer({
+							id: id3,
+							elems: [
+								ns.navbar.itemcontainer({
+									parenttype: "collapse",
+									elems: [
+										ns.navbar.item({ label: "Home", active: true }),
+										ns.navbar.item("Link"),
+										ns.navbar.item({ label: "Disabled", disabled: true }),
+									],
+								}),
+								ns.navbar.formcontainer([
+									ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+									ns.button({ label: "Search", color: "success", outline: true }),
+								]),
+							],
+						}),
+					],
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "External content",
+		code: function () {
+			var id = ns.core.UUID();
+			return [
+				//collapsecontainer outside container
+				ns.navbar.collapsecontainer({
+					id: id,
+					elems: {
+						tag: "div",
+						class: "p-2",
+						elems: [
+							{ tag: "h5", elems: "Collapsed content" },
+							{ tag: "span", class: "text-muted", elems: "Toggleable via the navbar brand." },
+						],
+					},
+				}),
+
+				ns.navbar.container({
+					expand: null,
+					color: "light",
+					elems: [
+						ns.navbar.brand({
+							label: "Navbar",
+							href: "javascript:void(0);",
+						}),
+						ns.navbar.toggler({
+							id: id,
+							toggle: "collapse",
+						}),
+					],
+				}),
+			];
+		},
+	}),
 ];
 
 var e_tab = [
@@ -1239,10 +2056,10 @@ var e_tab = [
 				style: null,
 				elems: [
 					//sample tab
-					{ label: "First", elems: "This is first tab. " + lipsum() },
-					{ label: "Second", elems: "This is second tab. " + lipsum() },
-					{ label: "Third", elems: "This is third tab. " + lipsum() },
-					{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
+					{ label: "First", elems: "This is first tab. " + ex.sample.text() },
+					{ label: "Second", elems: "This is second tab. " + ex.sample.text() },
+					{ label: "Third", elems: "This is third tab. " + ex.sample.text() },
+					{ label: "Disabled", disabled: true, elems: "This is last tab. " + ex.sample.text() },
 				],
 			});
 		},
@@ -1250,112 +2067,106 @@ var e_tab = [
 
 	ns.example({
 		title: "Nav tab",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: "tab",
-				elems: sampletab,
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Nav pill",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: "pill",
-				elems: sampletab,
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Horizontal center alignment",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: "pill",
 				align: "center",
-				elems: sampletab,
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Horizontal right alignment",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: "pill",
 				align: "right",
-				elems: sampletab,
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Vertical left",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: "pill",
 				align: "vertical",
 				size: "col-sm-12 col-md-6 col-lg-4",
-				elems: sampletab,
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Vertical right",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: "pill",
 				align: "vertical-right",
 				size: "col-sm-12 col-md-6 col-lg-4",
-				elems: sampletab,
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Fill",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: "pill",
 				align: "fill",
-				elems: sampletab,
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Dropdown tab",
+		sample: { "ex.sample.dropdowntab": ex.sample.dropdowntab },
 		code: function () {
 			return ns.nav({
 				style: "tab",
-				elems: [
-					//sampledropdowntab
-					{ label: "First", elems: "This is first tab. " + lipsum() },
-					{
-						label: "Second",
-						elems: "This is second tab. " + lipsum(),
-						option: [
-							{ href: "javascript:void(0);", label: "Action" },
-							{ href: "javascript:void(0);", label: "Another action" },
-							{ value: "-", label: "" },
-							{ href: "javascript:void(0);", label: "Something else here" },
-						],
-					},
-					{ label: "Third", elems: "This is third tab. " + lipsum() },
-					{ label: "Disabled", disabled: true, elems: "This is last tab. " + lipsum() },
-				],
+				elems: ex.sample.dropdowntab(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Dropdown pill",
+		sample: { "ex.sample.dropdowntab": ex.sample.dropdowntab },
 		code: function () {
 			return ns.nav({
 				style: "pill",
-				elems: sampledropdowntab,
+				elems: ex.sample.dropdowntab(),
 			});
 		},
 	}),
@@ -1363,6 +2174,7 @@ var e_tab = [
 	ns.example({
 		title: "Nav tab in dialog",
 		label: "Show nav tab in dialog",
+		sample: { "ex.sample.dropdowntab": ex.sample.dropdowntab },
 		code: function () {
 			return ns.dlg.box({
 				title: "Modal title",
@@ -1371,7 +2183,7 @@ var e_tab = [
 					style: "tab",
 					border: false, //!important
 					rounded: false, //!important
-					elems: sampledropdowntab,
+					elems: ex.sample.dropdowntab(),
 				}),
 				button: "understandclose",
 			});
@@ -1381,6 +2193,7 @@ var e_tab = [
 	ns.example({
 		title: "Tab nav pill in dialog",
 		label: "Show nav pill in dialog",
+		sample: { "ex.sample.dropdowntab": ex.sample.dropdowntab },
 		code: function () {
 			return ns.dlg.box({
 				title: "Modal title",
@@ -1389,7 +2202,7 @@ var e_tab = [
 					style: "pill",
 					border: false, //!important
 					rounded: false, //!important
-					elems: sampledropdowntab,
+					elems: ex.sample.dropdowntab(),
 				}),
 				button: "understandclose",
 			});
@@ -1430,7 +2243,7 @@ var e_dlg = [
 		code: function () {
 			ns.dlg
 				.inputbox(
-					ns.cont.singlecolumnform([
+					ns.cont.singlecolumn([
 						ns.input({
 							label: "Name",
 							required: true,
@@ -1449,6 +2262,7 @@ var e_dlg = [
 							after: "Years old",
 						}),
 						ns.listgroup.container({
+							label: "Sex",
 							type: "div",
 							elems: [
 								ns.listgroup.item({ check: "radio", name: "sex", value: "s", elems: "Secret", active: true }),
@@ -1456,11 +2270,21 @@ var e_dlg = [
 								ns.listgroup.item({ check: "radio", name: "sex", value: "f", elems: "Female" }),
 							],
 						}),
+						ns.listgroup.container({
+							label: "Interest",
+							type: "div",
+							elems: [
+								ns.listgroup.item({ check: "checkbox", name: "interest", value: "sports", elems: "Sports" }),
+								ns.listgroup.item({ check: "checkbox", name: "interest", value: "business", elems: "Business" }),
+								ns.listgroup.item({ check: "checkbox", name: "interest", value: "social", elems: "Social" }),
+								ns.listgroup.item({ check: "checkbox", name: "interest", value: "internet", elems: "Internet" }),
+							],
+						}),
 						ns.input({
 							label: "Country",
 							required: true,
 							invalid: "Please choose country",
-							name: "input",
+							name: "country",
 							type: "select",
 							option: [
 								{ value: "", label: "" },
@@ -1478,7 +2302,7 @@ var e_dlg = [
 						textcolor: "light",
 						icon: "dove",
 						title: "Result",
-						message: `${JSON.stringify(d)}`,
+						msg: `${JSON.stringify(d)}`,
 					});
 				});
 		},
@@ -1542,7 +2366,7 @@ var e_dlg = [
 			ns.dlg
 				.box({
 					title: "Modal title",
-					elems: [lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p")],
+					elems: [ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p")],
 					button: "understandclose",
 					center: false,
 					scrollable: true,
@@ -1579,7 +2403,7 @@ var e_dlg = [
 			ns.dlg
 				.box({
 					title: "Modal title",
-					elems: [lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p"), lipsum("p")],
+					elems: [ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p")],
 					button: "savechangesclose",
 					center: true,
 					scrollable: true,
@@ -1663,14 +2487,13 @@ var e_dlg = [
 
 	ns.example({
 		title: "Varying modal content",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			var dlgFn = function (reipient) {
 				ns.dlg
 					.box({
 						title: "Modal title",
-						elems: ns.cont.singlecolumnform([
+						elems: ns.cont.singlecolumn([
 							ns.input({ type: "text", name: "reipient", label: "Recipient:", value: reipient }),
 							ns.input({ type: "textarea", name: "message", label: "Message:", value: "" }),
 						]),
@@ -1683,9 +2506,9 @@ var e_dlg = [
 			};
 
 			return [
-				ns.button({ label: "Message for @mdo", color: "primary", onclick: "dlgFn('@mdo');" }),
-				ns.button({ label: "Message for @fat", color: "primary", onclick: "dlgFn('@fat');" }),
-				ns.button({ label: "Message for @getbootstrap", color: "primary", onclick: "dlgFn('@getbootstrap');" }),
+				ns.button({ label: "Message for @mdo", color: "primary", onclick: "ex.sample.dlgFn('@mdo');" }),
+				ns.button({ label: "Message for @fat", color: "primary", onclick: "ex.sample.dlgFn('@fat');" }),
+				ns.button({ label: "Message for @getbootstrap", color: "primary", onclick: "ex.sample.dlgFn('@getbootstrap');" }),
 			];
 		},
 	}),
@@ -1698,7 +2521,7 @@ var e_dlg = [
 				ns.dlg.box({
 					title: "Modal 1",
 					elems: "Show a second modal and close this one with the button below.",
-					button: [{ label: "Show second modal", onclick: "dlgSecondModal()" }],
+					button: [{ label: "Show second modal", onclick: "ex.sample.dlgSecondModal()" }],
 				});
 			};
 
@@ -1706,7 +2529,7 @@ var e_dlg = [
 				ns.dlg.box({
 					title: "Modal 2",
 					elems: "Close this modal and show the first with the button below.",
-					button: [{ label: "Show first modal", onclick: "dlgFirstModal()" }],
+					button: [{ label: "Show first modal", onclick: "ex.sample.dlgFirstModal()" }],
 				});
 			};
 
@@ -1729,8 +2552,7 @@ var e_dlg = [
 
 	ns.example({
 		title: "Optional sizes",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			var dlgSizeFn = function (size) {
 				ns.dlg.box({
@@ -1742,17 +2564,16 @@ var e_dlg = [
 			};
 
 			return [
-				ns.button({ label: "Extra large modal", color: "primary", onclick: "dlgSizeFn('xl')" }),
-				ns.button({ label: "Large modal", color: "primary", onclick: "dlgSizeFn('lg')" }),
-				ns.button({ label: "Small modal", color: "primary", onclick: "dlgSizeFn('sm')" }),
+				ns.button({ label: "Extra large modal", color: "primary", onclick: "ex.sample.dlgSizeFn('xl')" }),
+				ns.button({ label: "Large modal", color: "primary", onclick: "ex.sample.dlgSizeFn('lg')" }),
+				ns.button({ label: "Small modal", color: "primary", onclick: "ex.sample.dlgSizeFn('sm')" }),
 			];
 		},
 	}),
 
 	ns.example({
 		title: "Fullscreen Modal",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			var dlgFullscreenFn = function (fullscreen) {
 				ns.dlg.box({
@@ -1764,48 +2585,23 @@ var e_dlg = [
 			};
 
 			return [
-				ns.button({ label: "Full screen", color: "primary", onclick: "dlgFullscreenFn(true)" }),
-				ns.button({ label: "Full screen below sm", color: "primary", onclick: "dlgFullscreenFn('sm-down')" }),
-				ns.button({ label: "Full screen below md", color: "primary", onclick: "dlgFullscreenFn('md-down')" }),
-				ns.button({ label: "Full screen below lg", color: "primary", onclick: "dlgFullscreenFn('lg-down')" }),
-				ns.button({ label: "Full screen below xl", color: "primary", onclick: "dlgFullscreenFn('xl-down')" }),
-				ns.button({ label: "Full screen below xxl", color: "primary", onclick: "dlgFullscreenFn('xxl-down')" }),
+				ns.button({ label: "Full screen", color: "primary", onclick: "ex.sample.dlgFullscreenFn(true)" }),
+				ns.button({ label: "Full screen below sm", color: "primary", onclick: "ex.sample.dlgFullscreenFn('sm-down')" }),
+				ns.button({ label: "Full screen below md", color: "primary", onclick: "ex.sample.dlgFullscreenFn('md-down')" }),
+				ns.button({ label: "Full screen below lg", color: "primary", onclick: "ex.sample.dlgFullscreenFn('lg-down')" }),
+				ns.button({ label: "Full screen below xl", color: "primary", onclick: "ex.sample.dlgFullscreenFn('xl-down')" }),
+				ns.button({ label: "Full screen below xxl", color: "primary", onclick: "ex.sample.dlgFullscreenFn('xxl-down')" }),
 			];
 		},
 	}),
-
-	// ns.example({
-	// 	title: "Dialogbox",
-	// 	label: "Show dialog box",
-	// 	close: true,
-	// 	code: function () {
-	// 		ns.dlg
-	// 			.box({
-	// 				title: "Title",
-	// 				elems: [ns.input({ type: "text", name: "txt1", label: "Text #1" }), ns.input({ type: "number", name: "int2", label: "Number #2" })],
-	// 				footer: ns.input({ type: "switch", label: "Hello", name: "hello" }),
-	// 				button: "okayonly",
-	// 			})
-	// 			.then((data) => {
-	// 				ns.dlg.msgbox("i", `Result from dialog is <code>${JSON.stringify(data)}</code>`);
-	// 			})
-	// 			.catch((err) => {});
-	// 	},
-	// }),
 ];
 
 var e_listgroup = [
 	ns.example({
 		title: "Basic example",
+		sample: { "ex.sample.listgroupitem": ex.sample.listgroupitem },
 		code: function () {
-			return ns.listgroup.container([
-				//simplelistgroupitem
-				ns.listgroup.item("An item"),
-				ns.listgroup.item("A second item"),
-				ns.listgroup.item("A third item"),
-				ns.listgroup.item("A fourth item"),
-				ns.listgroup.item("And a fifth one"),
-			]);
+			return ns.listgroup.container(ex.sample.listgroupitem());
 		},
 	}),
 
@@ -1869,32 +2665,35 @@ var e_listgroup = [
 
 	ns.example({
 		title: "Flush",
+		sample: { "ex.sample.listgroupitem": ex.sample.listgroupitem },
 		code: function () {
 			return ns.listgroup.container({
 				flush: true,
-				elems: simplelistgroupitem,
+				elems: ex.sample.listgroupitem(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Numbered",
+		sample: { "ex.sample.listgroupitem": ex.sample.listgroupitem },
 		code: function () {
 			return ns.listgroup.container({
 				numbered: true,
-				elems: simplelistgroupitem,
+				elems: ex.sample.listgroupitem(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Numbered custom content",
+		sample: { "ex.sample.listgroupitemcustomcontent": ex.sample.listgroupitemcustomcontent },
 		code: function () {
 			return ns.listgroup.container({
 				numbered: true,
 				elems: [
 					ns.listgroup.item({
-						//simplelistgroupitemcustomcontent
+						//ex.sample.listgroupitemcustomcontent
 						class: "d-flex justify-content-between align-items-start",
 						elems: [
 							{
@@ -1909,8 +2708,8 @@ var e_listgroup = [
 							}),
 						],
 					}),
-					ns.listgroup.item(simplelistgroupitemcustomcontent),
-					ns.listgroup.item(simplelistgroupitemcustomcontent),
+					ns.listgroup.item(ex.sample.listgroupitemcustomcontent()),
+					ns.listgroup.item(ex.sample.listgroupitemcustomcontent()),
 				],
 			});
 		},
@@ -1918,14 +2717,13 @@ var e_listgroup = [
 
 	ns.example({
 		title: "Numbered custom content",
-		container: singleformcontainer,
-		item: itemcontainer,
+		sample: { "ex.sample.listgroupitem3": ex.sample.listgroupitem3 },
 		code: function () {
 			return [
 				ns.listgroup.container({
 					horizontal: true,
 					elems: [
-						//samplelistgroupitem3
+						//ex.sample.listgroupitem3
 						ns.listgroup.item("An item"),
 						ns.listgroup.item("A second item"),
 						ns.listgroup.item("A third item"),
@@ -1934,32 +2732,32 @@ var e_listgroup = [
 
 				ns.listgroup.container({
 					horizontal: "sm",
-					elems: samplelistgroupitem3,
+					elems: ex.sample.listgroupitem3(),
 				}),
 
 				ns.listgroup.container({
 					horizontal: "md",
-					elems: samplelistgroupitem3,
+					elems: ex.sample.listgroupitem3(),
 				}),
 
 				ns.listgroup.container({
 					horizontal: "lg",
-					elems: samplelistgroupitem3,
+					elems: ex.sample.listgroupitem3(),
 				}),
 
 				ns.listgroup.container({
 					horizontal: "xl",
-					elems: samplelistgroupitem3,
+					elems: ex.sample.listgroupitem3(),
 				}),
 
 				ns.listgroup.container({
 					horizontal: "xxl",
-					elems: samplelistgroupitem3,
+					elems: ex.sample.listgroupitem3(),
 				}),
 
 				ns.listgroup.container({
 					horizontal: ["md", "xxl"],
-					elems: samplelistgroupitem3,
+					elems: ex.sample.listgroupitem3(),
 				}),
 			];
 		},
@@ -2122,31 +2920,33 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Dropdown link",
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Drowdown link",
 				color: "secondary",
 				href: "javascript:void(0);",
-				option: sampledropdownitem,
+				option: ex.sample.dropdownitem(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Color",
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Drowdown",
 				color: "primary",
-				option: sampledropdownitem,
+				option: ex.sample.dropdownitem(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Color varian",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				{ color: "primary", textcolor: "light" },
@@ -2162,7 +2962,7 @@ var e_dropdown = [
 					label: i.color.capitalize(),
 					color: i.color,
 					textcolor: i.textcolor,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				});
 			});
 		},
@@ -2170,20 +2970,21 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Split button",
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Drowdown",
 				color: "primary",
 				segmenttoggle: true,
-				option: sampledropdownitem,
+				option: ex.sample.dropdownitem(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Split button color variant",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				{ color: "primary", textcolor: "light" },
@@ -2200,7 +3001,7 @@ var e_dropdown = [
 					color: i.color,
 					textcolor: i.textcolor,
 					segmenttoggle: true,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				});
 			});
 		},
@@ -2208,22 +3009,22 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Large size",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Large dropdown",
 					color: "secondary",
 					weight: "lg",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Large split dropdown",
 					color: "secondary",
 					weight: "lg",
 					segmenttoggle: true,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2231,22 +3032,22 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Small size",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Small dropdown",
 					color: "secondary",
 					weight: "sm",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Small split dropdown",
 					color: "secondary",
 					weight: "sm",
 					segmenttoggle: true,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2254,14 +3055,14 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Dark dropdown",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Dark dropdown",
 				color: "secondary",
 				dark: true,
-				option: sampledropdownitem,
+				option: ex.sample.dropdownitem(),
 			});
 		},
 	}),
@@ -2269,6 +3070,7 @@ var e_dropdown = [
 	ns.example({
 		title: "Dropdown in navbar",
 		dark: true,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			var id = ns.core.UUID();
 			return ns.navbar.container({
@@ -2296,7 +3098,7 @@ var e_dropdown = [
 										label: "Dropdown",
 										navlink: true,
 										dark: true,
-										option: sampledropdownitem,
+										option: ex.sample.dropdownitem(),
 									}),
 								],
 							}),
@@ -2309,22 +3111,22 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Dropup",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Dropup",
 					color: "secondary",
 					arrow: "up",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Split dropup",
 					color: "secondary",
 					arrow: "up",
 					segmenttoggle: true,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2332,22 +3134,22 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Dropend",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Dropend",
 					color: "secondary",
 					arrow: "end",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Split dropend",
 					color: "secondary",
 					arrow: "end",
 					segmenttoggle: true,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2355,22 +3157,22 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Dropstart",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Dropstart",
 					color: "secondary",
 					arrow: "start",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Split dropstart",
 					color: "secondary",
 					arrow: "start",
 					segmenttoggle: true,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2441,74 +3243,76 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Menu Aligment",
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Right-aligned menu example",
 				color: "secondary",
 				aligment: "end",
-				option: sampledropdownitem,
+				option: ex.sample.dropdownitem(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Responsive alignment",
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Right-aligned, left-aligned lg",
 				color: "secondary",
 				aligment: ["end", "lg-start"],
-				option: sampledropdownitem,
+				option: ex.sample.dropdownitem(),
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Alignment options",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Dropdown",
 					color: "secondary",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Right-aligned menu",
 					color: "secondary",
 					aligment: "end",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Left-aligned, right-aligned lg",
 					color: "secondary",
 					aligment: ["start", "lg-end"],
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Right-aligned, left-aligned lg",
 					color: "secondary",
 					aligment: ["end", "lg-start"],
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Dropstart",
 					color: "secondary",
 					arrow: "start",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Dropend",
 					color: "secondary",
 					arrow: "end",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Dropup",
 					color: "secondary",
 					arrow: "up",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2618,22 +3422,22 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Dropdown options",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Offset",
 					color: "secondary",
 					offset: "20,30",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Reference",
 					color: "secondary",
 					reference: "parent",
 					segmenttoggle: true,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2641,32 +3445,32 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Auto close behavior",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.dropdown({
 					label: "Default dropdown",
 					color: "secondary",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Clickable outside",
 					color: "secondary",
 					autoclose: "outside",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Clickable inside",
 					color: "secondary",
 					autoclose: "inside",
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 				ns.dropdown({
 					label: "Manual close",
 					color: "secondary",
 					autoclose: false,
-					option: sampledropdownitem,
+					option: ex.sample.dropdownitem(),
 				}),
 			];
 		},
@@ -2676,8 +3480,7 @@ var e_dropdown = [
 var e_collapse = [
 	ns.example({
 		title: "Example",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			var id = ns.core.UUID();
 			return [
@@ -2706,8 +3509,7 @@ var e_collapse = [
 
 	ns.example({
 		title: "Multiple targets",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			var id1 = ns.core.UUID();
 			var id2 = ns.core.UUID();
@@ -2770,8 +3572,7 @@ var e_close = [
 	ns.example({
 		title: "White variant",
 		dark: true,
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [ns.close({ white: true }), ns.close({ white: true, disabled: true })];
 		},
@@ -2781,47 +3582,51 @@ var e_close = [
 var e_carosel = [
 	ns.example({
 		title: "Slide only",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
-				item: [picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl()],
+				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
 			});
 		},
 	}),
 
 	ns.example({
 		title: "With control",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
 				control: true,
-				item: [picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl()],
+				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
 			});
 		},
 	}),
 
 	ns.example({
 		title: "With indicator",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
 				control: true,
 				indicators: true,
-				item: [picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl()],
+				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
 			});
 		},
 	}),
 
 	ns.example({
 		title: "With caption",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
 				control: true,
 				indicators: true,
 				item: [
-					{ caption: "Title #1", text: "This is text for image no #1", src: picsumimgurl() },
-					{ caption: "Title #2", text: "This is text for image no #2", src: picsumimgurl() },
-					{ caption: "Title #3", text: "This is text for image no #3", src: picsumimgurl() },
-					{ caption: "Title #4", text: "This is text for image no #4", src: picsumimgurl() },
-					{ caption: "Title #5", text: "This is text for image no #5", src: picsumimgurl() },
-					{ caption: "Title #6", text: "This is text for image no #6", src: picsumimgurl() },
+					{ caption: "Title #1", text: "This is text for image no #1", src: ex.sample.imgurl() },
+					{ caption: "Title #2", text: "This is text for image no #2", src: ex.sample.imgurl() },
+					{ caption: "Title #3", text: "This is text for image no #3", src: ex.sample.imgurl() },
+					{ caption: "Title #4", text: "This is text for image no #4", src: ex.sample.imgurl() },
+					{ caption: "Title #5", text: "This is text for image no #5", src: ex.sample.imgurl() },
+					{ caption: "Title #6", text: "This is text for image no #6", src: ex.sample.imgurl() },
 				],
 			});
 		},
@@ -2829,28 +3634,30 @@ var e_carosel = [
 
 	ns.example({
 		title: "Crossfade",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
 				control: true,
 				fade: true,
-				item: [picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl()],
+				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Individual interval",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
 				control: true,
 				indicators: true,
 				item: [
-					{ interval: 10000, src: picsumimgurl() },
-					{ interval: 2000, src: picsumimgurl() },
-					{ interval: 5000, src: picsumimgurl() },
-					{ interval: 1000, src: picsumimgurl() },
-					{ interval: 3000, src: picsumimgurl() },
-					{ interval: 7500, src: picsumimgurl() },
+					{ interval: 10000, src: ex.sample.imgurl() },
+					{ interval: 2000, src: ex.sample.imgurl() },
+					{ interval: 5000, src: ex.sample.imgurl() },
+					{ interval: 1000, src: ex.sample.imgurl() },
+					{ interval: 3000, src: ex.sample.imgurl() },
+					{ interval: 7500, src: ex.sample.imgurl() },
 				],
 			});
 		},
@@ -2858,29 +3665,31 @@ var e_carosel = [
 
 	ns.example({
 		title: "Disable touch swiping",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
 				control: true,
 				touch: false,
-				item: [picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl(), picsumimgurl()],
+				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Dark variant",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
 				control: true,
 				indicators: true,
 				dark: true,
 				item: [
-					{ caption: "Title #1", text: "This is text for image no #1", src: picsumimgurl() },
-					{ caption: "Title #2", text: "This is text for image no #2", src: picsumimgurl() },
-					{ caption: "Title #3", text: "This is text for image no #3", src: picsumimgurl() },
-					{ caption: "Title #4", text: "This is text for image no #4", src: picsumimgurl() },
-					{ caption: "Title #5", text: "This is text for image no #5", src: picsumimgurl() },
-					{ caption: "Title #6", text: "This is text for image no #6", src: picsumimgurl() },
+					{ caption: "Title #1", text: "This is text for image no #1", src: ex.sample.imgurl() },
+					{ caption: "Title #2", text: "This is text for image no #2", src: ex.sample.imgurl() },
+					{ caption: "Title #3", text: "This is text for image no #3", src: ex.sample.imgurl() },
+					{ caption: "Title #4", text: "This is text for image no #4", src: ex.sample.imgurl() },
+					{ caption: "Title #5", text: "This is text for image no #5", src: ex.sample.imgurl() },
+					{ caption: "Title #6", text: "This is text for image no #6", src: ex.sample.imgurl() },
 				],
 			});
 		},
@@ -2890,13 +3699,14 @@ var e_carosel = [
 var e_card = [
 	ns.example({
 		title: "Example",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.card.container({
 				style: { width: "18rem" },
 				elems: [
 					ns.card.img({
 						placement: "top",
-						src: picsumimgurl(),
+						src: ex.sample.imgurl(),
 					}),
 					ns.card.body([
 						ns.card.title("Card Title"),
@@ -2949,13 +3759,14 @@ var e_card = [
 	ns.example({
 		title: "Images",
 		msg: '{{placement: "top"}} places an {{ns.card.img}} to the top of the card. With {{ns.card.text}}, text can be added to the card. Text within {{ns.card.text}} can also be styled with the standard HTML tags.',
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.card.container({
 				style: { width: "18rem" },
 				elems: [
 					ns.card.img({
 						placement: "top",
-						src: picsumimgurl(),
+						src: ex.sample.imgurl(),
 					}),
 					ns.card.body([ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content.")]),
 				],
@@ -3015,13 +3826,14 @@ var e_card = [
 	ns.example({
 		title: "Kitchen Sink",
 		msg: "Mix and match multiple content types to create the card you need, or throw everything in there. Shown below are image styles, blocks, text styles, and a list group—all wrapped in a fixed-width card.",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.card.container({
 				style: { width: "18rem" },
 				elems: [
 					ns.card.img({
 						placement: "top",
-						src: picsumimgurl(),
+						src: ex.sample.imgurl(),
 					}),
 					ns.card.body([
 						ns.card.title("Card Title"),
@@ -3233,8 +4045,7 @@ var e_card = [
 	ns.example({
 		title: "Text alignment",
 		msg: 'You can quickly change the text alignment of any card—in its entirety or specific parts—with {{align:"null|center|end"}}.',
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.card.container({
@@ -3280,9 +4091,9 @@ var e_card = [
 			return ns.nav({
 				style: "tab",
 				elems: [
-					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", lipsum()].join("") },
-					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", lipsum()].join("") },
-					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", lipsum()].join("") },
+					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", ex.sample.text()].join("") },
+					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", ex.sample.text()].join("") },
+					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", ex.sample.text()].join("") },
 				],
 			});
 		},
@@ -3294,9 +4105,9 @@ var e_card = [
 			return ns.nav({
 				style: "pill",
 				elems: [
-					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", lipsum()].join("") },
-					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", lipsum()].join("") },
-					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", lipsum()].join("") },
+					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", ex.sample.text()].join("") },
+					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", ex.sample.text()].join("") },
+					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", ex.sample.text()].join("") },
 				],
 			});
 		},
@@ -3304,15 +4115,15 @@ var e_card = [
 
 	ns.example({
 		title: "Images",
-		container: formcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return [
 				ns.card.container({
 					elems: [
 						ns.card.img({
 							placement: "top",
-							src: picsumimgurl(),
+							src: ex.sample.imgurl(),
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
@@ -3334,7 +4145,7 @@ var e_card = [
 						]),
 						ns.card.img({
 							placement: "bottom",
-							src: picsumimgurl(),
+							src: ex.sample.imgurl(),
 						}),
 					],
 				}),
@@ -3344,12 +4155,13 @@ var e_card = [
 
 	ns.example({
 		title: "Image overlays",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.card.container({
 				textcolor: "light",
 				elems: [
 					ns.card.img({
-						src: picsumimgurl(),
+						src: ex.sample.imgurl(),
 					}),
 					ns.card.imgoverlay([
 						ns.card.title("Card Title"),
@@ -3365,6 +4177,7 @@ var e_card = [
 
 	ns.example({
 		title: "Horizontal",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.card.container({
 				elems: [
@@ -3373,7 +4186,7 @@ var e_card = [
 						left: [
 							ns.card.img({
 								placement: "top",
-								src: picsumimgurl(400, 400),
+								src: ex.sample.imgurl(400, 400),
 							}),
 						],
 						right: [
@@ -3398,8 +4211,7 @@ var e_card = [
 
 	ns.example({
 		title: "Background and color",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return ns.card.container({
 				color: "primary",
@@ -3418,8 +4230,7 @@ var e_card = [
 
 	ns.example({
 		title: "Example background and color",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				{ color: "primary", textcolor: "light" },
@@ -3449,8 +4260,7 @@ var e_card = [
 
 	ns.example({
 		title: "Border color",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return ns.card.container({
 				bordercolor: "primary",
@@ -3471,8 +4281,7 @@ var e_card = [
 
 	ns.example({
 		title: "Example border color",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				{ color: "primary", textcolor: "primary" },
@@ -3504,8 +4313,7 @@ var e_card = [
 
 	ns.example({
 		title: "Mixins utilities",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return ns.card.container({
 				bordercolor: "success",
@@ -3535,15 +4343,15 @@ var e_card = [
 
 	ns.example({
 		title: "Card groups",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.imgurl": ex.sample.imgurl, "ex.sample.card": ex.sample.card },
 		code: function () {
 			return ns.card.group([
 				ns.card.container({
 					elems: [
 						ns.card.img({
 							placement: "top",
-							src: picsumimgurl(),
+							src: ex.sample.imgurl(),
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
@@ -3553,23 +4361,23 @@ var e_card = [
 						]),
 					],
 				}),
-				samplecard[1],
-				samplecard[2],
+				ex.sample.card()[1],
+				ex.sample.card()[2],
 			]);
 		},
 	}),
 
 	ns.example({
 		title: "Card groups with footer",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
+		sample: { "ex.sample.imgurl": ex.sample.imgurl, "ex.sample.cardwithfooter": ex.sample.cardwithfooter },
 		code: function () {
 			return ns.card.group([
 				ns.card.container({
 					elems: [
 						ns.card.img({
 							placement: "top",
-							src: picsumimgurl(),
+							src: ex.sample.imgurl(),
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
@@ -3580,14 +4388,15 @@ var e_card = [
 						ns.card.footer("Last updated 3 mins ago"),
 					],
 				}),
-				samplecardwithfooter[1],
-				samplecardwithfooter[2],
+				ex.sample.cardwithfooter()[1],
+				ex.sample.cardwithfooter()[2],
 			]);
 		},
 	}),
 
 	ns.example({
 		title: "Card grid using {{row-cols-md-2}}",
+		sample: { "ex.sample.card": ex.sample.card },
 		code: function () {
 			return {
 				tag: "div",
@@ -3596,22 +4405,22 @@ var e_card = [
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[0],
+						elems: ex.sample.card()[0],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[1],
+						elems: ex.sample.card()[1],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[2],
+						elems: ex.sample.card()[2],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[3],
+						elems: ex.sample.card()[3],
 					},
 				],
 			};
@@ -3620,6 +4429,7 @@ var e_card = [
 
 	ns.example({
 		title: "Card grid using {{row-cols-md-3}}",
+		sample: { "ex.sample.card": ex.sample.card },
 		code: function () {
 			return {
 				tag: "div",
@@ -3628,22 +4438,22 @@ var e_card = [
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[0],
+						elems: ex.sample.card()[0],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[1],
+						elems: ex.sample.card()[1],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[2],
+						elems: ex.sample.card()[2],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecard[3],
+						elems: ex.sample.card()[3],
 					},
 				],
 			};
@@ -3652,6 +4462,7 @@ var e_card = [
 
 	ns.example({
 		title: "Card grid with {{h-100}} class",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl, "ex.sample.cardh100": ex.sample.cardh100 },
 		code: function () {
 			return {
 				tag: "div",
@@ -3665,7 +4476,7 @@ var e_card = [
 							elems: [
 								ns.card.img({
 									placement: "top",
-									src: picsumimgurl(),
+									src: ex.sample.imgurl(),
 								}),
 								ns.card.body([
 									ns.card.title("Card Title"),
@@ -3679,17 +4490,17 @@ var e_card = [
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecardh100[0],
+						elems: ex.sample.cardh100()[0],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecardh100[1],
+						elems: ex.sample.cardh100()[1],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecardh100[2],
+						elems: ex.sample.cardh100()[2],
 					},
 				],
 			};
@@ -3698,6 +4509,7 @@ var e_card = [
 
 	ns.example({
 		title: "Card grid with {{h-100}} class",
+		sample: { "ex.sample.imgurl": ex.sample.imgurl, "ex.sample.cardwithfooterh100": ex.sample.cardwithfooterh100 },
 		code: function () {
 			return {
 				tag: "div",
@@ -3711,7 +4523,7 @@ var e_card = [
 							elems: [
 								ns.card.img({
 									placement: "top",
-									src: picsumimgurl(),
+									src: ex.sample.imgurl(),
 								}),
 								ns.card.body([
 									ns.card.title("Card Title"),
@@ -3726,17 +4538,17 @@ var e_card = [
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecardwithfooterh100[0],
+						elems: ex.sample.cardwithfooterh100()[0],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecardwithfooterh100[1],
+						elems: ex.sample.cardwithfooterh100()[1],
 					},
 					{
 						tag: "div",
 						class: "col",
-						elems: samplecardwithfooterh100[2],
+						elems: ex.sample.cardwithfooterh100()[2],
 					},
 				],
 			};
@@ -3860,8 +4672,6 @@ var e_btngroup = [
 
 	ns.example({
 		title: "Mix toolbar",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.btntoolbar({
@@ -3910,8 +4720,6 @@ var e_btngroup = [
 
 	ns.example({
 		title: "Sizing",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.btngroup({
@@ -4049,8 +4857,7 @@ var e_btngroup = [
 var e_btn = [
 	ns.example({
 		title: "Examples",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ label: "Primary", color: "primary" }),
@@ -4068,8 +4875,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Disable text wrapping",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [ns.button({ label: "Disable text wrapping button", color: "primary", nowarp: true })];
 		},
@@ -4077,8 +4883,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Button tags",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ label: "Link", color: "primary", href: "javascript:void(0);" }),
@@ -4104,8 +4909,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Outline buttons",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ outline: true, label: "Primary", color: "primary" }),
@@ -4123,8 +4927,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Large Size",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ weight: "lg", label: "Large button", color: "primary" }),
@@ -4135,8 +4938,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Small Size",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ weight: "sm", label: "Small button", color: "primary" }),
@@ -4147,8 +4949,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Disabled state",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ weight: "lg", disabled: true, label: "Primary button", color: "primary" }),
@@ -4159,8 +4960,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Disabled button link state",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ weight: "lg", disabled: true, label: "Primary link", color: "primary", href: "javascript:void(0);" }),
@@ -4231,8 +5031,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Toggle state button",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ toggle: true, label: "Toggle button", color: "primary" }),
@@ -4244,8 +5043,7 @@ var e_btn = [
 
 	ns.example({
 		title: "Toggle state link",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ toggle: true, href: "javascript:void(0)", label: "Toggle link", color: "primary" }),
@@ -4400,8 +5198,7 @@ var e_badge = [
 
 	ns.example({
 		title: "Background color",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.badge({ color: "primary", label: "Primary" }),
@@ -4418,8 +5215,7 @@ var e_badge = [
 
 	ns.example({
 		title: "Pill badge",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.badge({ pill: true, color: "primary", label: "Primary" }),
@@ -4438,8 +5234,6 @@ var e_badge = [
 var e_alert = [
 	ns.example({
 		title: "Example",
-		container: fluidcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.alert.container("primary", "A simple primary alert—check it out!"),
@@ -4456,8 +5250,6 @@ var e_alert = [
 
 	ns.example({
 		title: "Link color",
-		container: fluidcontainer,
-		item: itemcontainer,
 		code: function () {
 			var color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
 			return color.map(function (i) {
@@ -4471,8 +5263,6 @@ var e_alert = [
 
 	ns.example({
 		title: "Additional content",
-		container: fluidcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.alert.container({
@@ -4493,8 +5283,6 @@ var e_alert = [
 
 	ns.example({
 		title: "Icons",
-		container: fluidcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.alert.container("/", "An example alert with an icon"),
@@ -4509,8 +5297,6 @@ var e_alert = [
 
 	ns.example({
 		title: "Dismissing",
-		container: fluidcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.alert.container({
@@ -4530,9 +5316,9 @@ var e_accordion = [
 		code: function () {
 			return ns.accordion({
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum()].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum()].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join("") },
+					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join("") },
+					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join("") },
 				],
 			});
 		},
@@ -4545,9 +5331,9 @@ var e_accordion = [
 			return ns.accordion({
 				flush: true,
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum()].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum()].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join("") },
+					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join("") },
+					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join("") },
 				],
 			});
 		},
@@ -4560,9 +5346,9 @@ var e_accordion = [
 			return ns.accordion({
 				autoclose: false,
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", lipsum()].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", lipsum()].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", lipsum()].join("") },
+					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join("") },
+					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join("") },
+					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join("") },
 				],
 			});
 		},
@@ -4572,8 +5358,6 @@ var e_accordion = [
 var e_input = [
 	ns.example({
 		title: "Example",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -4591,8 +5375,6 @@ var e_input = [
 
 	ns.example({
 		title: "Sizing",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -4615,8 +5397,6 @@ var e_input = [
 
 	ns.example({
 		title: "Disabled",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -4649,8 +5429,6 @@ var e_input = [
 
 	ns.example({
 		title: "Readonly plain text",
-		container: fluidcontainer,
-		item: rowcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -4674,8 +5452,7 @@ var e_input = [
 
 	ns.example({
 		title: "Readonly plain text (Stack)",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.input({
@@ -4702,8 +5479,6 @@ var e_input = [
 	//ns.input
 	ns.example({
 		title: "File input",
-		container: singleformcontainer,
-		item: itemcontainer,
 		code: function () {
 			return [
 				ns.input({ label: "Default file input example", type: "file" }),
@@ -4718,8 +5493,6 @@ var e_input = [
 	ns.example({
 		title: "File Input",
 		msg: "This control is {{link}} to backend",
-		container: formcontainer,
-		item: itemcontainer,
 		code: function () {
 			return ns.file.ctl({
 				label: "Picture",
@@ -4751,13 +5524,6 @@ var e_input = [
 	}),
 ];
 
-var sampleoptionitem = [
-	{ value: "", label: "Open this select menu", selected: true },
-	{ value: "1", label: "One" },
-	{ value: "2", label: "Two" },
-	{ value: "3", label: "Three" },
-];
-
 var e_select = [
 	ns.example({
 		title: "Default",
@@ -4767,7 +5533,7 @@ var e_select = [
 					hiddenlabel: "Default select example",
 					type: "select",
 					option: [
-						//sampleoptionitem
+						//ex.sample.optionitem
 						{ value: "", label: "Open this select menu", selected: true },
 						{ value: "1", label: "One" },
 						{ value: "2", label: "Two" },
@@ -4780,20 +5546,20 @@ var e_select = [
 
 	ns.example({
 		title: "Sizing",
-		item: singleitemcontainer,
+		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
 			return [
 				ns.input({
 					weight: "lg",
 					hiddenlabel: "Large select example",
 					type: "select",
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 				ns.input({
 					weight: "sm",
 					hiddenlabel: "Small select example",
 					type: "select",
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 			];
 		},
@@ -4801,13 +5567,14 @@ var e_select = [
 
 	ns.example({
 		title: "Multiple",
+		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
 			return [
 				ns.input({
 					multiple: true,
 					hiddenlabel: "Multiple select example",
 					type: "select",
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 			];
 		},
@@ -4815,13 +5582,14 @@ var e_select = [
 
 	ns.example({
 		title: "Size",
+		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
 			return [
 				ns.input({
 					size: 3,
 					hiddenlabel: "Size 3 select example",
 					type: "select",
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 			];
 		},
@@ -4829,13 +5597,14 @@ var e_select = [
 
 	ns.example({
 		title: "Disabled",
+		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
 			return [
 				ns.input({
 					disabled: true,
 					hiddenlabel: "Disabled select example",
 					type: "select",
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 			];
 		},
@@ -4974,8 +5743,7 @@ var e_radio = [
 
 	ns.example({
 		title: "Radio toggle buttons",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ type: "radio", name: "g7", label: "Checked", checked: true, color: "secondary" }),
@@ -4988,8 +5756,7 @@ var e_radio = [
 
 	ns.example({
 		title: "Outlined styles",
-		container: stackcontainer,
-		item: itemcontainer,
+		container: ns.cont.stack,
 		code: function () {
 			return [
 				ns.button({ type: "checkbox", outline: true, label: "Single toggle", color: "primary" }),
@@ -5004,7 +5771,6 @@ var e_radio = [
 var e_inputgroup = [
 	ns.example({
 		title: "Basic example",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5057,7 +5823,6 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Wrapping",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5083,7 +5848,6 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Sizing",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5108,7 +5872,6 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Checkboxes and radios",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5126,7 +5889,6 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Multiple inputs",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.inputgroup.container([
@@ -5146,7 +5908,6 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Multiple addons",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.inputgroup.container([
@@ -5172,7 +5933,6 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Button addons",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5236,7 +5996,7 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Buttons with dropdowns",
-		item: singleitemcontainer,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.input({
@@ -5248,13 +6008,7 @@ var e_inputgroup = [
 						color: "secondary",
 						label: "Dropdown",
 						container: null,
-						option: [
-							//sampledropdownitem
-							{ href: "javascript:void(0);", label: "Action" },
-							{ href: "javascript:void(0);", label: "Another action" },
-							{ value: "-" },
-							{ href: "javascript:void(0);", label: "Something else here" },
-						],
+						option: ex.sample.dropdownitem(),
 					}),
 				}),
 
@@ -5267,7 +6021,7 @@ var e_inputgroup = [
 						color: "secondary",
 						label: "Dropdown",
 						container: null,
-						option: sampledropdownitem,
+						option: ex.sample.dropdownitem(),
 					}),
 				}),
 
@@ -5280,7 +6034,7 @@ var e_inputgroup = [
 						color: "secondary",
 						label: "Dropdown",
 						container: null,
-						option: sampledropdownitem,
+						option: ex.sample.dropdownitem(),
 					}),
 					aftertype: "dropdown",
 					after: ns.dropdown({
@@ -5288,7 +6042,7 @@ var e_inputgroup = [
 						color: "secondary",
 						label: "Dropdown",
 						container: null,
-						option: sampledropdownitem,
+						option: ex.sample.dropdownitem(),
 					}),
 				}),
 			];
@@ -5297,7 +6051,7 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Segmented buttons",
-		item: singleitemcontainer,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return [
 				ns.input({
@@ -5310,7 +6064,7 @@ var e_inputgroup = [
 						label: "Action",
 						container: null,
 						segmenttoggle: true,
-						option: sampledropdownitem,
+						option: ex.sample.dropdownitem(),
 					}),
 				}),
 
@@ -5324,7 +6078,7 @@ var e_inputgroup = [
 						label: "Action",
 						container: null,
 						segmenttoggle: true,
-						option: sampledropdownitem,
+						option: ex.sample.dropdownitem(),
 					}),
 				}),
 			];
@@ -5333,19 +6087,19 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Segmented buttons",
-		item: singleitemcontainer,
+		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
 			return [
 				ns.input({
 					type: "select",
 					before: "Options",
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 
 				ns.input({
 					type: "select",
 					after: "Options",
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 
 				ns.input({
@@ -5356,7 +6110,7 @@ var e_inputgroup = [
 						color: "secondary",
 						label: "Button",
 					}),
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 
 				ns.input({
@@ -5367,7 +6121,7 @@ var e_inputgroup = [
 						color: "secondary",
 						label: "Button",
 					}),
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 			];
 		},
@@ -5375,7 +6129,6 @@ var e_inputgroup = [
 
 	ns.example({
 		title: "Custom file input",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5415,7 +6168,6 @@ var e_inputgroup = [
 var e_floatinglabel = [
 	ns.example({
 		title: "Example",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5435,7 +6187,6 @@ var e_floatinglabel = [
 
 	ns.example({
 		title: "Value already defind",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5450,7 +6201,6 @@ var e_floatinglabel = [
 
 	ns.example({
 		title: "Validation",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5475,7 +6225,6 @@ var e_floatinglabel = [
 
 	ns.example({
 		title: "Textareas",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5489,7 +6238,6 @@ var e_floatinglabel = [
 
 	ns.example({
 		title: "Textareas With Height Setting",
-		item: singleitemcontainer,
 		code: function () {
 			return [
 				ns.input({
@@ -5504,14 +6252,14 @@ var e_floatinglabel = [
 
 	ns.example({
 		title: "Select",
-		item: singleitemcontainer,
+		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
 			return [
 				ns.input({
 					label: "Works with selects",
 					type: "select",
 					floatinglabel: true,
-					option: sampleoptionitem,
+					option: ex.sample.optionitem(),
 				}),
 			];
 		},
@@ -5602,7 +6350,13 @@ var menu_c2 = [
 	{ label: "List group", onclick: "showexample(this,'e_listgroup')" },
 	{ label: "Modal", onclick: "showexample(this,'e_dlg')" },
 	{ label: "Tab", onclick: "showexample(this,'e_tab')" },
-	{ label: "Navbar", onclick: "showexample(this,'e_navbar')", active: true },
+	{ label: "Navbar", onclick: "showexample(this,'e_navbar')" },
+	{ label: "Offcanvas", onclick: "showexample(this,'e_offcanvas')" },
+	{ label: "Paging", onclick: "showexample(this,'e_paging')" },
+	{ label: "Popover", onclick: "showexample(this,'e_popover')" },
+	{ label: "Progress", onclick: "showexample(this,'e_progress')" },
+	{ label: "Spinners", onclick: "showexample(this,'e_spinner')" },
+	{ label: "Toast", onclick: "showexample(this,'e_toast')", active: true },
 
 	{ label: "Icon", onclick: "showexample(this,'e_icon')" },
 	{ label: "Image", onclick: "showexample(this,'e_img')" },
@@ -5610,9 +6364,6 @@ var menu_c2 = [
 
 	{ label: "List", onclick: "showexample(this,'e_listctl')" },
 	{ label: "Table", onclick: "showexample(this,'e_table')" },
-	{ label: "Offcanvas", onclick: "showexample(this,'e_offcanvas')" },
-
-	{ label: "Paging", onclick: "showexample(this,'e_paging')" },
 ];
 
 var menu_c3 = [
@@ -5670,8 +6421,9 @@ function showexample(sender, arg) {
 	var li = [];
 	$.each($(root).find(".anchorjs-link"), function (xi, i) {
 		var parent = $(i).parent();
-		console.log(parent.text() + ":" + parent[0].nodeName);
-		li.push({ label: parent.text(), level: parent[0].nodeName === "H4" ? 1 : 0, onclick: `focusExample("${parent.attr("id")}");` });
+		var id = parent.attr("id");
+		//li.push({ label: parent.text(), href: `#${id}`, level: parent[0].nodeName === "H4" ? 1 : 0 });
+		li.push({ label: parent.text(), onclick: `focusExample("${id}");`, level: parent[0].nodeName === "H4" ? 1 : 0 });
 	});
 
 	ns.build.append(
@@ -5681,6 +6433,12 @@ function showexample(sender, arg) {
 			elems: li,
 		})
 	);
+
+	// //refresh scorllspy
+	// var dataSpyList = [].slice.call(document.querySelectorAll('[data-bs-spy="scroll"]'));
+	// dataSpyList.forEach(function (dataSpyEl) {
+	// 	bootstrap.ScrollSpy.getInstance(dataSpyEl).refresh();
+	// });
 }
 
 function focusExample(id) {
@@ -5699,12 +6457,13 @@ $(document).ready(() => {
 	ns.build.append(
 		navbar,
 		ns.navbar.container({
-			expand: "lg",
+			expand: "md",
 			color: "dark",
 			light: "dark",
-			position: "fixed-top",
-			containerfluid: true,
+			// position: "fixed-top",
+			containerfluid: "lg",
 			elems: [
+				ns.navbar.toggler("sidebar"),
 				ns.navbar.brand({
 					label: "BS5 Js Builder",
 					icon: {
@@ -5744,5 +6503,5 @@ $(document).ready(() => {
 		}),
 	]);
 
-	showexample(null, "e_navbar");
+	showexample(null, "e_toast");
 });
