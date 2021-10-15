@@ -24,7 +24,9 @@ const ex = {};
 
 	var imgurlindex = 0;
 	var imgurl = function (width, height) {
-		return `https://picsum.photos/seed/${++imgurlindex}/${width ? width : 800}/${height ? height : 400}.webp`;
+		return `https://picsum.photos/seed/${++imgurlindex}/${width ? width : 800}/${
+			height ? height : 400
+		}.webp`;
 	};
 
 	ex.sample = {
@@ -32,23 +34,20 @@ const ex = {};
 		imgurl: imgurl,
 
 		offcanvasbody: function () {
-			return {
-				tag: "div",
-				elems: [
-					"Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.",
-					ns.dropdown({
-						label: "Drowdown button",
-						color: "secondary",
-						option: [
-							{ href: "javascript:void(0);", label: "Action" },
-							{ href: "javascript:void(0);", label: "Another action" },
-							{ href: "javascript:void(0);", label: "Something else here" },
-							{ value: "-" },
-							{ href: "javascript:void(0);", label: "Separated link" },
-						],
-					}),
-				],
-			};
+			return ns.div([
+				"Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.",
+				ns.dropdown({
+					label: "Drowdown button",
+					color: "secondary",
+					option: [
+						{ href: "javascript:void(0);", label: "Action" },
+						{ href: "javascript:void(0);", label: "Another action" },
+						{ href: "javascript:void(0);", label: "Something else here" },
+						{ value: "-" },
+						{ href: "javascript:void(0);", label: "Separated link" },
+					],
+				}),
+			]);
 		},
 
 		tab: function () {
@@ -92,8 +91,18 @@ const ex = {};
 				.box({
 					title: "Modal title",
 					elems: ns.cont.singlecolumn([
-						ns.input({ type: "text", name: "recipient", label: "Recipient:", value: recipient }),
-						ns.input({ type: "textarea", name: "message", label: "Message:", value: "" }),
+						ns.input({
+							type: "text",
+							name: "recipient",
+							label: "Recipient:",
+							value: recipient,
+						}),
+						ns.input({
+							type: "textarea",
+							name: "message",
+							label: "Message:",
+							value: "",
+						}),
 					]),
 					button: "sendmessageclose",
 				})
@@ -151,11 +160,7 @@ const ex = {};
 			return {
 				class: "d-flex justify-content-between align-items-start",
 				elems: [
-					{
-						tag: "div",
-						class: "ms-2 me-auto",
-						elems: [{ tag: "div", class: "fw-bold", elems: "Subheading" }, "Cras justo odio"],
-					},
+					ns.div("ms-2 me-auto", [ns.div("fw-bold", "Subheading"), "Cras justo odio"]),
 					ns.badge({
 						pill: true,
 						color: "primary",
@@ -166,7 +171,11 @@ const ex = {};
 		},
 
 		listgroupitem3: function () {
-			return [ns.listgroup.item("An item"), ns.listgroup.item("A second item"), ns.listgroup.item("A third item")];
+			return [
+				ns.listgroup.item("An item"),
+				ns.listgroup.item("A second item"),
+				ns.listgroup.item("A third item"),
+			];
 		},
 
 		fnClick: function (sender) {
@@ -207,7 +216,9 @@ const ex = {};
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
-							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"This card has supporting text below as a natural lead-in to additional content."
+							),
 						]),
 					],
 				}),
@@ -219,7 +230,9 @@ const ex = {};
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
-							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"This card has supporting text below as a natural lead-in to additional content."
+							),
 						]),
 					],
 				}),
@@ -265,7 +278,9 @@ const ex = {};
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
-							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"This card has supporting text below as a natural lead-in to additional content."
+							),
 						]),
 						ns.card.footer("Last updated 3 mins ago"),
 					],
@@ -314,7 +329,9 @@ const ex = {};
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
-							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"This card has supporting text below as a natural lead-in to additional content."
+							),
 						]),
 					],
 				}),
@@ -361,7 +378,9 @@ const ex = {};
 						}),
 						ns.card.body([
 							ns.card.title("Card Title"),
-							ns.card.text("This card has supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"This card has supporting text below as a natural lead-in to additional content."
+							),
 						]),
 						ns.card.footer("Last updated 3 mins ago"),
 					],
@@ -412,7 +431,12 @@ const ex = {};
 							],
 						}),
 						ns.navbar.formcontainer([
-							ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+							ns.input({
+								type: "search",
+								placeholder: "Search",
+								hiddenlabel: "Search",
+								class: "me-2",
+							}),
 							ns.button({ label: "Search", color: "success", outline: true }),
 						]),
 					],
@@ -509,49 +533,6 @@ var e_listctl = [
 	}),
 ];
 
-var e_icon = [
-	//ns.icon
-	ns.example({
-		title: "Example Icon",
-		container: ns.cont.stack,
-		msg: [
-			"This is an example to create {{icon}}. All icon from {{fontawesome}} are supported. The {{ns.icon}} will generate the {{i}} tag",
-			ns.table([
-				["Option", "Type", "Description"],
-				["{{icon}}", "String (Required)", "Code of icon used by {{fontawesome}}"],
-				["{{class}}", "String", "Addtional class you like to add to this icon"],
-				["{{style}}", "fas|fab", "fas|fab"],
-				["{{fixwidth}}", "true|false", "Will add class {{fa-fw}} if value is {{true}}"],
-				["{{size}}", "sm|md|lg", "Will add class {{fa-fw}} if value is {{true}}"],
-				["{{rotate}}", "sm|md|lg", "Will add class {{fa-fw}} if value is {{true}}"],
-				["{{spin}}", "sm|md|lg", "Will add class {{fa-fw}} if value is {{true}}"],
-				["{{color}}", "sm|md|lg", "Will add class {{fa-fw}} if value is {{true}}"],
-				["{{stack}}", "sm|md|lg", "Will add class {{fa-fw}} if value is {{true}}"],
-				["{{elems}}", "sm|md|lg", "Will add class {{fa-fw}} if value is {{true}}"],
-			]),
-		],
-		code: function () {
-			return [
-				ns.icon("favicon"),
-				ns.icon("!!"),
-				ns.icon("!"),
-				ns.icon("/"),
-				ns.icon("i"),
-				ns.icon("home"),
-				ns.icon({ icon: "fire", color: "danger" }),
-				ns.icon({ icon: "dove", color: "info", size: "lg", spin: true }),
-				ns.icon({
-					size: "lg",
-					elems: [
-						{ icon: "circle", color: "danger" },
-						{ icon: "stop", color: "warning" },
-					],
-				}),
-			];
-		},
-	}),
-];
-
 var e_img = [
 	//$.img
 	ns.example({
@@ -587,7 +568,11 @@ var e_link = [
 				ns.a({ color: "primary", label: "Primary" }),
 				ns.a({ color: "secondary", label: "Secondary" }),
 				ns.a({ color: "success", label: "Success", icon: "/" }),
-				ns.a({ color: "danger", label: "Danger", icon: { icon: "fire", spin: true, color: "warning" } }),
+				ns.a({
+					color: "danger",
+					label: "Danger",
+					icon: { icon: "fire", spin: true, color: "warning" },
+				}),
 				ns.a({ color: "warning", label: "Warning" }),
 				ns.a({ color: "info", label: "Info" }),
 				ns.a({ color: "light", label: "Light" }),
@@ -610,10 +595,27 @@ var e_menu = [
 						title: "Category 1",
 						active: true,
 						item: ns.menu.item([
-							{ label: "Test", icon: "address-book", onclick: "window.location='ctl_test.html'" },
-							{ label: "Home", icon: "award", onclick: "window.location='index.html'" },
-							{ label: "Example", icon: "baby", onclick: "window.location='example.html'", active: true },
-							{ label: "Change Theme", icon: "swatchbook", onclick: "ns.core.themeEditor()" },
+							{
+								label: "Test",
+								icon: "address-book",
+								onclick: "window.location='ctl_test.html'",
+							},
+							{
+								label: "Home",
+								icon: "award",
+								onclick: "window.location='index.html'",
+							},
+							{
+								label: "Example",
+								icon: "baby",
+								onclick: "window.location='example.html'",
+								active: true,
+							},
+							{
+								label: "Change Theme",
+								icon: "swatchbook",
+								onclick: "ns.core.themeEditor()",
+							},
 						]),
 					}),
 					ns.menu.container({
@@ -668,10 +670,27 @@ var e_menu = [
 						title: "Category 1",
 						active: true,
 						item: ns.menu.item([
-							{ label: "Test", icon: "address-book", onclick: "window.location='ctl_test.html'" },
-							{ label: "Home", icon: "award", onclick: "window.location='index.html'" },
-							{ label: "Example", icon: "baby", onclick: "window.location='example.html'", active: true },
-							{ label: "Change Theme", icon: "swatchbook", onclick: "ns.core.themeEditor()" },
+							{
+								label: "Test",
+								icon: "address-book",
+								onclick: "window.location='ctl_test.html'",
+							},
+							{
+								label: "Home",
+								icon: "award",
+								onclick: "window.location='index.html'",
+							},
+							{
+								label: "Example",
+								icon: "baby",
+								onclick: "window.location='example.html'",
+								active: true,
+							},
+							{
+								label: "Change Theme",
+								icon: "swatchbook",
+								onclick: "ns.core.themeEditor()",
+							},
 						]),
 					}),
 					ns.menu.container({
@@ -715,6 +734,636 @@ var e_menu = [
 	}),
 ];
 
+var e_introduction = [
+	ns.div("text-center display-1", "Hello World"),
+	ns.div("text-center display-5", [
+		"{",
+		ns.icon({ style: "fab", icon: "bootstrap" }),
+		" + ",
+		ns.icon({ style: "fab", icon: "font-awesome-flag" }),
+		" + ",
+		ns.icon({ style: "fab", icon: "node-js" }),
+		" + ",
+		ns.icon("leaf"),
+
+		"}",
+	]),
+	ns.div("text-center", ns.a("Github", "https://github.com/printf83/ns-p")),
+];
+
+var e_grid = [
+	ns.example({
+		title: "Example",
+		msg: [
+			"Bootstrap’s grid system uses a series of containers, rows, and columns to layout and align content. It’s built with flexbox and is fully responsive. Below is an example and an in-depth explanation for how the grid system comes together.",
+			ns.alert.container(
+				"primary",
+				"New to or unfamiliar with flexbox? Read this CSS Tricks flexbox guide for background, terminology, guidelines, and code snippets."
+			),
+		],
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div(
+				"container",
+				ns.div("row", [
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+				])
+			);
+		},
+	}),
+
+	ns.example({
+		title: "Equal-width",
+		msg: "For example, here are two grid layouts that apply to every device and viewport, from xs to xxl. Add any number of unit-less classes for each breakpoint you need and every column will be the same width.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [ns.div("col", "1 of 2"), ns.div("col", "2 of 2")]),
+				ns.div("row", [
+					ns.div("col", "1 of 3"),
+					ns.div("col", "2 of 3"),
+					ns.div("col", "3 of 3"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Setting one column width",
+		msg: "Auto-layout for flexbox grid columns also means you can set the width of one column and have the sibling columns automatically resize around it. You may use predefined grid classes (as shown below), grid mixins, or inline widths. Note that the other columns will resize no matter the width of the center column.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col", "1 of 3"),
+					ns.div("col-6", "2 of 3 (wider)"),
+					ns.div("col", "3 of 3"),
+				]),
+				ns.div("row", [
+					ns.div("col", "1 of 3"),
+					ns.div("col-5", "2 of 3 (wider)"),
+					ns.div("col", "3 of 3"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Variable width content",
+		msg: "Use col-{breakpoint}-auto classes to size columns based on the natural width of their content.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row justify-content-md-center", [
+					ns.div("col col-lg-2", "1 of 3"),
+					ns.div("col-md-auto", "Variable width content"),
+					ns.div("col col-lg-2", "3 of 3"),
+				]),
+				ns.div("row", [
+					ns.div("col", "1 of 3"),
+					ns.div("col-md-auto", "Variable width content"),
+					ns.div("col col-lg-2", "3 of 3"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "All breakpoints",
+		msg: "For grids that are the same from the smallest of devices to the largest, use the .col and .col-* classes. Specify a numbered class when you need a particularly sized column; otherwise, feel free to stick to .col.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col", "col"),
+					ns.div("col", "col"),
+					ns.div("col", "col"),
+					ns.div("col", "col"),
+				]),
+				ns.div("row", [ns.div("col-8", "col-8"), ns.div("col-4", "col-4")]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Stacked to horizontal",
+		msg: "Using a single set of .col-sm-* classes, you can create a basic grid system that starts out stacked and becomes horizontal at the small breakpoint (sm).",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [ns.div("col-sm-8", "col-sm-8"), ns.div("col-sm-4", "col-sm-4")]),
+				ns.div("row", [
+					ns.div("col-sm", "col-sm"),
+					ns.div("col-sm", "col-sm"),
+					ns.div("col-sm", "col-sm"),
+					ns.div("col-sm", "col-sm"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Mix and match",
+		msg: "Don’t want your columns to simply stack in some grid tiers? Use a combination of different classes for each tier as needed. See the example below for a better idea of how it all works.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				//Stack the columns on mobile by making one full-width and the other half-width
+				ns.div("row", [
+					ns.div("col-md-8", "col-md-8"),
+					ns.div("col-6 col-md-4", "col-6 col-md-4"),
+				]),
+				//Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop
+				ns.div("row", [
+					ns.div("col-6 col-md-4", "col-6 col-md-4"),
+					ns.div("col-6 col-md-4", "col-6 col-md-4"),
+					ns.div("col-6 col-md-4", "col-6 col-md-4"),
+				]),
+				//Columns are always 50% wide, on mobile and desktop
+				ns.div("row", [ns.div("col-6", "col-6"), ns.div("col-6", "col-6")]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Row columns",
+		msg: [
+			"Use the responsive .row-cols-* classes to quickly set the number of columns that best render your content and layout. Whereas normal .col-* classes apply to the individual columns (e.g., .col-md-4), the row columns classes are set on the parent .row as a shortcut. With .row-cols-auto you can give the columns their natural width.",
+			"Use these row columns classes to quickly create basic grid layouts or to control your card layouts.",
+		],
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row row-cols-2", [
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row row-cols-3", [
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row row-cols-auto", [
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row row-cols-4", [
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row row-cols-4", [
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col-6", "Column"),
+					ns.div("col", "Column"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row row-cols-1 row-cols-sm-2 row-cols-md-4", [
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+					ns.div("col", "Column"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Nesting",
+		msg: "To nest your content with the default grid, add a new .row and set of .col-sm-* columns within an existing .col-sm-* column. Nested rows should include a set of columns that add up to 12 or fewer (it is not required that you use all 12 available columns).",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col-sm-3", "Level 1: col-sm-3"),
+					ns.div(
+						"col-sm-9",
+						ns.div("row", [
+							ns.div("col-8 col-sm-6", "Level 2: col-8 col-sm-6"),
+							ns.div("col-4 col-sm-6", "Level 2: col-4 col-sm-6"),
+						])
+					),
+				]),
+			]);
+		},
+	}),
+];
+
+var e_container = [
+	ns.example({
+		title: "How they work",
+		msg: [
+			"Containers are the most basic layout element in Bootstrap and are required when using Bootstrap default grid system. Containers are used to contain, pad, and (sometimes) center the content within them. While containers can be nested, most layouts do not require a nested container.",
+			"Bootstrap comes with three different containers:",
+		],
+	}),
+
+	ns.example({
+		title: "Default container",
+		msg: "Bootstrap default .container class is a responsive, fixed-width container, meaning its max-width changes at each breakpoint.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-container",
+		code: function () {
+			return ns.div("container", "Content here");
+		},
+	}),
+
+	ns.example({
+		title: "Responsive containers",
+		msg: "Responsive containers allow you to specify a class that is 100% wide until the specified breakpoint is reached, after which we apply max-widths for each of the higher breakpoints. For example, .container-sm is 100% wide to start until the sm breakpoint is reached, where it will scale up with md, lg, xl, and xxl.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-container",
+		code: function () {
+			return [
+				ns.div("container-sm", "100% wide until small breakpoint"),
+				ns.div("container-md", "100% wide until medium breakpoint"),
+				ns.div("container-lg", "100% wide until large breakpoint"),
+				ns.div("container-xl", "100% wide until extra large breakpoint"),
+				ns.div("container-xxl", "100% wide until extra extra large breakpoint"),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Fluid containers",
+		msg: "Use .container-fluid for a full width container, spanning the entire width of the viewport.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-container",
+		code: function () {
+			return ns.div("container-fluid", "Content here");
+		},
+	}),
+];
+
+var e_icon = [
+	ns.example({
+		title: "Favicon",
+		container: ns.cont.stack,
+		code: function () {
+			return ns.icon("favicon");
+		},
+	}),
+
+	ns.example({
+		title: "Base icon",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				"i",
+				"!-danger",
+				"!!",
+				"!",
+				"?",
+				"-",
+				"x",
+				"/",
+				"save",
+				"delete",
+				"lock",
+				"shield",
+				"logout",
+			].map(function (i) {
+				return ns.icon(i);
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Fontawesome icon",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				"address-book",
+				"arrow-alt-circle-down",
+				"bell",
+				"calendar-alt",
+				"chart-bar",
+				"check-circle",
+				"clipboard",
+				"clock",
+				"credit-card",
+				"file-image",
+				"hand-peace",
+				"kiss-wink-heart",
+				"star",
+			].map(function (i) {
+				return ns.icon(i);
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Fontawesome brand icon",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				"github",
+				"css3",
+				"html5",
+				"js-square",
+				"node-js",
+				"font-awesome",
+				"bootstrap",
+				"edge",
+				"firefox",
+				"chrome",
+			].map(function (i) {
+				return ns.icon({ style: "fab", icon: i });
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Color",
+		code: function () {
+			return ns.icon({ style: "fab", icon: "node-js", color: "success" });
+		},
+	}),
+
+	ns.example({
+		title: "Fixwidth",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.icon({
+					style: "fab",
+					icon: "node-js",
+					fixwidth: true,
+					class: "border p-3",
+					size: "lg",
+				}),
+				ns.icon({
+					style: "fab",
+					icon: "node-js",
+					fixwidth: false,
+					class: "border p-3",
+					size: "lg",
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Size",
+		container: ns.cont.stack,
+		code: function () {
+			return ["xs", "sm", null, "lg", "2x", "3x", "4x"].map(function (i) {
+				return ns.icon({ style: "fab", icon: "node-js", size: i });
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Rotate",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.icon({ style: "fab", icon: "node-js", rotate: 90 }),
+				ns.icon({ style: "fab", icon: "node-js", rotate: 180 }),
+				ns.icon({ style: "fab", icon: "node-js", rotate: 270 }),
+				ns.icon({ style: "fab", icon: "node-js", rotate: "horizontal" }),
+				ns.icon({ style: "fab", icon: "node-js", rotate: "vertical" }),
+				ns.icon({ style: "fab", icon: "node-js", rotate: "both" }),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Spin",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.icon({ style: "fab", icon: "node-js", spin: true }),
+				ns.icon({ icon: "spinner", spin: true }),
+				ns.icon({ icon: "circle-notch", spin: true }),
+				ns.icon({ icon: "slash", spin: true }),
+				ns.icon({ icon: "fan", spin: true }),
+				ns.icon({ icon: "crosshairs", spin: true }),
+				ns.icon({ icon: "sync", spin: true }),
+				ns.icon({ icon: "cog", spin: true }),
+				ns.icon({ icon: "compact-disc", spin: true }),
+				ns.icon({ icon: "compass", spin: true }),
+				ns.icon({ icon: "wrench", spin: true }),
+				ns.icon({ icon: "snowflake", spin: true }),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Using with another object",
+	}),
+
+	ns.example({
+		title: "Button",
+		code: function () {
+			return ns.button({ label: "Button", color: "primary", icon: ns.icon("fire") });
+		},
+	}),
+
+	ns.example({
+		title: "Textbox",
+		container: ns.cont.stack,
+		code: function () {
+			return ns.input({ type: "text", before: ns.icon("fire") });
+		},
+	}),
+
+	ns.example({
+		title: "Dropdown",
+		container: ns.cont.stack,
+		code: function () {
+			return ns.dropdown({
+				label: "Dropdown",
+				color: "primary",
+				icon: ns.icon("fire"),
+				option: ex.sample.dropdownitem(),
+			});
+		},
+	}),
+];
+
+var e_tooltip = [
+	ns.example({
+		title: "Four direction",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.button({
+					label: "Tooltip on top",
+					color: "secondary",
+					tooltip: {
+						type: "tooltip",
+						msg: "Top tooltip",
+						placement: "top",
+					},
+				}),
+
+				ns.button({
+					label: "Tooltip on left",
+					color: "secondary",
+					tooltip: {
+						type: "tooltip",
+						msg: "Left tooltip",
+						placement: "left",
+					},
+				}),
+
+				ns.button({
+					label: "Tooltip on right",
+					color: "secondary",
+					tooltip: {
+						type: "tooltip",
+						msg: "Right tooltip",
+						placement: "right",
+					},
+				}),
+
+				ns.button({
+					label: "Tooltip on bottom",
+					color: "secondary",
+					tooltip: {
+						type: "tooltip",
+						msg: "Bottom tooltip",
+						placement: "bottom",
+					},
+				}),
+
+				ns.button({
+					label: "Tooltip with HTML",
+					color: "secondary",
+					tooltip: {
+						type: "tooltip",
+						msg: "<em>Tooltip</em> <u>with</u> <b>HTML</b>",
+						placement: "right",
+					},
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Disabled elements",
+		msg: [
+			"Elements with the disabled attribute aren’t interactive, meaning users cannot hover or click them to trigger a tooltip (or popover). As a workaround, you’ll want to trigger the popover from a wrapper {{div}} or {{span}}, ideally made keyboard-focusable using {{tabindex='0'}}.",
+		],
+		code: function () {
+			return ns.tooltip(
+				{
+					type: "tooltip",
+					msg: "And here's some amazing content. It's very engaging. Right?",
+					placement: "right",
+				},
+				{
+					tag: "span",
+					class: "d-inline-block",
+					attr: { tabindex: "0" },
+					elems: ns.button({
+						label: "Dismissible tooltip",
+						color: "primary",
+						disabled: true,
+					}),
+				}
+			);
+		},
+	}),
+];
+
 var e_toast = [
 	ns.example({
 		title: "Basic",
@@ -729,7 +1378,7 @@ var e_toast = [
 	}),
 
 	ns.example({
-		title: "Basic",
+		title: "Base icon",
 		container: ns.cont.stack,
 		code: function () {
 			return [
@@ -768,15 +1417,113 @@ var e_toast = [
 	}),
 
 	ns.example({
+		title: "Color",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				ns.button({
+					color: "primary",
+					label: "primary",
+					onclick: function () {
+						ns.toast({
+							color: "primary",
+							textcolor: "light",
+							msg: "Example primary toast",
+						});
+					},
+				}),
+				ns.button({
+					color: "warning",
+					label: "Warning",
+					onclick: function () {
+						ns.toast({
+							color: "warning",
+							textcolor: "dark",
+							msg: "Example warning toast",
+						});
+					},
+				}),
+
+				ns.button({
+					color: "success",
+					label: "Success",
+					onclick: function () {
+						ns.toast({
+							color: "success",
+							textcolor: "light",
+							msg: "Example success toast",
+						});
+					},
+				}),
+
+				ns.button({
+					color: "danger",
+					label: "Danger",
+					onclick: function () {
+						ns.toast({
+							color: "danger",
+							textcolor: "light",
+							msg: "Example danger toast",
+						});
+					},
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Position",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				{ label: "Top left", position: "top-0 start-0" },
+				{ label: "Top center", position: "top-0 start-50 translate-middle-x" },
+				{ label: "Top right", position: "top-0 end-0" },
+
+				{ label: "Middle left", position: "top-50 start-0 translate-middle-y" },
+				{ label: "Middle center", position: "top-50 start-50 translate-middle" },
+				{ label: "Middle right", position: "top-50 end-0 translate-middle-y" },
+
+				{ label: "Bottom left", position: "bottom-0 start-0" },
+				{ label: "Bottom center", position: "bottom-0 start-50 translate-middle-x" },
+				{ label: "Bottom right", position: "bottom-0 end-0" },
+			].map(function (i) {
+				return ns.button({
+					color: "primary",
+					label: i.label,
+					onclick: function () {
+						ns.toast({ position: i.position, icon: "i", msg: `${i.label} toast.` });
+					},
+				});
+			});
+		},
+	}),
+
+	ns.example({
 		title: "Disable autoclose",
 		label: "Show toast",
 		code: function () {
 			ns.toast({
 				autohide: false,
-				bgcolor: "warning",
-				icon: { icon: "fire", color: "primary" },
+				color: "warning",
+				icon: { icon: "fire", color: "danger" },
 				title: "Toast header",
 				msg: "Hello, world! This is a toast message.",
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Delay autoclose",
+		label: "Show toast",
+		code: function () {
+			ns.toast({
+				delay: 10000,
+				color: "primary",
+				textcolor: "light",
+				icon: { icon: "fire", color: "info" },
+				title: "Toast header",
+				msg: "This toast will close in 10 seconds.",
 			});
 		},
 	}),
@@ -794,7 +1541,16 @@ var e_spinner = [
 		title: "Colors",
 		container: ns.cont.stack,
 		code: function () {
-			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+			return [
+				"primary",
+				"secondary",
+				"success",
+				"danger",
+				"warning",
+				"info",
+				"light",
+				"dark",
+			].map(function (i) {
 				return ns.spinner({ color: i });
 			});
 		},
@@ -811,7 +1567,16 @@ var e_spinner = [
 		title: "Colors",
 		container: ns.cont.stack,
 		code: function () {
-			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+			return [
+				"primary",
+				"secondary",
+				"success",
+				"danger",
+				"warning",
+				"info",
+				"light",
+				"dark",
+			].map(function (i) {
 				return ns.spinner({ grow: true, color: i });
 			});
 		},
@@ -835,43 +1600,30 @@ var e_spinner = [
 	ns.example({
 		title: "Flex",
 		code: function () {
-			return {
-				tag: "div",
-				class: "d-flex justify-content-between",
-				elems: ns.spinner(),
-			};
+			return ns.div("d-flex justify-content-between", ns.spinner());
 		},
 	}),
 
 	ns.example({
 		code: function () {
-			return {
-				tag: "div",
-				class: "d-flex justify-content-between",
-				elems: [{ tag: "strong", elems: "Loading..." }, ns.spinner({ label: "" })],
-			};
+			return ns.div("d-flex justify-content-between", [
+				{ tag: "strong", elems: "Loading..." },
+				ns.spinner({ label: "" }),
+			]);
 		},
 	}),
 
 	ns.example({
 		title: "Floats",
 		code: function () {
-			return {
-				tag: "div",
-				class: "clearfix",
-				elems: ns.spinner(),
-			};
+			return ns.div("clearfix", ns.spinner());
 		},
 	}),
 
 	ns.example({
 		title: "Text align",
 		code: function () {
-			return {
-				tag: "div",
-				class: "text-center",
-				elems: ns.spinner(),
-			};
+			return ns.div("text-center", ns.spinner());
 		},
 	}),
 
@@ -886,7 +1638,10 @@ var e_spinner = [
 	ns.example({
 		container: ns.cont.stack,
 		code: function () {
-			return [ns.spinner({ style: { width: "3rem", height: "3rem" } }), ns.spinner({ grow: true, style: { width: "3rem", height: "3rem" } })];
+			return [
+				ns.spinner({ style: { width: "3rem", height: "3rem" } }),
+				ns.spinner({ grow: true, style: { width: "3rem", height: "3rem" } }),
+			];
 		},
 	}),
 
@@ -957,7 +1712,13 @@ var e_progress = [
 	ns.example({
 		title: "Example",
 		code: function () {
-			return [ns.progress(0), ns.progress(25), ns.progress(50), ns.progress(75), ns.progress(100)];
+			return [
+				ns.progress(0),
+				ns.progress(25),
+				ns.progress(50),
+				ns.progress(75),
+				ns.progress(100),
+			];
 		},
 	}),
 
@@ -1551,10 +2312,24 @@ var e_navbar = [
 							ns.navbar.itemcontainer({
 								parenttype: "collapse",
 								elems: [
-									ns.navbar.item({ label: "Home", href: "javascript:void(0);", active: true }),
-									ns.navbar.item({ label: "Features", href: "javascript:void(0);" }),
-									ns.navbar.item({ label: "Pricing", href: "javascript:void(0);" }),
-									ns.navbar.item({ label: "Disabled", href: "javascript:void(0);", disabled: true }),
+									ns.navbar.item({
+										label: "Home",
+										href: "javascript:void(0);",
+										active: true,
+									}),
+									ns.navbar.item({
+										label: "Features",
+										href: "javascript:void(0);",
+									}),
+									ns.navbar.item({
+										label: "Pricing",
+										href: "javascript:void(0);",
+									}),
+									ns.navbar.item({
+										label: "Disabled",
+										href: "javascript:void(0);",
+										disabled: true,
+									}),
 								],
 							}),
 						],
@@ -1588,13 +2363,24 @@ var e_navbar = [
 							ns.navbar.itemcontainer({
 								parenttype: "collapse",
 								elems: [
-									ns.navbar.item({ label: "Home", href: "javascript:void(0);", active: true }),
-									ns.navbar.item({ label: "Features", href: "javascript:void(0);" }),
+									ns.navbar.item({
+										label: "Home",
+										href: "javascript:void(0);",
+										active: true,
+									}),
+									ns.navbar.item({
+										label: "Features",
+										href: "javascript:void(0);",
+									}),
 									ns.navbar.item({
 										label: "Pricing",
 										option: ex.sample.dropdownitem(),
 									}),
-									ns.navbar.item({ label: "Disabled", href: "javascript:void(0);", disabled: true }),
+									ns.navbar.item({
+										label: "Disabled",
+										href: "javascript:void(0);",
+										disabled: true,
+									}),
 								],
 							}),
 						],
@@ -1612,7 +2398,12 @@ var e_navbar = [
 				color: "light",
 				elems: [
 					ns.navbar.formcontainer([
-						ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+						ns.input({
+							type: "search",
+							placeholder: "Search",
+							hiddenlabel: "Search",
+							class: "me-2",
+						}),
 						ns.button({ label: "Search", color: "success", outline: true }),
 					]),
 				],
@@ -1632,7 +2423,12 @@ var e_navbar = [
 					}),
 
 					ns.navbar.formcontainer([
-						ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+						ns.input({
+							type: "search",
+							placeholder: "Search",
+							hiddenlabel: "Search",
+							class: "me-2",
+						}),
 						ns.button({ label: "Search", color: "success", outline: true }),
 					]),
 				],
@@ -1716,9 +2512,19 @@ var e_navbar = [
 							ns.navbar.itemcontainer({
 								parenttype: "collapse",
 								elems: [
-									ns.navbar.item({ label: "Home", href: "javascript:void(0);", active: true }),
-									ns.navbar.item({ label: "Features", href: "javascript:void(0);" }),
-									ns.navbar.item({ label: "Pricing", href: "javascript:void(0);" }),
+									ns.navbar.item({
+										label: "Home",
+										href: "javascript:void(0);",
+										active: true,
+									}),
+									ns.navbar.item({
+										label: "Features",
+										href: "javascript:void(0);",
+									}),
+									ns.navbar.item({
+										label: "Pricing",
+										href: "javascript:void(0);",
+									}),
 								],
 							}),
 							ns.navbar.text("Navbar text with an inline element"),
@@ -1766,10 +2572,9 @@ var e_navbar = [
 	ns.example({
 		title: "Inside container",
 		code: function () {
-			return {
-				tag: "div",
-				class: "container",
-				elems: ns.navbar.container({
+			return ns.div(
+				"container",
+				ns.navbar.container({
 					expand: "lg",
 					color: "light",
 					elems: [
@@ -1778,8 +2583,8 @@ var e_navbar = [
 							href: "javascript:void(0);",
 						}),
 					],
-				}),
-			};
+				})
+			);
 		},
 	}),
 
@@ -1857,7 +2662,12 @@ var e_navbar = [
 								],
 							}),
 							ns.navbar.formcontainer([
-								ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+								ns.input({
+									type: "search",
+									placeholder: "Search",
+									hiddenlabel: "Search",
+									class: "me-2",
+								}),
 								ns.button({ label: "Search", color: "success", outline: true }),
 							]),
 						],
@@ -1934,7 +2744,12 @@ var e_navbar = [
 									],
 								}),
 								ns.navbar.formcontainer([
-									ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+									ns.input({
+										type: "search",
+										placeholder: "Search",
+										hiddenlabel: "Search",
+										class: "me-2",
+									}),
 									ns.button({ label: "Search", color: "success", outline: true }),
 								]),
 							],
@@ -1967,7 +2782,12 @@ var e_navbar = [
 									],
 								}),
 								ns.navbar.formcontainer([
-									ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+									ns.input({
+										type: "search",
+										placeholder: "Search",
+										hiddenlabel: "Search",
+										class: "me-2",
+									}),
 									ns.button({ label: "Search", color: "success", outline: true }),
 								]),
 							],
@@ -2000,7 +2820,12 @@ var e_navbar = [
 									],
 								}),
 								ns.navbar.formcontainer([
-									ns.input({ type: "search", placeholder: "Search", hiddenlabel: "Search", class: "me-2" }),
+									ns.input({
+										type: "search",
+										placeholder: "Search",
+										hiddenlabel: "Search",
+										class: "me-2",
+									}),
 									ns.button({ label: "Search", color: "success", outline: true }),
 								]),
 							],
@@ -2019,14 +2844,14 @@ var e_navbar = [
 				//collapsecontainer outside container
 				ns.navbar.collapsecontainer({
 					id: id,
-					elems: {
-						tag: "div",
-						class: "p-2",
-						elems: [
-							{ tag: "h5", elems: "Collapsed content" },
-							{ tag: "span", class: "text-muted", elems: "Toggleable via the navbar brand." },
-						],
-					},
+					elems: ns.div("p-2", [
+						{ tag: "h5", elems: "Collapsed content" },
+						{
+							tag: "span",
+							class: "text-muted",
+							elems: "Toggleable via the navbar brand.",
+						},
+					]),
 				}),
 
 				ns.navbar.container({
@@ -2059,7 +2884,11 @@ var e_tab = [
 					{ label: "First", elems: "This is first tab. " + ex.sample.text() },
 					{ label: "Second", elems: "This is second tab. " + ex.sample.text() },
 					{ label: "Third", elems: "This is third tab. " + ex.sample.text() },
-					{ label: "Disabled", disabled: true, elems: "This is last tab. " + ex.sample.text() },
+					{
+						label: "Disabled",
+						disabled: true,
+						elems: "This is last tab. " + ex.sample.text(),
+					},
 				],
 			});
 		},
@@ -2212,12 +3041,47 @@ var e_tab = [
 
 var e_dlg = [
 	ns.example({
-		title: "Message box",
-		label: "Show simple msgbox",
+		title: "Simple dialog box",
+		container: ns.cont.stack,
 		code: function () {
-			ns.dlg.msgbox("i", "This is example msgbox").then(() => {
-				ns.toast("i", "After user click <b>Okay</b> button");
-			});
+			return [
+				ns.button({
+					label: "Info",
+					color: "primary",
+					onclick: function () {
+						ns.dlg.msgbox("i", "This is example msgbox").then(() => {
+							ns.toast("i", "After user click <b>Okay</b> button");
+						});
+					},
+				}),
+				ns.button({
+					label: "Question",
+					color: "success",
+					onclick: function () {
+						ns.dlg.msgbox("?", "This is example msgbox").then(() => {
+							ns.toast("?", "After user click <b>Okay</b> button");
+						});
+					},
+				}),
+				ns.button({
+					label: "Warning",
+					color: "warning",
+					onclick: function () {
+						ns.dlg.msgbox("!", "This is example msgbox").then(() => {
+							ns.toast("!", "After user click <b>Okay</b> button");
+						});
+					},
+				}),
+				ns.button({
+					label: "Error",
+					color: "danger",
+					onclick: function () {
+						ns.dlg.msgbox("x", "This is example msgbox").then(() => {
+							ns.toast("x", "After user click <b>Okay</b> button");
+						});
+					},
+				}),
+			];
 		},
 	}),
 
@@ -2265,19 +3129,55 @@ var e_dlg = [
 							label: "Sex",
 							type: "div",
 							elems: [
-								ns.listgroup.item({ check: "radio", name: "sex", value: "s", elems: "Secret", active: true }),
-								ns.listgroup.item({ check: "radio", name: "sex", value: "m", elems: "Male" }),
-								ns.listgroup.item({ check: "radio", name: "sex", value: "f", elems: "Female" }),
+								ns.listgroup.item({
+									check: "radio",
+									name: "sex",
+									value: "s",
+									elems: "Secret",
+									active: true,
+								}),
+								ns.listgroup.item({
+									check: "radio",
+									name: "sex",
+									value: "m",
+									elems: "Male",
+								}),
+								ns.listgroup.item({
+									check: "radio",
+									name: "sex",
+									value: "f",
+									elems: "Female",
+								}),
 							],
 						}),
 						ns.listgroup.container({
 							label: "Interest",
 							type: "div",
 							elems: [
-								ns.listgroup.item({ check: "checkbox", name: "interest", value: "sports", elems: "Sports" }),
-								ns.listgroup.item({ check: "checkbox", name: "interest", value: "business", elems: "Business" }),
-								ns.listgroup.item({ check: "checkbox", name: "interest", value: "social", elems: "Social" }),
-								ns.listgroup.item({ check: "checkbox", name: "interest", value: "internet", elems: "Internet" }),
+								ns.listgroup.item({
+									check: "checkbox",
+									name: "interest",
+									value: "sports",
+									elems: "Sports",
+								}),
+								ns.listgroup.item({
+									check: "checkbox",
+									name: "interest",
+									value: "business",
+									elems: "Business",
+								}),
+								ns.listgroup.item({
+									check: "checkbox",
+									name: "interest",
+									value: "social",
+									elems: "Social",
+								}),
+								ns.listgroup.item({
+									check: "checkbox",
+									name: "interest",
+									value: "internet",
+									elems: "Internet",
+								}),
 							],
 						}),
 						ns.input({
@@ -2366,7 +3266,13 @@ var e_dlg = [
 			ns.dlg
 				.box({
 					title: "Modal title",
-					elems: [ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p")],
+					elems: [
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+					],
 					button: "understandclose",
 					center: false,
 					scrollable: true,
@@ -2403,7 +3309,13 @@ var e_dlg = [
 			ns.dlg
 				.box({
 					title: "Modal title",
-					elems: [ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p"), ex.sample.text("p")],
+					elems: [
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+						ex.sample.text("p"),
+					],
 					button: "savechangesclose",
 					center: true,
 					scrollable: true,
@@ -2452,9 +3364,17 @@ var e_dlg = [
 						{
 							tag: "p",
 							elems: [
-								ns.a({ href: "javascript:void(0);", label: "This link", tooltip: { type: "tooltip", msg: "Tooltip" } }),
+								ns.a({
+									href: "javascript:void(0);",
+									label: "This link",
+									tooltip: { type: "tooltip", msg: "Tooltip" },
+								}),
 								" and ",
-								ns.a({ href: "javascript:void(0);", label: "that link", tooltip: { type: "tooltip", msg: "Tooltip" } }),
+								ns.a({
+									href: "javascript:void(0);",
+									label: "that link",
+									tooltip: { type: "tooltip", msg: "Tooltip" },
+								}),
 								" have tooltips on hover.",
 							],
 						},
@@ -2475,7 +3395,7 @@ var e_dlg = [
 			ns.dlg
 				.box({
 					title: "Modal title",
-					elems: `todo : ns.cont.grid`,
+					elems: `todo : ns.grid`,
 					button: "savechangesclose",
 				})
 				.then((data) => {
@@ -2494,8 +3414,18 @@ var e_dlg = [
 					.box({
 						title: "Modal title",
 						elems: ns.cont.singlecolumn([
-							ns.input({ type: "text", name: "reipient", label: "Recipient:", value: reipient }),
-							ns.input({ type: "textarea", name: "message", label: "Message:", value: "" }),
+							ns.input({
+								type: "text",
+								name: "reipient",
+								label: "Recipient:",
+								value: reipient,
+							}),
+							ns.input({
+								type: "textarea",
+								name: "message",
+								label: "Message:",
+								value: "",
+							}),
 						]),
 						button: "sendmessageclose",
 					})
@@ -2506,9 +3436,21 @@ var e_dlg = [
 			};
 
 			return [
-				ns.button({ label: "Message for @mdo", color: "primary", onclick: "ex.sample.dlgFn('@mdo');" }),
-				ns.button({ label: "Message for @fat", color: "primary", onclick: "ex.sample.dlgFn('@fat');" }),
-				ns.button({ label: "Message for @getbootstrap", color: "primary", onclick: "ex.sample.dlgFn('@getbootstrap');" }),
+				ns.button({
+					label: "Message for @mdo",
+					color: "primary",
+					onclick: "ex.sample.dlgFn('@mdo');",
+				}),
+				ns.button({
+					label: "Message for @fat",
+					color: "primary",
+					onclick: "ex.sample.dlgFn('@fat');",
+				}),
+				ns.button({
+					label: "Message for @getbootstrap",
+					color: "primary",
+					onclick: "ex.sample.dlgFn('@getbootstrap');",
+				}),
 			];
 		},
 	}),
@@ -2553,20 +3495,24 @@ var e_dlg = [
 	ns.example({
 		title: "Optional sizes",
 		container: ns.cont.stack,
+		sample: { "ex.sample.dlgSizeFn": ex.sample.dlgSizeFn },
 		code: function () {
-			var dlgSizeFn = function (size) {
-				ns.dlg.box({
-					size: size,
-					title: "Modal title",
-					elems: `Dialog with {{size : <b>${size}</b>}} option`,
-					button: "okayonly",
-				});
-			};
-
 			return [
-				ns.button({ label: "Extra large modal", color: "primary", onclick: "ex.sample.dlgSizeFn('xl')" }),
-				ns.button({ label: "Large modal", color: "primary", onclick: "ex.sample.dlgSizeFn('lg')" }),
-				ns.button({ label: "Small modal", color: "primary", onclick: "ex.sample.dlgSizeFn('sm')" }),
+				ns.button({
+					label: "Extra large modal",
+					color: "primary",
+					onclick: "ex.sample.dlgSizeFn('xl')",
+				}),
+				ns.button({
+					label: "Large modal",
+					color: "primary",
+					onclick: "ex.sample.dlgSizeFn('lg')",
+				}),
+				ns.button({
+					label: "Small modal",
+					color: "primary",
+					onclick: "ex.sample.dlgSizeFn('sm')",
+				}),
 			];
 		},
 	}),
@@ -2574,23 +3520,39 @@ var e_dlg = [
 	ns.example({
 		title: "Fullscreen Modal",
 		container: ns.cont.stack,
+		sample: { "ex.sample.dlgFullscreenFn": ex.sample.dlgFullscreenFn },
 		code: function () {
-			var dlgFullscreenFn = function (fullscreen) {
-				ns.dlg.box({
-					fullscreen: fullscreen,
-					title: "Modal title",
-					elems: `Dialog with {{fullscreen : <b>${fullscreen}</b>}} option`,
-					button: "okayonly",
-				});
-			};
-
 			return [
-				ns.button({ label: "Full screen", color: "primary", onclick: "ex.sample.dlgFullscreenFn(true)" }),
-				ns.button({ label: "Full screen below sm", color: "primary", onclick: "ex.sample.dlgFullscreenFn('sm-down')" }),
-				ns.button({ label: "Full screen below md", color: "primary", onclick: "ex.sample.dlgFullscreenFn('md-down')" }),
-				ns.button({ label: "Full screen below lg", color: "primary", onclick: "ex.sample.dlgFullscreenFn('lg-down')" }),
-				ns.button({ label: "Full screen below xl", color: "primary", onclick: "ex.sample.dlgFullscreenFn('xl-down')" }),
-				ns.button({ label: "Full screen below xxl", color: "primary", onclick: "ex.sample.dlgFullscreenFn('xxl-down')" }),
+				ns.button({
+					label: "Full screen",
+					color: "primary",
+					onclick: "ex.sample.dlgFullscreenFn(true)",
+				}),
+				ns.button({
+					label: "Full screen below sm",
+					color: "primary",
+					onclick: "ex.sample.dlgFullscreenFn('sm-down')",
+				}),
+				ns.button({
+					label: "Full screen below md",
+					color: "primary",
+					onclick: "ex.sample.dlgFullscreenFn('md-down')",
+				}),
+				ns.button({
+					label: "Full screen below lg",
+					color: "primary",
+					onclick: "ex.sample.dlgFullscreenFn('lg-down')",
+				}),
+				ns.button({
+					label: "Full screen below xl",
+					color: "primary",
+					onclick: "ex.sample.dlgFullscreenFn('xl-down')",
+				}),
+				ns.button({
+					label: "Full screen below xxl",
+					color: "primary",
+					onclick: "ex.sample.dlgFullscreenFn('xxl-down')",
+				}),
 			];
 		},
 	}),
@@ -2637,7 +3599,11 @@ var e_listgroup = [
 			return ns.listgroup.container({
 				type: "div",
 				elems: [
-					ns.listgroup.item({ href: "javascript:void(0)", elems: "A disabled item", disabled: true }),
+					ns.listgroup.item({
+						href: "javascript:void(0)",
+						elems: "A disabled item",
+						disabled: true,
+					}),
 					ns.listgroup.item({ href: "javascript:void(0)", elems: "A second item" }),
 					ns.listgroup.item({ href: "javascript:void(0)", elems: "A third item" }),
 					ns.listgroup.item({ href: "javascript:void(0)", elems: "A fourth item" }),
@@ -2653,7 +3619,11 @@ var e_listgroup = [
 			return ns.listgroup.container({
 				type: "div",
 				elems: [
-					ns.listgroup.item({ onclick: "fnClick(this);", elems: "A disabled item", disabled: true }),
+					ns.listgroup.item({
+						onclick: "fnClick(this);",
+						elems: "A disabled item",
+						disabled: true,
+					}),
 					ns.listgroup.item({ onclick: "fnClick(this);", elems: "A second item" }),
 					ns.listgroup.item({ onclick: "fnClick(this);", elems: "A third item" }),
 					ns.listgroup.item({ onclick: "fnClick(this);", elems: "A fourth item" }),
@@ -2696,11 +3666,10 @@ var e_listgroup = [
 						//ex.sample.listgroupitemcustomcontent
 						class: "d-flex justify-content-between align-items-start",
 						elems: [
-							{
-								tag: "div",
-								class: "ms-2 me-auto",
-								elems: [{ tag: "div", class: "fw-bold", elems: "Subheading" }, "Cras justo odio"],
-							},
+							ns.div("ms-2 me-auto", [
+								ns.div("fw-bold", "Subheading"),
+								"Cras justo odio",
+							]),
 							ns.badge({
 								pill: true,
 								color: "primary",
@@ -2766,7 +3735,9 @@ var e_listgroup = [
 	ns.example({
 		title: "Contextual classes",
 		code: function () {
-			return ns.listgroup.container([ns.listgroup.item({ color: "primary", elems: `A simple primary list group item` })]);
+			return ns.listgroup.container([
+				ns.listgroup.item({ color: "primary", elems: `A simple primary list group item` }),
+			]);
 		},
 	}),
 
@@ -2774,7 +3745,16 @@ var e_listgroup = [
 		title: "Contextual classes example",
 		code: function () {
 			return ns.listgroup.container(
-				["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+				[
+					"primary",
+					"secondary",
+					"success",
+					"danger",
+					"warning",
+					"info",
+					"light",
+					"dark",
+				].map(function (i) {
 					return ns.listgroup.item({ color: i, elems: `A simple ${i} list group item` });
 				})
 			);
@@ -2786,8 +3766,22 @@ var e_listgroup = [
 		code: function () {
 			return ns.listgroup.container({
 				type: "div",
-				elems: ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
-					return ns.listgroup.item({ action: true, href: "javascript:void(0);", color: i, elems: `A simple ${i} list group item` });
+				elems: [
+					"primary",
+					"secondary",
+					"success",
+					"danger",
+					"warning",
+					"info",
+					"light",
+					"dark",
+				].map(function (i) {
+					return ns.listgroup.item({
+						action: true,
+						href: "javascript:void(0);",
+						color: i,
+						elems: `A simple ${i} list group item`,
+					});
 				}),
 			});
 		},
@@ -2811,7 +3805,11 @@ var e_listgroup = [
 			};
 
 			return ns.listgroup.container({
-				elems: [itemfn("A list item", 14), itemfn("A second list item", 2), itemfn("A third list item", 1)],
+				elems: [
+					itemfn("A list item", 14),
+					itemfn("A second list item", 2),
+					itemfn("A third list item", 1),
+				],
 			});
 		},
 	}),
@@ -2825,16 +3823,24 @@ var e_listgroup = [
 					action: true,
 					active: active,
 					elems: [
+						ns.div("d-flex w-100 justify-content-between", [
+							{ tag: "h5", class: "mb-1", elems: title },
+							{
+								tag: "small",
+								class: !active ? "text-muted" : null,
+								elems: `${days} days ago`,
+							},
+						]),
 						{
-							tag: "div",
-							class: "d-flex w-100 justify-content-between",
-							elems: [
-								{ tag: "h5", class: "mb-1", elems: title },
-								{ tag: "small", class: !active ? "text-muted" : null, elems: `${days} days ago` },
-							],
+							tag: "p",
+							class: "mb-1",
+							elems: "Some placeholder content in a paragraph.",
 						},
-						{ tag: "p", class: "mb-1", elems: "Some placeholder content in a paragraph." },
-						{ tag: "small", class: !active ? "text-muted" : null, elems: `And some${!active ? " muted" : ""} small print.` },
+						{
+							tag: "small",
+							class: !active ? "text-muted" : null,
+							elems: `And some${!active ? " muted" : ""} small print.`,
+						},
 					],
 				});
 			};
@@ -2857,9 +3863,24 @@ var e_listgroup = [
 				type: "div",
 				elems: [
 					ns.listgroup.item({ check: "checkbox", value: "1", elems: "First checkbox" }),
-					ns.listgroup.item({ check: "checkbox", value: "2", elems: "Second checkbox", active: true }),
-					ns.listgroup.item({ check: "checkbox", value: "3", elems: "Third checkbox", disabled: true }),
-					ns.listgroup.item({ check: "checkbox", value: "4", elems: "Fourth checkbox", color: "primary" }),
+					ns.listgroup.item({
+						check: "checkbox",
+						value: "2",
+						elems: "Second checkbox",
+						active: true,
+					}),
+					ns.listgroup.item({
+						check: "checkbox",
+						value: "3",
+						elems: "Third checkbox",
+						disabled: true,
+					}),
+					ns.listgroup.item({
+						check: "checkbox",
+						value: "4",
+						elems: "Fourth checkbox",
+						color: "primary",
+					}),
 					ns.listgroup.item({ check: "checkbox", value: "5", elems: "Fifth checkbox" }),
 				],
 			});
@@ -2872,11 +3893,39 @@ var e_listgroup = [
 			return ns.listgroup.container({
 				type: "div",
 				elems: [
-					ns.listgroup.item({ check: "radio", name: "g10", value: "1", elems: "First radio" }),
-					ns.listgroup.item({ check: "radio", name: "g10", value: "2", elems: "Second radio", active: true }),
-					ns.listgroup.item({ check: "radio", name: "g10", value: "3", elems: "Third radio", disabled: true }),
-					ns.listgroup.item({ check: "radio", name: "g10", value: "4", elems: "Fourth radio", color: "primary" }),
-					ns.listgroup.item({ check: "radio", name: "g10", value: "5", elems: "Fifth radio" }),
+					ns.listgroup.item({
+						check: "radio",
+						name: "g10",
+						value: "1",
+						elems: "First radio",
+					}),
+					ns.listgroup.item({
+						check: "radio",
+						name: "g10",
+						value: "2",
+						elems: "Second radio",
+						active: true,
+					}),
+					ns.listgroup.item({
+						check: "radio",
+						name: "g10",
+						value: "3",
+						elems: "Third radio",
+						disabled: true,
+					}),
+					ns.listgroup.item({
+						check: "radio",
+						name: "g10",
+						value: "4",
+						elems: "Fourth radio",
+						color: "primary",
+					}),
+					ns.listgroup.item({
+						check: "radio",
+						name: "g10",
+						value: "5",
+						elems: "Fifth radio",
+					}),
 				],
 			});
 		},
@@ -2889,9 +3938,24 @@ var e_listgroup = [
 				type: "div",
 				elems: [
 					ns.listgroup.item({ check: "switch", value: "1", elems: "First switch" }),
-					ns.listgroup.item({ check: "switch", value: "2", elems: "Second switch", active: true }),
-					ns.listgroup.item({ check: "switch", value: "3", elems: "Third switch", disabled: true }),
-					ns.listgroup.item({ check: "switch", value: "4", elems: "Fourth switch", color: "primary" }),
+					ns.listgroup.item({
+						check: "switch",
+						value: "2",
+						elems: "Second switch",
+						active: true,
+					}),
+					ns.listgroup.item({
+						check: "switch",
+						value: "3",
+						elems: "Third switch",
+						disabled: true,
+					}),
+					ns.listgroup.item({
+						check: "switch",
+						value: "4",
+						elems: "Fourth switch",
+						color: "primary",
+					}),
 					ns.listgroup.item({ check: "switch", value: "5", elems: "Fifth switch" }),
 				],
 			});
@@ -3363,8 +4427,7 @@ var e_dropdown = [
 					color: "secondary",
 					option: [
 						{
-							elems: {
-								tag: "div",
+							elems: ns.div({
 								class: "text-muted p-4",
 								style: { width: "200px" },
 								elems: [
@@ -3378,7 +4441,7 @@ var e_dropdown = [
 										elems: "And this is more example text.",
 									},
 								],
-							},
+							}),
 						},
 					],
 				}),
@@ -3396,20 +4459,29 @@ var e_dropdown = [
 					autoclose: "outside",
 					option: [
 						{
-							elems: {
-								tag: "div",
-								class: "p-3 row row-cols-1 g-3",
-								elems: [
-									ns.input({ size: "col", type: "email", label: "Email address", placeholder: "email@example.com" }),
-									ns.input({ size: "col", type: "password", label: "Password", placeholder: "Password" }),
-									ns.input({ size: "col", type: "checkbox", label: "Remember me" }),
-									{
-										tag: "div",
-										class: "col",
-										elems: ns.button({ type: "submit", color: "primary", label: "Sign in" }),
-									},
-								],
-							},
+							elems: ns.div("p-3 row row-cols-1 g-3", [
+								ns.input({
+									size: "col",
+									type: "email",
+									label: "Email address",
+									placeholder: "email@example.com",
+								}),
+								ns.input({
+									size: "col",
+									type: "password",
+									label: "Password",
+									placeholder: "Password",
+								}),
+								ns.input({ size: "col", type: "checkbox", label: "Remember me" }),
+								ns.div(
+									"col",
+									ns.button({
+										type: "submit",
+										color: "primary",
+										label: "Sign in",
+									})
+								),
+							]),
 						},
 						{ value: "-" },
 						{ href: "javascript:void(0)", label: "New around here? Sign up" },
@@ -3585,7 +4657,14 @@ var e_carosel = [
 		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
 			return ns.carousel({
-				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
+				item: [
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+				],
 			});
 		},
 	}),
@@ -3596,7 +4675,14 @@ var e_carosel = [
 		code: function () {
 			return ns.carousel({
 				control: true,
-				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
+				item: [
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+				],
 			});
 		},
 	}),
@@ -3608,7 +4694,14 @@ var e_carosel = [
 			return ns.carousel({
 				control: true,
 				indicators: true,
-				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
+				item: [
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+				],
 			});
 		},
 	}),
@@ -3621,12 +4714,36 @@ var e_carosel = [
 				control: true,
 				indicators: true,
 				item: [
-					{ caption: "Title #1", text: "This is text for image no #1", src: ex.sample.imgurl() },
-					{ caption: "Title #2", text: "This is text for image no #2", src: ex.sample.imgurl() },
-					{ caption: "Title #3", text: "This is text for image no #3", src: ex.sample.imgurl() },
-					{ caption: "Title #4", text: "This is text for image no #4", src: ex.sample.imgurl() },
-					{ caption: "Title #5", text: "This is text for image no #5", src: ex.sample.imgurl() },
-					{ caption: "Title #6", text: "This is text for image no #6", src: ex.sample.imgurl() },
+					{
+						caption: "Title #1",
+						text: "This is text for image no #1",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #2",
+						text: "This is text for image no #2",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #3",
+						text: "This is text for image no #3",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #4",
+						text: "This is text for image no #4",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #5",
+						text: "This is text for image no #5",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #6",
+						text: "This is text for image no #6",
+						src: ex.sample.imgurl(),
+					},
 				],
 			});
 		},
@@ -3639,7 +4756,14 @@ var e_carosel = [
 			return ns.carousel({
 				control: true,
 				fade: true,
-				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
+				item: [
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+				],
 			});
 		},
 	}),
@@ -3670,7 +4794,14 @@ var e_carosel = [
 			return ns.carousel({
 				control: true,
 				touch: false,
-				item: [ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl(), ex.sample.imgurl()],
+				item: [
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+					ex.sample.imgurl(),
+				],
 			});
 		},
 	}),
@@ -3684,12 +4815,36 @@ var e_carosel = [
 				indicators: true,
 				dark: true,
 				item: [
-					{ caption: "Title #1", text: "This is text for image no #1", src: ex.sample.imgurl() },
-					{ caption: "Title #2", text: "This is text for image no #2", src: ex.sample.imgurl() },
-					{ caption: "Title #3", text: "This is text for image no #3", src: ex.sample.imgurl() },
-					{ caption: "Title #4", text: "This is text for image no #4", src: ex.sample.imgurl() },
-					{ caption: "Title #5", text: "This is text for image no #5", src: ex.sample.imgurl() },
-					{ caption: "Title #6", text: "This is text for image no #6", src: ex.sample.imgurl() },
+					{
+						caption: "Title #1",
+						text: "This is text for image no #1",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #2",
+						text: "This is text for image no #2",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #3",
+						text: "This is text for image no #3",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #4",
+						text: "This is text for image no #4",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #5",
+						text: "This is text for image no #5",
+						src: ex.sample.imgurl(),
+					},
+					{
+						caption: "Title #6",
+						text: "This is text for image no #6",
+						src: ex.sample.imgurl(),
+					},
 				],
 			});
 		},
@@ -3710,7 +4865,9 @@ var e_card = [
 					}),
 					ns.card.body([
 						ns.card.title("Card Title"),
-						ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+						ns.card.text(
+							"Some quick example text to build on the card title and make up the bulk of the card's content."
+						),
 						ns.button({ label: "Go somewhere", color: "primary" }),
 					]),
 				],
@@ -3739,7 +4896,9 @@ var e_card = [
 					ns.card.body([
 						ns.card.title("Card title"),
 						ns.card.subtitle("Card subtitle"),
-						ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+						ns.card.text(
+							"Some quick example text to build on the card title and make up the bulk of the card's content."
+						),
 						//ns.a example
 						ns.a({
 							class: "card-link",
@@ -3768,7 +4927,11 @@ var e_card = [
 						placement: "top",
 						src: ex.sample.imgurl(),
 					}),
-					ns.card.body([ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content.")]),
+					ns.card.body([
+						ns.card.text(
+							"Some quick example text to build on the card title and make up the bulk of the card's content."
+						),
+					]),
 				],
 			});
 		},
@@ -3782,7 +4945,11 @@ var e_card = [
 				style: { width: "18rem" },
 				elems: ns.listgroup.container({
 					flush: true,
-					elems: [ns.listgroup.item("An item"), ns.listgroup.item("A second item"), ns.listgroup.item("A third item")],
+					elems: [
+						ns.listgroup.item("An item"),
+						ns.listgroup.item("A second item"),
+						ns.listgroup.item("A third item"),
+					],
 				}),
 			});
 		},
@@ -3797,7 +4964,11 @@ var e_card = [
 					ns.card.header("Feature"),
 					ns.listgroup.container({
 						flush: true,
-						elems: [ns.listgroup.item("An item"), ns.listgroup.item("A second item"), ns.listgroup.item("A third item")],
+						elems: [
+							ns.listgroup.item("An item"),
+							ns.listgroup.item("A second item"),
+							ns.listgroup.item("A third item"),
+						],
 					}),
 				],
 			});
@@ -3812,7 +4983,11 @@ var e_card = [
 				elems: [
 					ns.listgroup.container({
 						flush: true,
-						elems: [ns.listgroup.item("An item"), ns.listgroup.item("A second item"), ns.listgroup.item("A third item")],
+						elems: [
+							ns.listgroup.item("An item"),
+							ns.listgroup.item("A second item"),
+							ns.listgroup.item("A third item"),
+						],
 					}),
 					ns.card.footer({
 						muted: false,
@@ -3837,11 +5012,17 @@ var e_card = [
 					}),
 					ns.card.body([
 						ns.card.title("Card Title"),
-						ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+						ns.card.text(
+							"Some quick example text to build on the card title and make up the bulk of the card's content."
+						),
 					]),
 					ns.listgroup.container({
 						flush: true,
-						elems: [ns.listgroup.item("An item"), ns.listgroup.item("A second item"), ns.listgroup.item("A third item")],
+						elems: [
+							ns.listgroup.item("An item"),
+							ns.listgroup.item("A second item"),
+							ns.listgroup.item("A third item"),
+						],
 					}),
 					ns.card.body([
 						//ns.a example
@@ -3869,7 +5050,9 @@ var e_card = [
 					ns.card.header("Feature"),
 					ns.card.body([
 						ns.card.title("Special title treatment"),
-						ns.card.text("With supporting text below as a natural lead-in to additional content."),
+						ns.card.text(
+							"With supporting text below as a natural lead-in to additional content."
+						),
 						ns.button({ label: "Go somewhere", color: "primary" }),
 					]),
 				],
@@ -3889,7 +5072,9 @@ var e_card = [
 					}),
 					ns.card.body([
 						ns.card.title("Special title treatment"),
-						ns.card.text("With supporting text below as a natural lead-in to additional content."),
+						ns.card.text(
+							"With supporting text below as a natural lead-in to additional content."
+						),
 						ns.button({ label: "Go somewhere", color: "primary" }),
 					]),
 				],
@@ -3941,7 +5126,9 @@ var e_card = [
 					ns.card.header("Feature"),
 					ns.card.body([
 						ns.card.title("Special title treatment"),
-						ns.card.text("With supporting text below as a natural lead-in to additional content."),
+						ns.card.text(
+							"With supporting text below as a natural lead-in to additional content."
+						),
 						ns.button({ label: "Go somewhere", color: "primary" }),
 					]),
 					ns.card.footer("2 days ago"),
@@ -3959,38 +5146,36 @@ var e_card = [
 		title: "Using grid markup",
 		msg: "Using the grid, wrap cards in columns and rows as needed.",
 		code: function () {
-			return {
-				tag: "div",
-				class: "row",
-				elems: [
-					{
-						tag: "div",
-						class: "col-sm-6",
-						elems: ns.card.container({
-							elems: [
-								ns.card.body([
-									ns.card.title("Special title treatment"),
-									ns.card.text("With supporting text below as a natural lead-in to additional content."),
-									ns.button({ label: "Go somewhere", color: "primary" }),
-								]),
-							],
-						}),
-					},
-					{
-						tag: "div",
-						class: "col-sm-6",
-						elems: ns.card.container({
-							elems: [
-								ns.card.body([
-									ns.card.title("Special title treatment"),
-									ns.card.text("With supporting text below as a natural lead-in to additional content."),
-									ns.button({ label: "Go somewhere", color: "primary" }),
-								]),
-							],
-						}),
-					},
-				],
-			};
+			return ns.div("row", [
+				ns.div(
+					"col-sm-6",
+					ns.card.container({
+						elems: [
+							ns.card.body([
+								ns.card.title("Special title treatment"),
+								ns.card.text(
+									"With supporting text below as a natural lead-in to additional content."
+								),
+								ns.button({ label: "Go somewhere", color: "primary" }),
+							]),
+						],
+					})
+				),
+				ns.div(
+					"col-sm-6",
+					ns.card.container({
+						elems: [
+							ns.card.body([
+								ns.card.title("Special title treatment"),
+								ns.card.text(
+									"With supporting text below as a natural lead-in to additional content."
+								),
+								ns.button({ label: "Go somewhere", color: "primary" }),
+							]),
+						],
+					})
+				),
+			]);
 		},
 	}),
 
@@ -4004,7 +5189,9 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text("With supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"With supporting text below as a natural lead-in to additional content."
+							),
 							ns.button({ label: "Button", color: "primary" }),
 						]),
 					],
@@ -4014,7 +5201,9 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text("With supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"With supporting text below as a natural lead-in to additional content."
+							),
 							ns.button({ label: "Button", color: "primary" }),
 						]),
 					],
@@ -4033,7 +5222,9 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text("With supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"With supporting text below as a natural lead-in to additional content."
+							),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -4053,7 +5244,9 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text("With supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"With supporting text below as a natural lead-in to additional content."
+							),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -4064,7 +5257,9 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text("With supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"With supporting text below as a natural lead-in to additional content."
+							),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -4075,7 +5270,9 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text("With supporting text below as a natural lead-in to additional content."),
+							ns.card.text(
+								"With supporting text below as a natural lead-in to additional content."
+							),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -4091,9 +5288,28 @@ var e_card = [
 			return ns.nav({
 				style: "tab",
 				elems: [
-					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", ex.sample.text()].join("") },
-					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", ex.sample.text()].join("") },
-					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", ex.sample.text()].join("") },
+					{
+						label: "First",
+						active: true,
+						elems: [
+							"<b>This is the first item's tab body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Second",
+						elems: [
+							"<b>This is the second item's tab body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Third",
+						elems: [
+							"<b>This is the third item's tab body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
 				],
 			});
 		},
@@ -4105,9 +5321,28 @@ var e_card = [
 			return ns.nav({
 				style: "pill",
 				elems: [
-					{ label: "First", active: true, elems: ["<b>This is the first item's tab body.</b> ", ex.sample.text()].join("") },
-					{ label: "Second", elems: ["<b>This is the second item's tab body.</b> ", ex.sample.text()].join("") },
-					{ label: "Third", elems: ["<b>This is the third item's tab body.</b> ", ex.sample.text()].join("") },
+					{
+						label: "First",
+						active: true,
+						elems: [
+							"<b>This is the first item's tab body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Second",
+						elems: [
+							"<b>This is the second item's tab body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Third",
+						elems: [
+							"<b>This is the third item's tab body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
 				],
 			});
 		},
@@ -4221,7 +5456,9 @@ var e_card = [
 					ns.card.header("Header"),
 					ns.card.body([
 						ns.card.title(`Primary card title`),
-						ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+						ns.card.text(
+							"Some quick example text to build on the card title and make up the bulk of the card's content."
+						),
 					]),
 				],
 			});
@@ -4250,7 +5487,9 @@ var e_card = [
 						ns.card.header("Header"),
 						ns.card.body([
 							ns.card.title(`${i.color.capitalize()} card title`),
-							ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+							ns.card.text(
+								"Some quick example text to build on the card title and make up the bulk of the card's content."
+							),
 						]),
 					],
 				});
@@ -4271,7 +5510,9 @@ var e_card = [
 						textcolor: "primary",
 						elems: [
 							ns.card.title(`Primary card title`),
-							ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+							ns.card.text(
+								"Some quick example text to build on the card title and make up the bulk of the card's content."
+							),
 						],
 					}),
 				],
@@ -4302,7 +5543,9 @@ var e_card = [
 							textcolor: i.textcolor,
 							elems: [
 								ns.card.title(`${i.color.capitalize()} card title`),
-								ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+								ns.card.text(
+									"Some quick example text to build on the card title and make up the bulk of the card's content."
+								),
 							],
 						}),
 					],
@@ -4328,7 +5571,9 @@ var e_card = [
 						textcolor: "success",
 						elems: [
 							ns.card.title(`Success card title`),
-							ns.card.text("Some quick example text to build on the card title and make up the bulk of the card's content."),
+							ns.card.text(
+								"Some quick example text to build on the card title and make up the bulk of the card's content."
+							),
 						],
 					}),
 					ns.card.footer({
@@ -4370,7 +5615,10 @@ var e_card = [
 	ns.example({
 		title: "Card groups with footer",
 		container: ns.cont.stack,
-		sample: { "ex.sample.imgurl": ex.sample.imgurl, "ex.sample.cardwithfooter": ex.sample.cardwithfooter },
+		sample: {
+			"ex.sample.imgurl": ex.sample.imgurl,
+			"ex.sample.cardwithfooter": ex.sample.cardwithfooter,
+		},
 		code: function () {
 			return ns.card.group([
 				ns.card.container({
@@ -4398,32 +5646,12 @@ var e_card = [
 		title: "Card grid using {{row-cols-md-2}}",
 		sample: { "ex.sample.card": ex.sample.card },
 		code: function () {
-			return {
-				tag: "div",
-				class: "row row-cols-1 row-cols-md-2 g-4",
-				elems: [
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[0],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[1],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[2],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[3],
-					},
-				],
-			};
+			return ns.div("row row-cols-1 row-cols-md-2 g-4", [
+				ns.div("col", ex.sample.card()[0]),
+				ns.div("col", ex.sample.card()[1]),
+				ns.div("col", ex.sample.card()[2]),
+				ns.div("col", ex.sample.card()[3]),
+			]);
 		},
 	}),
 
@@ -4431,32 +5659,12 @@ var e_card = [
 		title: "Card grid using {{row-cols-md-3}}",
 		sample: { "ex.sample.card": ex.sample.card },
 		code: function () {
-			return {
-				tag: "div",
-				class: "row row-cols-1 row-cols-md-3 g-4",
-				elems: [
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[0],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[1],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[2],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.card()[3],
-					},
-				],
-			};
+			return ns.div("row row-cols-1 row-cols-md-3 g-4", [
+				ns.div("col", ex.sample.card()[0]),
+				ns.div("col", ex.sample.card()[1]),
+				ns.div("col", ex.sample.card()[2]),
+				ns.div("col", ex.sample.card()[3]),
+			]);
 		},
 	}),
 
@@ -4464,94 +5672,63 @@ var e_card = [
 		title: "Card grid with {{h-100}} class",
 		sample: { "ex.sample.imgurl": ex.sample.imgurl, "ex.sample.cardh100": ex.sample.cardh100 },
 		code: function () {
-			return {
-				tag: "div",
-				class: "row row-cols-1 row-cols-md-3 g-4",
-				elems: [
-					{
-						tag: "div",
-						class: "col",
-						elems: ns.card.container({
-							class: "h-100",
-							elems: [
-								ns.card.img({
-									placement: "top",
-									src: ex.sample.imgurl(),
-								}),
-								ns.card.body([
-									ns.card.title("Card Title"),
-									ns.card.text(
-										"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-									),
-								]),
-							],
-						}),
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.cardh100()[0],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.cardh100()[1],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.cardh100()[2],
-					},
-				],
-			};
+			return ns.div("row row-cols-1 row-cols-md-3 g-4", [
+				ns.div(
+					"col",
+					ns.card.container({
+						class: "h-100",
+						elems: [
+							ns.card.img({
+								placement: "top",
+								src: ex.sample.imgurl(),
+							}),
+							ns.card.body([
+								ns.card.title("Card Title"),
+								ns.card.text(
+									"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+								),
+							]),
+						],
+					})
+				),
+				ns.div("col", ex.sample.cardh100()[0]),
+				ns.div("col", ex.sample.cardh100()[1]),
+				ns.div("col", ex.sample.cardh100()[2]),
+			]);
 		},
 	}),
 
 	ns.example({
 		title: "Card grid with {{h-100}} class",
-		sample: { "ex.sample.imgurl": ex.sample.imgurl, "ex.sample.cardwithfooterh100": ex.sample.cardwithfooterh100 },
+		sample: {
+			"ex.sample.imgurl": ex.sample.imgurl,
+			"ex.sample.cardwithfooterh100": ex.sample.cardwithfooterh100,
+		},
 		code: function () {
-			return {
-				tag: "div",
-				class: "row row-cols-1 row-cols-md-3 g-4",
-				elems: [
-					{
-						tag: "div",
-						class: "col",
-						elems: ns.card.container({
-							class: "h-100",
-							elems: [
-								ns.card.img({
-									placement: "top",
-									src: ex.sample.imgurl(),
-								}),
-								ns.card.body([
-									ns.card.title("Card Title"),
-									ns.card.text(
-										"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-									),
-								]),
-								ns.card.footer("Last updated 3 mins ago"),
-							],
-						}),
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.cardwithfooterh100()[0],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.cardwithfooterh100()[1],
-					},
-					{
-						tag: "div",
-						class: "col",
-						elems: ex.sample.cardwithfooterh100()[2],
-					},
-				],
-			};
+			return ns.div("row row-cols-1 row-cols-md-3 g-4", [
+				ns.div(
+					"col",
+					ns.card.container({
+						class: "h-100",
+						elems: [
+							ns.card.img({
+								placement: "top",
+								src: ex.sample.imgurl(),
+							}),
+							ns.card.body([
+								ns.card.title("Card Title"),
+								ns.card.text(
+									"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+								),
+							]),
+							ns.card.footer("Last updated 3 mins ago"),
+						],
+					})
+				),
+				ns.div("col", ex.sample.cardwithfooterh100()[0]),
+				ns.div("col", ex.sample.cardwithfooterh100()[1]),
+				ns.div("col", ex.sample.cardwithfooterh100()[2]),
+			]);
 		},
 	}),
 ];
@@ -4575,7 +5752,12 @@ var e_btngroup = [
 		title: "Link example",
 		code: function () {
 			return ns.btngroup([
-				ns.button({ href: "javascript:void(0);", label: "Active link", color: "primary", active: true }),
+				ns.button({
+					href: "javascript:void(0);",
+					label: "Active link",
+					color: "primary",
+					active: true,
+				}),
 				ns.button({ href: "javascript:void(0);", label: "Link", color: "primary" }),
 				ns.button({ href: "javascript:void(0);", label: "Link", color: "primary" }),
 			]);
@@ -4617,8 +5799,18 @@ var e_btngroup = [
 				label: "Checkbox button styles example",
 				elems: [
 					ns.button({ type: "checkbox", outline: true, label: "Left", color: "primary" }),
-					ns.button({ type: "checkbox", outline: true, label: "Middle", color: "primary" }),
-					ns.button({ type: "checkbox", outline: true, label: "Right", color: "primary" }),
+					ns.button({
+						type: "checkbox",
+						outline: true,
+						label: "Middle",
+						color: "primary",
+					}),
+					ns.button({
+						type: "checkbox",
+						outline: true,
+						label: "Right",
+						color: "primary",
+					}),
 				],
 			});
 		},
@@ -4630,9 +5822,27 @@ var e_btngroup = [
 			return ns.btngroup({
 				label: "Radio button styles example",
 				elems: [
-					ns.button({ name: "g6", type: "radio", outline: true, label: "Left", color: "primary" }),
-					ns.button({ name: "g6", type: "radio", outline: true, label: "Middle", color: "primary" }),
-					ns.button({ name: "g6", type: "radio", outline: true, label: "Right", color: "primary" }),
+					ns.button({
+						name: "g6",
+						type: "radio",
+						outline: true,
+						label: "Left",
+						color: "primary",
+					}),
+					ns.button({
+						name: "g6",
+						type: "radio",
+						outline: true,
+						label: "Middle",
+						color: "primary",
+					}),
+					ns.button({
+						name: "g6",
+						type: "radio",
+						outline: true,
+						label: "Right",
+						color: "primary",
+					}),
 				],
 			});
 		},
@@ -4845,9 +6055,28 @@ var e_btngroup = [
 			return ns.btngroup({
 				vertical: true,
 				elems: [
-					ns.button({ name: "g9", type: "radio", outline: true, label: "Radio 1", color: "danger", checked: true }),
-					ns.button({ name: "g9", type: "radio", outline: true, label: "Radio 2", color: "danger" }),
-					ns.button({ name: "g9", type: "radio", outline: true, label: "Radio 3", color: "danger" }),
+					ns.button({
+						name: "g9",
+						type: "radio",
+						outline: true,
+						label: "Radio 1",
+						color: "danger",
+						checked: true,
+					}),
+					ns.button({
+						name: "g9",
+						type: "radio",
+						outline: true,
+						label: "Radio 2",
+						color: "danger",
+					}),
+					ns.button({
+						name: "g9",
+						type: "radio",
+						outline: true,
+						label: "Radio 3",
+						color: "danger",
+					}),
 				],
 			});
 		},
@@ -4877,7 +6106,13 @@ var e_btn = [
 		title: "Disable text wrapping",
 		container: ns.cont.stack,
 		code: function () {
-			return [ns.button({ label: "Disable text wrapping button", color: "primary", nowarp: true })];
+			return [
+				ns.button({
+					label: "Disable text wrapping button",
+					color: "primary",
+					nowarp: true,
+				}),
+			];
 		},
 	}),
 
@@ -4952,7 +6187,12 @@ var e_btn = [
 		container: ns.cont.stack,
 		code: function () {
 			return [
-				ns.button({ weight: "lg", disabled: true, label: "Primary button", color: "primary" }),
+				ns.button({
+					weight: "lg",
+					disabled: true,
+					label: "Primary button",
+					color: "primary",
+				}),
 				ns.button({ weight: "lg", disabled: true, label: "Button", color: "secondary" }),
 			];
 		},
@@ -4963,8 +6203,20 @@ var e_btn = [
 		container: ns.cont.stack,
 		code: function () {
 			return [
-				ns.button({ weight: "lg", disabled: true, label: "Primary link", color: "primary", href: "javascript:void(0);" }),
-				ns.button({ weight: "lg", disabled: true, label: "Link", color: "secondary", href: "javascript:void(0);" }),
+				ns.button({
+					weight: "lg",
+					disabled: true,
+					label: "Primary link",
+					color: "primary",
+					href: "javascript:void(0);",
+				}),
+				ns.button({
+					weight: "lg",
+					disabled: true,
+					label: "Link",
+					color: "secondary",
+					href: "javascript:void(0);",
+				}),
 			];
 		},
 	}),
@@ -4972,60 +6224,44 @@ var e_btn = [
 	ns.example({
 		title: "Block buttons",
 		code: function () {
-			return {
-				tag: "div",
-				class: "d-grid gap-2",
-				elems: [
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-				],
-			};
+			return ns.div("d-grid gap-2", [
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+			]);
 		},
 	}),
 
 	ns.example({
 		title: "Block buttons md",
 		code: function () {
-			return {
-				tag: "div",
-				class: "d-grid gap-2 d-md-block",
-				elems: [
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-				],
-			};
+			return ns.div("d-grid gap-2 d-md-block", [
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+			]);
 		},
 	}),
 
 	ns.example({
 		title: "Centered in horizontal",
 		code: function () {
-			return {
-				tag: "div",
-				class: "d-grid gap-2 col-6 mx-auto",
-				elems: [
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-				],
-			};
+			return ns.div("d-grid gap-2 col-6 mx-auto", [
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+			]);
 		},
 	}),
 
 	ns.example({
 		title: "Right align",
 		code: function () {
-			return {
-				tag: "div",
-				class: "d-grid gap-2 d-md-flex justify-content-md-end",
-				elems: [
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-					ns.button({ label: "Button", color: "primary" }),
-				],
-			};
+			return ns.div("d-grid gap-2 d-md-flex justify-content-md-end", [
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+				ns.button({ label: "Button", color: "primary" }),
+			]);
 		},
 	}),
 
@@ -5035,8 +6271,18 @@ var e_btn = [
 		code: function () {
 			return [
 				ns.button({ toggle: true, label: "Toggle button", color: "primary" }),
-				ns.button({ toggle: true, label: "Active toggle button", color: "primary", active: true }),
-				ns.button({ toggle: true, label: "Disabled toggle button", color: "primary", disabled: true }),
+				ns.button({
+					toggle: true,
+					label: "Active toggle button",
+					color: "primary",
+					active: true,
+				}),
+				ns.button({
+					toggle: true,
+					label: "Disabled toggle button",
+					color: "primary",
+					disabled: true,
+				}),
 			];
 		},
 	}),
@@ -5046,9 +6292,26 @@ var e_btn = [
 		container: ns.cont.stack,
 		code: function () {
 			return [
-				ns.button({ toggle: true, href: "javascript:void(0)", label: "Toggle link", color: "primary" }),
-				ns.button({ toggle: true, href: "javascript:void(0)", label: "Active toggle link", color: "primary", active: true }),
-				ns.button({ toggle: true, href: "javascript:void(0)", label: "Disabled toggle link", color: "primary", disabled: true }),
+				ns.button({
+					toggle: true,
+					href: "javascript:void(0)",
+					label: "Toggle link",
+					color: "primary",
+				}),
+				ns.button({
+					toggle: true,
+					href: "javascript:void(0)",
+					label: "Active toggle link",
+					color: "primary",
+					active: true,
+				}),
+				ns.button({
+					toggle: true,
+					href: "javascript:void(0)",
+					label: "Disabled toggle link",
+					color: "primary",
+					disabled: true,
+				}),
 			];
 		},
 	}),
@@ -5251,11 +6514,24 @@ var e_alert = [
 	ns.example({
 		title: "Link color",
 		code: function () {
-			var color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
+			var color = [
+				"primary",
+				"secondary",
+				"success",
+				"danger",
+				"warning",
+				"info",
+				"light",
+				"dark",
+			];
 			return color.map(function (i) {
 				return ns.alert.container({
 					color: i,
-					elems: [`A simple ${i} alert with `, ns.alert.link("an example link", "javascript:void(0);"), `. Give it a click if you like.`],
+					elems: [
+						`A simple ${i} alert with `,
+						ns.alert.link("an example link", "javascript:void(0);"),
+						`. Give it a click if you like.`,
+					],
 				});
 			});
 		},
@@ -5274,7 +6550,11 @@ var e_alert = [
 							elems: "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.",
 						},
 						{ tag: "hr", elems: "" },
-						{ tag: "p", class: "mb-0", elems: "Whenever you need to, be sure to use margin utilities to keep things nice and tidy." },
+						{
+							tag: "p",
+							class: "mb-0",
+							elems: "Whenever you need to, be sure to use margin utilities to keep things nice and tidy.",
+						},
 					],
 				}),
 			];
@@ -5316,9 +6596,27 @@ var e_accordion = [
 		code: function () {
 			return ns.accordion({
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join("") },
+					{
+						label: "Accordion Item 1",
+						elems: [
+							"<b>This is the first item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Accordion Item 2",
+						elems: [
+							"<b>This is the second item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Accordion Item 3",
+						elems: [
+							"<b>This is the third item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
 				],
 			});
 		},
@@ -5331,9 +6629,27 @@ var e_accordion = [
 			return ns.accordion({
 				flush: true,
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join("") },
+					{
+						label: "Accordion Item 1",
+						elems: [
+							"<b>This is the first item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Accordion Item 2",
+						elems: [
+							"<b>This is the second item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Accordion Item 3",
+						elems: [
+							"<b>This is the third item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
 				],
 			});
 		},
@@ -5346,9 +6662,27 @@ var e_accordion = [
 			return ns.accordion({
 				autoclose: false,
 				item: [
-					{ label: "Accordion Item 1", elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join("") },
-					{ label: "Accordion Item 2", elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join("") },
-					{ label: "Accordion Item 3", elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join("") },
+					{
+						label: "Accordion Item 1",
+						elems: [
+							"<b>This is the first item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Accordion Item 2",
+						elems: [
+							"<b>This is the second item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
+					{
+						label: "Accordion Item 3",
+						elems: [
+							"<b>This is the third item's accordion body.</b> ",
+							ex.sample.text(),
+						].join(""),
+					},
 				],
 			});
 		},
@@ -5615,7 +6949,10 @@ var e_radio = [
 	ns.example({
 		title: "Checks",
 		code: function () {
-			return [ns.input({ label: "Default checkbox", type: "checkbox" }), ns.input({ label: "Checked checkbox", type: "checkbox", checked: true })];
+			return [
+				ns.input({ label: "Default checkbox", type: "checkbox" }),
+				ns.input({ label: "Checked checkbox", type: "checkbox", checked: true }),
+			];
 		},
 	}),
 
@@ -5631,7 +6968,12 @@ var e_radio = [
 		code: function () {
 			return [
 				ns.input({ label: "Disabled checkbox", type: "checkbox", disabled: true }),
-				ns.input({ label: "Disabled checked checkbox", type: "checkbox", checked: true, disabled: true }),
+				ns.input({
+					label: "Disabled checked checkbox",
+					type: "checkbox",
+					checked: true,
+					disabled: true,
+				}),
 			];
 		},
 	}),
@@ -5651,7 +6993,13 @@ var e_radio = [
 		code: function () {
 			return [
 				ns.input({ name: "g2", label: "Disabled radio", type: "radio", disabled: true }),
-				ns.input({ name: "g2", label: "Disabled checked radio", type: "radio", checked: true, disabled: true }),
+				ns.input({
+					name: "g2",
+					label: "Disabled checked radio",
+					type: "radio",
+					checked: true,
+					disabled: true,
+				}),
 			];
 		},
 	}),
@@ -5662,8 +7010,17 @@ var e_radio = [
 			return [
 				ns.input({ label: "Default switch checkbox input", type: "switch" }),
 				ns.input({ label: "Checked switch checkbox input", type: "switch", checked: true }),
-				ns.input({ label: "Disabled switch checkbox input", type: "switch", disabled: true }),
-				ns.input({ label: "Disabled checked switch checkbox input", type: "switch", checked: true, disabled: true }),
+				ns.input({
+					label: "Disabled switch checkbox input",
+					type: "switch",
+					disabled: true,
+				}),
+				ns.input({
+					label: "Disabled checked switch checkbox input",
+					type: "switch",
+					checked: true,
+					disabled: true,
+				}),
 			];
 		},
 	}),
@@ -5686,7 +7043,13 @@ var e_radio = [
 		code: function () {
 			return [
 				ns.input({ name: "g4", label: "Disabled radio", type: "radio", disabled: true }),
-				ns.input({ name: "g4", label: "Disabled checked radio", type: "radio", checked: true, disabled: true }),
+				ns.input({
+					name: "g4",
+					label: "Disabled checked radio",
+					type: "radio",
+					checked: true,
+					disabled: true,
+				}),
 			];
 		},
 	}),
@@ -5708,7 +7071,13 @@ var e_radio = [
 			return [
 				ns.input({ name: "g5", label: "1", type: "radio", inline: true }),
 				ns.input({ name: "g5", label: "2", type: "radio", inline: true }),
-				ns.input({ name: "g5", label: "3 (disabled)", type: "radio", disabled: true, inline: true }),
+				ns.input({
+					name: "g5",
+					label: "3 (disabled)",
+					type: "radio",
+					disabled: true,
+					inline: true,
+				}),
 			];
 		},
 	}),
@@ -5730,14 +7099,24 @@ var e_radio = [
 	ns.example({
 		title: "Checkbox toggle button checked",
 		code: function () {
-			return ns.button({ type: "checkbox", checked: true, label: "Checked", color: "primary" });
+			return ns.button({
+				type: "checkbox",
+				checked: true,
+				label: "Checked",
+				color: "primary",
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Checkbox toggle button disabled",
 		code: function () {
-			return ns.button({ type: "checkbox", disabled: true, label: "Disabled", color: "primary" });
+			return ns.button({
+				type: "checkbox",
+				disabled: true,
+				label: "Disabled",
+				color: "primary",
+			});
 		},
 	}),
 
@@ -5746,9 +7125,21 @@ var e_radio = [
 		container: ns.cont.stack,
 		code: function () {
 			return [
-				ns.button({ type: "radio", name: "g7", label: "Checked", checked: true, color: "secondary" }),
+				ns.button({
+					type: "radio",
+					name: "g7",
+					label: "Checked",
+					checked: true,
+					color: "secondary",
+				}),
 				ns.button({ type: "radio", name: "g7", label: "Radio", color: "secondary" }),
-				ns.button({ type: "radio", name: "g7", label: "Disabled", disabled: true, color: "secondary" }),
+				ns.button({
+					type: "radio",
+					name: "g7",
+					label: "Disabled",
+					disabled: true,
+					color: "secondary",
+				}),
 				ns.button({ type: "radio", name: "g7", label: "Radio", color: "secondary" }),
 			];
 		},
@@ -5759,10 +7150,34 @@ var e_radio = [
 		container: ns.cont.stack,
 		code: function () {
 			return [
-				ns.button({ type: "checkbox", outline: true, label: "Single toggle", color: "primary" }),
-				ns.button({ type: "checkbox", outline: true, label: "Checked", checked: true, color: "secondary" }),
-				ns.button({ type: "radio", outline: true, name: "g8", label: "Checked success radio", checked: true, color: "success" }),
-				ns.button({ type: "radio", outline: true, name: "g8", label: "Danger radio", color: "danger" }),
+				ns.button({
+					type: "checkbox",
+					outline: true,
+					label: "Single toggle",
+					color: "primary",
+				}),
+				ns.button({
+					type: "checkbox",
+					outline: true,
+					label: "Checked",
+					checked: true,
+					color: "secondary",
+				}),
+				ns.button({
+					type: "radio",
+					outline: true,
+					name: "g8",
+					label: "Checked success radio",
+					checked: true,
+					color: "success",
+				}),
+				ns.button({
+					type: "radio",
+					outline: true,
+					name: "g8",
+					label: "Danger radio",
+					color: "danger",
+				}),
 			];
 		},
 	}),
@@ -6326,7 +7741,14 @@ var e_range = [
 	}),
 ];
 
-var menu_c1 = [
+var menu_c1 = [{ label: "Introduction", onclick: "showexample(this,'e_introduction')" }];
+
+var menu_c2 = [
+	{ label: "Containers", onclick: "showexample(this,'e_container')" },
+	{ label: "Grid", onclick: "showexample(this,'e_grid')", active: true },
+];
+
+var menu_c3 = [
 	{ label: "Form control", onclick: "showexample(this,'e_input')" },
 	{ label: "Select", onclick: "showexample(this,'e_select')" },
 	{ label: "Check &amp; radios", onclick: "showexample(this,'e_radio')" },
@@ -6335,7 +7757,7 @@ var menu_c1 = [
 	{ label: "Floating label", onclick: "showexample(this,'e_floatinglabel')" },
 ];
 
-var menu_c2 = [
+var menu_c4 = [
 	{ label: "Accordion", onclick: "showexample(this,'e_accordion')" },
 	{ label: "Alert", onclick: "showexample(this,'e_alert')" },
 	{ label: "Badge", onclick: "showexample(this,'e_badge')" },
@@ -6356,22 +7778,24 @@ var menu_c2 = [
 	{ label: "Popover", onclick: "showexample(this,'e_popover')" },
 	{ label: "Progress", onclick: "showexample(this,'e_progress')" },
 	{ label: "Spinners", onclick: "showexample(this,'e_spinner')" },
-	{ label: "Toast", onclick: "showexample(this,'e_toast')", active: true },
+	{ label: "Toast", onclick: "showexample(this,'e_toast')" },
+	{ label: "Tooltips", onclick: "showexample(this,'e_tooltip')" },
 
-	{ label: "Icon", onclick: "showexample(this,'e_icon')" },
-	{ label: "Image", onclick: "showexample(this,'e_img')" },
-	{ label: "Link", onclick: "showexample(this,'e_link')" },
-
-	{ label: "List", onclick: "showexample(this,'e_listctl')" },
-	{ label: "Table", onclick: "showexample(this,'e_table')" },
+	// { label: "Icon", onclick: "showexample(this,'e_icon')" },
+	// { label: "Image", onclick: "showexample(this,'e_img')" },
+	// { label: "Link", onclick: "showexample(this,'e_link')" },
+	// { label: "List", onclick: "showexample(this,'e_listctl')" },
+	// { label: "Table", onclick: "showexample(this,'e_table')" },
 ];
 
-var menu_c3 = [
+var menu_c5 = [{ label: "Icon", onclick: "showexample(this,'e_icon')" }];
+
+var menu_c8 = [
 	{ label: "Home", icon: "home", onclick: "window.location='index.html'" },
 	{ label: "List query test", icon: "flask", onclick: "window.location='list_query_test.html'" },
 ];
 
-var menu_c4 = [
+var menu_c9 = [
 	{ onclick: "changeTheme(this,null);", label: "Default", active: true },
 	{ onclick: "changeTheme(this,'cerulean');", label: "Cerulean (L|G)" },
 	{ onclick: "changeTheme(this,'cosmo');", label: "Cosmo (L|S)" },
@@ -6406,24 +7830,27 @@ function showexample(sender, arg) {
 		$(sender).addClass("active");
 	}
 
-	var root = $("#root").get();
-	var menu = window[arg];
+	var root = document.getElementById("root");
+	while (root.firstChild && root.removeChild(root.firstChild)); //$(root).empty();
 
-	$(root).empty();
-	ns.build.append(root, menu);
+	ns.build.append(root, window[arg]);
 	ns.build.init(root);
 	PR.prettyPrint();
 
 	//build TOC
-	var nextbar = $("#nextbar").get();
-	$(nextbar).empty();
+	var nextbar = document.getElementById("nextbar");
+	while (nextbar.firstChild && nextbar.removeChild(nextbar.firstChild));
 
 	var li = [];
-	$.each($(root).find(".anchorjs-link"), function (xi, i) {
-		var parent = $(i).parent();
-		var id = parent.attr("id");
-		//li.push({ label: parent.text(), href: `#${id}`, level: parent[0].nodeName === "H4" ? 1 : 0 });
-		li.push({ label: parent.text(), onclick: `focusExample("${id}");`, level: parent[0].nodeName === "H4" ? 1 : 0 });
+	var anchor = [].slice.call(root.getElementsByClassName("anchorjs-link"));
+	anchor.forEach(function (el) {
+		let parent = el.parentElement;
+		let id = parent.id;
+		li.push({
+			label: parent.innerText,
+			onclick: `focusExample("${id}");`,
+			level: parent.nodeName === "H4" ? 1 : 0,
+		});
 	});
 
 	ns.build.append(
@@ -6433,16 +7860,10 @@ function showexample(sender, arg) {
 			elems: li,
 		})
 	);
-
-	// //refresh scorllspy
-	// var dataSpyList = [].slice.call(document.querySelectorAll('[data-bs-spy="scroll"]'));
-	// dataSpyList.forEach(function (dataSpyEl) {
-	// 	bootstrap.ScrollSpy.getInstance(dataSpyEl).refresh();
-	// });
 }
 
 function focusExample(id) {
-	ns.core.focus($(`#${id}`));
+	ns.core.focus(document.getElementById(id)); //ns.core.focus($(`#${id}`));
 }
 
 function changeTheme(sender, theme) {
@@ -6453,7 +7874,7 @@ function changeTheme(sender, theme) {
 
 $(document).ready(() => {
 	//list container
-	var navbar = $("#navbar").get();
+	var navbar = document.getElementById("navbar"); //$("#navbar").get();
 	ns.build.append(
 		navbar,
 		ns.navbar.container({
@@ -6479,29 +7900,44 @@ $(document).ready(() => {
 		})
 	);
 
-	var sidebar = $("#sidebar").get();
+	var sidebar = document.getElementById("sidebar"); //$("#sidebar").get();
 	ns.build.append(sidebar, [
 		ns.menu.container({
-			title: "Forms",
+			title: "Getting started",
 			class: "exmenu",
 			item: ns.menu.item(menu_c1),
 		}),
 		ns.menu.container({
-			title: "Components",
-			class: "exmenu",
 			active: true,
+			title: "Layout",
+			class: "exmenu",
 			item: ns.menu.item(menu_c2),
 		}),
 		ns.menu.container({
-			title: "Others",
+			title: "Forms",
+			class: "exmenu",
 			item: ns.menu.item(menu_c3),
+		}),
+		ns.menu.container({
+			title: "Components",
+			class: "exmenu",
+			item: ns.menu.item(menu_c4),
+		}),
+		ns.menu.container({
+			title: "Extend",
+			class: "exmenu",
+			item: ns.menu.item(menu_c5),
+		}),
+		ns.menu.container({
+			title: "Others",
+			item: ns.menu.item(menu_c8),
 		}),
 		ns.menu.container({
 			title: "Theme",
 			class: "thememenu",
-			item: ns.menu.item(menu_c4),
+			item: ns.menu.item(menu_c9),
 		}),
 	]);
 
-	showexample(null, "e_toast");
+	showexample(null, "e_grid");
 });
