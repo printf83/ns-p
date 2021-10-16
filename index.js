@@ -24,9 +24,7 @@ const ex = {};
 
 	var imgurlindex = 0;
 	var imgurl = function (width, height) {
-		return `https://picsum.photos/seed/${++imgurlindex}/${width ? width : 800}/${
-			height ? height : 400
-		}.webp`;
+		return `https://picsum.photos/seed/${++imgurlindex}/${width ? width : 800}/${height ? height : 400}.webp`;
 	};
 
 	ex.sample = {
@@ -342,10 +340,12 @@ const ex = {};
 							placement: "top",
 							src: imgurl(),
 						}),
-						ns.card.body([ns.card.title("Card Title")]),
-						ns.card.text(
-							"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-						),
+						ns.card.body([
+							ns.card.title("Card Title"),
+							ns.card.text(
+								"This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+							),
+						]),
 					],
 				}),
 			];
@@ -737,21 +737,202 @@ var e_menu = [
 var e_introduction = [
 	ns.div("text-center display-1", "Hello World"),
 	ns.div("text-center display-5", [
-		"{",
 		ns.icon({ style: "fab", icon: "bootstrap" }),
-		" + ",
+		ns.icon("swatchbook"),
 		ns.icon({ style: "fab", icon: "font-awesome-flag" }),
-		" + ",
 		ns.icon({ style: "fab", icon: "node-js" }),
-		" + ",
 		ns.icon("leaf"),
-
-		"}",
 	]),
-	ns.div("text-center", ns.a("Github", "https://github.com/printf83/ns-p")),
+	ns.div("text-center mt-5", "This is an alpha version. Don't used it. Build Bootstrap 5 using Javascript :)"),
+	ns.div("text-center", [
+		ns.a("Download base.js", "js/base.min.js"),
+		" | ",
+		ns.a("Github", "https://github.com/printf83/ns-p"),
+	]),
+];
+
+var e_column = [
+	ns.example({
+		title: "Columns",
+		msg: "Learn how to modify columns with a handful of options for alignment, ordering, and offsetting thanks to our flexbox grid system. Plus, see how to use column classes to manage widths of non-grid elements.",
+		anchor: false,
+	}),
+
+	ns.example({
+		msg: ns.alert.container({
+			color: "primary",
+			elems: "<b>Heads up!</b> Be sure to <a href='https://getbootstrap.com/docs/5.1/layout/grid/'>read the Grid page</a> first before diving into how to modify and customize your grid columns.",
+		}),
+	}),
+
+	ns.example({
+		title: "How they work",
+		msg: ns.ul([
+			ns.li(
+				"<b>Columns build on the grid’s flexbox architecture.</b> Flexbox means we have options for changing individual columns and modifying groups of columns at the row level. You choose how columns grow, shrink, or otherwise change."
+			),
+			ns.li(
+				"<b>When building grid layouts, all content goes in columns.</b> The hierarchy of Bootstrap’s grid goes from container to row to column to your content. On rare occasions, you may combine content and column, but be aware there can be unintended consequences."
+			),
+			ns.li(
+				"<b>Bootstrap includes predefined classes for creating fast, responsive layouts.</b> With six breakpoints and a dozen columns at each grid tier, we have dozens of classes already built for you to create your desired layouts. This can be disabled via Sass if you wish."
+			),
+		]),
+	}),
+
+	ns.example({
+		title: "Alignment",
+		msg: "Use flexbox alignment utilities to vertically and horizontally align columns.",
+	}),
+
+	ns.example({
+		title: "Vertical alignment",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col ns-higlight-row",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row align-items-start", null, { minHeight: "10rem" }, [
+					ns.div("col", "One of three columns"),
+					ns.div("col", "One of three columns"),
+					ns.div("col", "One of three columns"),
+				]),
+				ns.div("row align-items-center", null, { minHeight: "10rem" }, [
+					ns.div("col", "One of three columns"),
+					ns.div("col", "One of three columns"),
+					ns.div("col", "One of three columns"),
+				]),
+				ns.div("row align-items-end", null, { minHeight: "10rem" }, [
+					ns.div("col", "One of three columns"),
+					ns.div("col", "One of three columns"),
+					ns.div("col", "One of three columns"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Vertical alignment",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col ns-higlight-row",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", null, { minHeight: "10rem" }, [
+					ns.div("col align-self-start", "One of three columns"),
+					ns.div("col align-self-center", "One of three columns"),
+					ns.div("col align-self-end", "One of three columns"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Horizontal alignment",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row justify-content-start", [
+					ns.div("col-4", "One of two columns"),
+					ns.div("col-4", "One of two columns"),
+				]),
+				ns.div("row justify-content-center", [
+					ns.div("col-4", "One of two columns"),
+					ns.div("col-4", "One of two columns"),
+				]),
+				ns.div("row justify-content-end", [
+					ns.div("col-4", "One of two columns"),
+					ns.div("col-4", "One of two columns"),
+				]),
+				ns.div("row justify-content-around", [
+					ns.div("col-4", "One of two columns"),
+					ns.div("col-4", "One of two columns"),
+				]),
+				ns.div("row justify-content-between", [
+					ns.div("col-4", "One of two columns"),
+					ns.div("col-4", "One of two columns"),
+				]),
+				ns.div("row justify-content-evenly", [
+					ns.div("col-4", "One of two columns"),
+					ns.div("col-4", "One of two columns"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Column wrapping",
+		msg: "If more than 12 columns are placed within a single row, each group of extra columns will, as one unit, wrap onto a new line.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col-9", ".col-9"),
+					ns.div(
+						"col-4",
+						".col-4 : Since 9 + 4 = 13 &gt; 12, this 4-column-wide div gets wrapped onto a new line as one contiguous unit."
+					),
+					ns.div("col-6", ".col-6 : Subsequent columns continue along the new line."),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Column breaks",
+		msg: "Breaking columns to a new line in flexbox requires a small hack: add an element with width: 100% wherever you want to wrap your columns to a new line. Normally this is accomplished with multiple .rows, but not every implementation method can account for this.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+					ns.span("w-100", null),
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		msg: "You may also apply this break at specific breakpoints with our responsive display utilities.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+					ns.span("w-100 d-none d-md-block", null),
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
+				]),
+			]);
+		},
+	}),
 ];
 
 var e_grid = [
+	ns.example({
+		title: "Grid system",
+		msg: "Use our powerful mobile-first flexbox grid to build layouts of all shapes and sizes thanks to a twelve column system, six default responsive tiers, Sass variables and mixins, and dozens of predefined classes.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Example",
 		msg: [
@@ -768,11 +949,7 @@ var e_grid = [
 		code: function () {
 			return ns.div(
 				"container",
-				ns.div("row", [
-					ns.div("col", "Column"),
-					ns.div("col", "Column"),
-					ns.div("col", "Column"),
-				])
+				ns.div("row", [ns.div("col", "Column"), ns.div("col", "Column"), ns.div("col", "Column")])
 			);
 		},
 	}),
@@ -787,11 +964,7 @@ var e_grid = [
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [ns.div("col", "1 of 2"), ns.div("col", "2 of 2")]),
-				ns.div("row", [
-					ns.div("col", "1 of 3"),
-					ns.div("col", "2 of 3"),
-					ns.div("col", "3 of 3"),
-				]),
+				ns.div("row", [ns.div("col", "1 of 3"), ns.div("col", "2 of 3"), ns.div("col", "3 of 3")]),
 			]);
 		},
 	}),
@@ -805,16 +978,8 @@ var e_grid = [
 		pclass: "ns-higlight-col",
 		code: function () {
 			return ns.div("container", [
-				ns.div("row", [
-					ns.div("col", "1 of 3"),
-					ns.div("col-6", "2 of 3 (wider)"),
-					ns.div("col", "3 of 3"),
-				]),
-				ns.div("row", [
-					ns.div("col", "1 of 3"),
-					ns.div("col-5", "2 of 3 (wider)"),
-					ns.div("col", "3 of 3"),
-				]),
+				ns.div("row", [ns.div("col", "1 of 3"), ns.div("col-6", "2 of 3 (wider)"), ns.div("col", "3 of 3")]),
+				ns.div("row", [ns.div("col", "1 of 3"), ns.div("col-5", "2 of 3 (wider)"), ns.div("col", "3 of 3")]),
 			]);
 		},
 	}),
@@ -851,12 +1016,7 @@ var e_grid = [
 		pclass: "ns-higlight-col",
 		code: function () {
 			return ns.div("container", [
-				ns.div("row", [
-					ns.div("col", "col"),
-					ns.div("col", "col"),
-					ns.div("col", "col"),
-					ns.div("col", "col"),
-				]),
+				ns.div("row", [ns.div("col", "col"), ns.div("col", "col"), ns.div("col", "col"), ns.div("col", "col")]),
 				ns.div("row", [ns.div("col-8", "col-8"), ns.div("col-4", "col-4")]),
 			]);
 		},
@@ -892,10 +1052,7 @@ var e_grid = [
 		code: function () {
 			return ns.div("container", [
 				//Stack the columns on mobile by making one full-width and the other half-width
-				ns.div("row", [
-					ns.div("col-md-8", "col-md-8"),
-					ns.div("col-6 col-md-4", "col-6 col-md-4"),
-				]),
+				ns.div("row", [ns.div("col-md-8", "col-md-8"), ns.div("col-6 col-md-4", "col-6 col-md-4")]),
 				//Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop
 				ns.div("row", [
 					ns.div("col-6 col-md-4", "col-6 col-md-4"),
@@ -1041,10 +1198,41 @@ var e_grid = [
 
 var e_container = [
 	ns.example({
+		title: "Containers",
+		msg: "Containers are a fundamental building block of Bootstrap that contain, pad, and align your content within a given device or viewport.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "How they work",
 		msg: [
-			"Containers are the most basic layout element in Bootstrap and are required when using Bootstrap default grid system. Containers are used to contain, pad, and (sometimes) center the content within them. While containers can be nested, most layouts do not require a nested container.",
+			"Containers are the most basic layout element in Bootstrap and are <b>required when using Bootstrap default grid system</b>. Containers are used to contain, pad, and (sometimes) center the content within them. While containers can be nested, most layouts do not require a nested container.",
 			"Bootstrap comes with three different containers:",
+			ns.ul([
+				ns.li("{{.container}}, which sets a {{max-width}} at each responsive breakpoint"),
+				ns.li("{{.container-fluid}}, which is {{width: 100%}} at all breakpoints"),
+				ns.li("{{.container-{breakpoint},}} which is {{width: 100%}} until the specified breakpoint"),
+			]),
+			"The table below illustrates how each container’s {{max-width}} compares to the original {{.container}} and {{.container-fluid}} across each breakpoint.",
+			"See them in action and compare them in our <a href='https://getbootstrap.com/docs/5.1/examples/grid/#containers'>Grid example</a>.",
+			ns.table({ bolderheadborder: true }, [
+				[
+					"",
+					"<b>Extra small</b><br/>&lt;576px",
+					"<b>Small</b><br/>≥576px",
+					"<b>Medium</b><br/>≥768px",
+					"<b>Large</b><br/>≥992px",
+					"<b>X-Large</b><br/>≥1200px",
+					"<b>XX-Large</b><br/>≥1400px",
+				],
+				["{{.container}}", "100%", "540px", "720px", "960px", "1140px", "1320px"],
+				["{{.container-sm}}", "100%", "540px", "720px", "960px", "1140px", "1320px"],
+				["{{.container-md}}", "100%", "100%", "720px", "960px", "1140px", "1320px"],
+				["{{.container-lg}}", "100%", "100%", "100%", "960px", "1140px", "1320px"],
+				["{{.container-xl}}", "100%", "100%", "100%", "100%", "1140px", "1320px"],
+				["{{.container-xxl}}", "100%", "100%", "100%", "100%", "100%", "1320px"],
+				["{{.container-fluid}}", "100%", "100%", "100%", "100%", "100%", "100%"],
+			]),
 		],
 	}),
 
@@ -1093,6 +1281,19 @@ var e_container = [
 
 var e_icon = [
 	ns.example({
+		title: "Icons",
+		msg: "Guidance and suggestions for using external icon libraries with Bootstrap.",
+		anchor: false,
+	}),
+
+	ns.example({
+		msg: [
+			"While Bootstrap doesn’t include an icon set by default, we do have our own comprehensive icon library called Bootstrap Icons. Feel free to use them or any other icon set in your project. We’ve included details for Bootstrap Icons and other preferred icon sets below.",
+			"While most icon sets include multiple file formats, we prefer SVG implementations for their improved accessibility and vector support.",
+		],
+	}),
+
+	ns.example({
 		title: "Favicon",
 		container: ns.cont.stack,
 		code: function () {
@@ -1104,23 +1305,11 @@ var e_icon = [
 		title: "Base icon",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				"i",
-				"!-danger",
-				"!!",
-				"!",
-				"?",
-				"-",
-				"x",
-				"/",
-				"save",
-				"delete",
-				"lock",
-				"shield",
-				"logout",
-			].map(function (i) {
-				return ns.icon(i);
-			});
+			return ["i", "!-danger", "!!", "!", "?", "-", "x", "/", "save", "delete", "lock", "shield", "logout"].map(
+				function (i) {
+					return ns.icon(i);
+				}
+			);
 		},
 	}),
 
@@ -1280,6 +1469,12 @@ var e_icon = [
 
 var e_tooltip = [
 	ns.example({
+		title: "Tooltips",
+		msg: "Documentation and examples for adding custom Bootstrap tooltips with CSS and JavaScript using CSS3 for animations and data-bs-attributes for local title storage.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Four direction",
 		container: ns.cont.stack,
 		code: function () {
@@ -1365,6 +1560,12 @@ var e_tooltip = [
 ];
 
 var e_toast = [
+	ns.example({
+		title: "Toasts",
+		msg: "Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Basic",
 		label: "Show toast",
@@ -1531,6 +1732,12 @@ var e_toast = [
 
 var e_spinner = [
 	ns.example({
+		title: "Spinners",
+		msg: "Indicate the loading state of a component or page with Bootstrap spinners, built entirely with HTML, CSS, and JavaScript.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Border spinner",
 		code: function () {
 			return ns.spinner();
@@ -1541,16 +1748,7 @@ var e_spinner = [
 		title: "Colors",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				"primary",
-				"secondary",
-				"success",
-				"danger",
-				"warning",
-				"info",
-				"light",
-				"dark",
-			].map(function (i) {
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
 				return ns.spinner({ color: i });
 			});
 		},
@@ -1567,16 +1765,7 @@ var e_spinner = [
 		title: "Colors",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				"primary",
-				"secondary",
-				"success",
-				"danger",
-				"warning",
-				"info",
-				"light",
-				"dark",
-			].map(function (i) {
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
 				return ns.spinner({ grow: true, color: i });
 			});
 		},
@@ -1710,15 +1899,15 @@ var e_spinner = [
 
 var e_progress = [
 	ns.example({
+		title: "Progress",
+		msg: "Documentation and examples for using Bootstrap custom progress bars featuring support for stacked bars, animated backgrounds, and text labels.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		code: function () {
-			return [
-				ns.progress(0),
-				ns.progress(25),
-				ns.progress(50),
-				ns.progress(75),
-				ns.progress(100),
-			];
+			return [ns.progress(0), ns.progress(25), ns.progress(50), ns.progress(75), ns.progress(100)];
 		},
 	}),
 
@@ -1808,6 +1997,12 @@ var e_progress = [
 ];
 
 var e_popover = [
+	ns.example({
+		title: "Popover",
+		msg: "Documentation and examples for adding Bootstrap popovers, like those found in iOS, to any element on your site.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Popover",
 		code: function () {
@@ -1927,6 +2122,12 @@ var e_popover = [
 ];
 
 var e_paging = [
+	ns.example({
+		title: "Pagination",
+		msg: "Documentation and examples for showing pagination to indicate a series of related content exists across multiple pages.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Example",
 		code: function () {
@@ -2085,6 +2286,12 @@ var e_paging = [
 var e_offcanvas = [
 	ns.example({
 		title: "Offcanvas",
+		msg: "Build hidden sidebars into your project for navigation, shopping carts, and more with a few classes and our JavaScript plugin.",
+		anchor: false,
+	}),
+
+	ns.example({
+		title: "Offcanvas",
 		label: "Show offcanvas",
 		sample: { "ex.sample.offcanvasbody": ex.sample.offcanvasbody },
 		code: function () {
@@ -2206,6 +2413,12 @@ var e_offcanvas = [
 ];
 
 var e_navbar = [
+	ns.example({
+		title: "Navbar",
+		msg: "Documentation and examples for Bootstrap’s powerful, responsive navigation header, the navbar. Includes support for branding, navigation, and more, including support for our collapse plugin.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Supported content",
 		sample: { "ex.sample.navbaritem": ex.sample.navbaritem },
@@ -2875,6 +3088,12 @@ var e_navbar = [
 
 var e_tab = [
 	ns.example({
+		title: "Navs and tabs",
+		msg: "Documentation and examples for how to use Bootstrap’s included navigation components.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Base nav",
 		code: function () {
 			return ns.nav({
@@ -3040,6 +3259,12 @@ var e_tab = [
 ];
 
 var e_dlg = [
+	ns.example({
+		title: "Modals",
+		msg: "Use Bootstrap’s JavaScript modal plugin to add dialogs to your site for lightboxes, user notifications, or completely custom content.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Simple dialog box",
 		container: ns.cont.stack,
@@ -3560,6 +3785,12 @@ var e_dlg = [
 
 var e_listgroup = [
 	ns.example({
+		title: "List group",
+		msg: "List groups are a flexible and powerful component for displaying a series of content. Modify and extend them to support just about any content within.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Basic example",
 		sample: { "ex.sample.listgroupitem": ex.sample.listgroupitem },
 		code: function () {
@@ -3666,10 +3897,7 @@ var e_listgroup = [
 						//ex.sample.listgroupitemcustomcontent
 						class: "d-flex justify-content-between align-items-start",
 						elems: [
-							ns.div("ms-2 me-auto", [
-								ns.div("fw-bold", "Subheading"),
-								"Cras justo odio",
-							]),
+							ns.div("ms-2 me-auto", [ns.div("fw-bold", "Subheading"), "Cras justo odio"]),
 							ns.badge({
 								pill: true,
 								color: "primary",
@@ -3745,16 +3973,7 @@ var e_listgroup = [
 		title: "Contextual classes example",
 		code: function () {
 			return ns.listgroup.container(
-				[
-					"primary",
-					"secondary",
-					"success",
-					"danger",
-					"warning",
-					"info",
-					"light",
-					"dark",
-				].map(function (i) {
+				["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
 					return ns.listgroup.item({ color: i, elems: `A simple ${i} list group item` });
 				})
 			);
@@ -3766,16 +3985,9 @@ var e_listgroup = [
 		code: function () {
 			return ns.listgroup.container({
 				type: "div",
-				elems: [
-					"primary",
-					"secondary",
-					"success",
-					"danger",
-					"warning",
-					"info",
-					"light",
-					"dark",
-				].map(function (i) {
+				elems: ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (
+					i
+				) {
 					return ns.listgroup.item({
 						action: true,
 						href: "javascript:void(0);",
@@ -3805,11 +4017,7 @@ var e_listgroup = [
 			};
 
 			return ns.listgroup.container({
-				elems: [
-					itemfn("A list item", 14),
-					itemfn("A second list item", 2),
-					itemfn("A third list item", 1),
-				],
+				elems: [itemfn("A list item", 14), itemfn("A second list item", 2), itemfn("A third list item", 1)],
 			});
 		},
 	}),
@@ -3964,6 +4172,12 @@ var e_listgroup = [
 ];
 
 var e_dropdown = [
+	ns.example({
+		title: "Dropdowns",
+		msg: "Toggle contextual overlays for displaying lists of links and more with the Bootstrap dropdown plugin.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Single button",
 		code: function () {
@@ -4427,21 +4641,10 @@ var e_dropdown = [
 					color: "secondary",
 					option: [
 						{
-							elems: ns.div({
-								class: "text-muted p-4",
-								style: { width: "200px" },
-								elems: [
-									{
-										tag: "p",
-										elems: "Some example text that's free-flowing within the dropdown menu.",
-									},
-									{
-										tag: "p",
-										class: "mb-0",
-										elems: "And this is more example text.",
-									},
-								],
-							}),
+							elems: ns.div("text-muted p-4", null, { width: "200px" }, [
+								ns.p("Some example text that's free-flowing within the dropdown menu."),
+								ns.p("mb-0", "And this is more example text."),
+							]),
 						},
 					],
 				}),
@@ -4551,6 +4754,12 @@ var e_dropdown = [
 
 var e_collapse = [
 	ns.example({
+		title: "Collapse",
+		msg: "Toggle the visibility of content across your project with a few classes and our JavaScript plugins.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		container: ns.cont.stack,
 		code: function () {
@@ -4628,6 +4837,12 @@ var e_collapse = [
 
 var e_close = [
 	ns.example({
+		title: "Close button",
+		msg: "A generic close button for dismissing content like modals and alerts.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		code: function () {
 			return ns.close();
@@ -4652,6 +4867,12 @@ var e_close = [
 ];
 
 var e_carosel = [
+	ns.example({
+		title: "Carousel",
+		msg: "A slideshow component for cycling through elements—images or slides of text—like a carousel.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Slide only",
 		sample: { "ex.sample.imgurl": ex.sample.imgurl },
@@ -4853,6 +5074,12 @@ var e_carosel = [
 
 var e_card = [
 	ns.example({
+		title: "Cards",
+		msg: "Bootstrap’s cards provide a flexible and extensible content container with multiple variants and options.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		sample: { "ex.sample.imgurl": ex.sample.imgurl },
 		code: function () {
@@ -5050,9 +5277,7 @@ var e_card = [
 					ns.card.header("Feature"),
 					ns.card.body([
 						ns.card.title("Special title treatment"),
-						ns.card.text(
-							"With supporting text below as a natural lead-in to additional content."
-						),
+						ns.card.text("With supporting text below as a natural lead-in to additional content."),
 						ns.button({ label: "Go somewhere", color: "primary" }),
 					]),
 				],
@@ -5072,9 +5297,7 @@ var e_card = [
 					}),
 					ns.card.body([
 						ns.card.title("Special title treatment"),
-						ns.card.text(
-							"With supporting text below as a natural lead-in to additional content."
-						),
+						ns.card.text("With supporting text below as a natural lead-in to additional content."),
 						ns.button({ label: "Go somewhere", color: "primary" }),
 					]),
 				],
@@ -5126,9 +5349,7 @@ var e_card = [
 					ns.card.header("Feature"),
 					ns.card.body([
 						ns.card.title("Special title treatment"),
-						ns.card.text(
-							"With supporting text below as a natural lead-in to additional content."
-						),
+						ns.card.text("With supporting text below as a natural lead-in to additional content."),
 						ns.button({ label: "Go somewhere", color: "primary" }),
 					]),
 					ns.card.footer("2 days ago"),
@@ -5153,9 +5374,7 @@ var e_card = [
 						elems: [
 							ns.card.body([
 								ns.card.title("Special title treatment"),
-								ns.card.text(
-									"With supporting text below as a natural lead-in to additional content."
-								),
+								ns.card.text("With supporting text below as a natural lead-in to additional content."),
 								ns.button({ label: "Go somewhere", color: "primary" }),
 							]),
 						],
@@ -5167,9 +5386,7 @@ var e_card = [
 						elems: [
 							ns.card.body([
 								ns.card.title("Special title treatment"),
-								ns.card.text(
-									"With supporting text below as a natural lead-in to additional content."
-								),
+								ns.card.text("With supporting text below as a natural lead-in to additional content."),
 								ns.button({ label: "Go somewhere", color: "primary" }),
 							]),
 						],
@@ -5189,9 +5406,7 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text(
-								"With supporting text below as a natural lead-in to additional content."
-							),
+							ns.card.text("With supporting text below as a natural lead-in to additional content."),
 							ns.button({ label: "Button", color: "primary" }),
 						]),
 					],
@@ -5201,9 +5416,7 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text(
-								"With supporting text below as a natural lead-in to additional content."
-							),
+							ns.card.text("With supporting text below as a natural lead-in to additional content."),
 							ns.button({ label: "Button", color: "primary" }),
 						]),
 					],
@@ -5222,9 +5435,7 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text(
-								"With supporting text below as a natural lead-in to additional content."
-							),
+							ns.card.text("With supporting text below as a natural lead-in to additional content."),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -5244,9 +5455,7 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text(
-								"With supporting text below as a natural lead-in to additional content."
-							),
+							ns.card.text("With supporting text below as a natural lead-in to additional content."),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -5257,9 +5466,7 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text(
-								"With supporting text below as a natural lead-in to additional content."
-							),
+							ns.card.text("With supporting text below as a natural lead-in to additional content."),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -5270,9 +5477,7 @@ var e_card = [
 					elems: [
 						ns.card.body([
 							ns.card.title("Special title treatment"),
-							ns.card.text(
-								"With supporting text below as a natural lead-in to additional content."
-							),
+							ns.card.text("With supporting text below as a natural lead-in to additional content."),
 							ns.button({ label: "Go somewhere", color: "primary" }),
 						]),
 					],
@@ -5291,24 +5496,15 @@ var e_card = [
 					{
 						label: "First",
 						active: true,
-						elems: [
-							"<b>This is the first item's tab body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the first item's tab body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Second",
-						elems: [
-							"<b>This is the second item's tab body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the second item's tab body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Third",
-						elems: [
-							"<b>This is the third item's tab body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the third item's tab body.</b> ", ex.sample.text()].join(""),
 					},
 				],
 			});
@@ -5324,24 +5520,15 @@ var e_card = [
 					{
 						label: "First",
 						active: true,
-						elems: [
-							"<b>This is the first item's tab body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the first item's tab body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Second",
-						elems: [
-							"<b>This is the second item's tab body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the second item's tab body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Third",
-						elems: [
-							"<b>This is the third item's tab body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the third item's tab body.</b> ", ex.sample.text()].join(""),
 					},
 				],
 			});
@@ -5735,6 +5922,12 @@ var e_card = [
 
 var e_btngroup = [
 	ns.example({
+		title: "Button group",
+		msg: "Group a series of buttons together on a single line or stack them in a vertical column.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Basic example",
 		code: function () {
 			return ns.btngroup({
@@ -6085,6 +6278,12 @@ var e_btngroup = [
 
 var e_btn = [
 	ns.example({
+		title: "Buttons",
+		msg: "Use Bootstrap’s custom button styles for actions in forms, dialogs, and more with support for multiple sizes, states, and more.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Examples",
 		container: ns.cont.stack,
 		code: function () {
@@ -6319,6 +6518,12 @@ var e_btn = [
 
 var e_breadcrumb = [
 	ns.example({
+		title: "Breadcrumb",
+		msg: "Indicate the current page’s location within a navigational hierarchy that automatically adds separators via CSS.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		code: function () {
 			return [
@@ -6392,6 +6597,12 @@ var e_breadcrumb = [
 ];
 
 var e_badge = [
+	ns.example({
+		title: "Badges",
+		msg: "Documentation and examples for badges, our small count and labeling component.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Example",
 		code: function () {
@@ -6496,6 +6707,12 @@ var e_badge = [
 
 var e_alert = [
 	ns.example({
+		title: "Alert",
+		msg: "Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		code: function () {
 			return [
@@ -6514,16 +6731,7 @@ var e_alert = [
 	ns.example({
 		title: "Link color",
 		code: function () {
-			var color = [
-				"primary",
-				"secondary",
-				"success",
-				"danger",
-				"warning",
-				"info",
-				"light",
-				"dark",
-			];
+			var color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
 			return color.map(function (i) {
 				return ns.alert.container({
 					color: i,
@@ -6591,6 +6799,12 @@ var e_alert = [
 
 var e_accordion = [
 	ns.example({
+		title: "Accordion",
+		msg: "Build vertically collapsing accordions in combination with our Collapse JavaScript plugin.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		msg: "Click the accordions below to expand/collapse the accordion content.",
 		code: function () {
@@ -6598,24 +6812,15 @@ var e_accordion = [
 				item: [
 					{
 						label: "Accordion Item 1",
-						elems: [
-							"<b>This is the first item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Accordion Item 2",
-						elems: [
-							"<b>This is the second item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Accordion Item 3",
-						elems: [
-							"<b>This is the third item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 				],
 			});
@@ -6631,24 +6836,15 @@ var e_accordion = [
 				item: [
 					{
 						label: "Accordion Item 1",
-						elems: [
-							"<b>This is the first item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Accordion Item 2",
-						elems: [
-							"<b>This is the second item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Accordion Item 3",
-						elems: [
-							"<b>This is the third item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 				],
 			});
@@ -6664,24 +6860,15 @@ var e_accordion = [
 				item: [
 					{
 						label: "Accordion Item 1",
-						elems: [
-							"<b>This is the first item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the first item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Accordion Item 2",
-						elems: [
-							"<b>This is the second item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the second item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 					{
 						label: "Accordion Item 3",
-						elems: [
-							"<b>This is the third item's accordion body.</b> ",
-							ex.sample.text(),
-						].join(""),
+						elems: ["<b>This is the third item's accordion body.</b> ", ex.sample.text()].join(""),
 					},
 				],
 			});
@@ -6690,6 +6877,12 @@ var e_accordion = [
 ];
 
 var e_input = [
+	ns.example({
+		title: "Form controls",
+		msg: "Give textual form controls like {{&lt;input&gt;}}s and {{&lt;textarea&gt;}}s an upgrade with custom styles, sizing, focus states, and more.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Example",
 		code: function () {
@@ -6860,6 +7053,12 @@ var e_input = [
 
 var e_select = [
 	ns.example({
+		title: "Select",
+		msg: "Customize the native {{&lt;select&gt;}}s with custom CSS that changes the element’s initial appearance.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Default",
 		code: function () {
 			return [
@@ -6946,6 +7145,12 @@ var e_select = [
 ];
 
 var e_radio = [
+	ns.example({
+		title: "Checks and radios",
+		msg: "Create consistent cross-browser and cross-device checkboxes and radios with our completely rewritten checks component.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Checks",
 		code: function () {
@@ -7183,7 +7388,79 @@ var e_radio = [
 	}),
 ];
 
+var e_range = [
+	ns.example({
+		title: "Range",
+		msg: "Use our custom range inputs for consistent cross-browser styling and built-in customization.",
+		anchor: false,
+	}),
+
+	ns.example({
+		title: "Example Range",
+		code: function () {
+			return [
+				ns.input({
+					label: "Simple Range",
+					type: "range",
+					value: 50,
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Disable",
+		code: function () {
+			return [
+				ns.input({
+					label: "Disable Range",
+					type: "range",
+					disabled: true,
+					value: 50,
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Min and max",
+		code: function () {
+			return [
+				ns.input({
+					label: "Example Range",
+					type: "range",
+					value: 2.5,
+					min: 0,
+					max: 5,
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Step",
+		code: function () {
+			return [
+				ns.input({
+					label: "Example Range",
+					type: "range",
+					value: 2.5,
+					min: 0,
+					max: 5,
+					step: 0.5,
+				}),
+			];
+		},
+	}),
+];
+
 var e_inputgroup = [
+	ns.example({
+		title: "Input group",
+		msg: "Easily extend form controls by adding text, buttons, or button groups on either side of textual inputs, custom selects, and custom file inputs.",
+		anchor: false,
+	}),
+
 	ns.example({
 		title: "Basic example",
 		code: function () {
@@ -7582,6 +7859,12 @@ var e_inputgroup = [
 
 var e_floatinglabel = [
 	ns.example({
+		title: "Floating labels",
+		msg: "Create beautifully simple form labels that float over your input fields.",
+		anchor: false,
+	}),
+
+	ns.example({
 		title: "Example",
 		code: function () {
 			return [
@@ -7681,71 +7964,12 @@ var e_floatinglabel = [
 	}),
 ];
 
-var e_range = [
-	ns.example({
-		title: "Example Range",
-		code: function () {
-			return [
-				ns.input({
-					label: "Simple Range",
-					type: "range",
-					value: 50,
-				}),
-			];
-		},
-	}),
-
-	ns.example({
-		title: "Disable",
-		code: function () {
-			return [
-				ns.input({
-					label: "Disable Range",
-					type: "range",
-					disabled: true,
-					value: 50,
-				}),
-			];
-		},
-	}),
-
-	ns.example({
-		title: "Min and max",
-		code: function () {
-			return [
-				ns.input({
-					label: "Example Range",
-					type: "range",
-					value: 2.5,
-					min: 0,
-					max: 5,
-				}),
-			];
-		},
-	}),
-
-	ns.example({
-		title: "Step",
-		code: function () {
-			return [
-				ns.input({
-					label: "Example Range",
-					type: "range",
-					value: 2.5,
-					min: 0,
-					max: 5,
-					step: 0.5,
-				}),
-			];
-		},
-	}),
-];
-
 var menu_c1 = [{ label: "Introduction", onclick: "showexample(this,'e_introduction')" }];
 
 var menu_c2 = [
 	{ label: "Containers", onclick: "showexample(this,'e_container')" },
-	{ label: "Grid", onclick: "showexample(this,'e_grid')", active: true },
+	{ label: "Grid", onclick: "showexample(this,'e_grid')" },
+	{ label: "Columns", onclick: "showexample(this,'e_column')", active: true },
 ];
 
 var menu_c3 = [
@@ -7825,6 +8049,8 @@ var menu_c9 = [
 ];
 
 function showexample(sender, arg) {
+	var sAll = window.performance.now();
+
 	if (sender) {
 		$(".exmenu .active").removeClass("active");
 		$(sender).addClass("active");
@@ -7833,7 +8059,9 @@ function showexample(sender, arg) {
 	var root = document.getElementById("root");
 	while (root.firstChild && root.removeChild(root.firstChild)); //$(root).empty();
 
+	var sBuild = window.performance.now();
 	ns.build.append(root, window[arg]);
+	var eBuild = window.performance.now();
 	ns.build.init(root);
 	PR.prettyPrint();
 
@@ -7843,23 +8071,37 @@ function showexample(sender, arg) {
 
 	var li = [];
 	var anchor = [].slice.call(root.getElementsByClassName("anchorjs-link"));
-	anchor.forEach(function (el) {
-		let parent = el.parentElement;
-		let id = parent.id;
-		li.push({
-			label: parent.innerText,
-			onclick: `focusExample("${id}");`,
-			level: parent.nodeName === "H4" ? 1 : 0,
+	if (anchor && anchor.length > 0) {
+		anchor.forEach(function (el) {
+			let parent = el.parentElement;
+			let id = parent.id;
+			li.push({
+				label: parent.innerText,
+				onclick: `focusExample("${id}");`,
+				level: parent.nodeName === "H3" ? 1 : 0,
+			});
 		});
-	});
 
-	ns.build.append(
-		nextbar,
-		ns.toc({
-			label: "On this page",
-			elems: li,
-		})
-	);
+		var sToc = window.performance.now();
+		ns.build.append(
+			nextbar,
+			ns.toc({
+				label: "On this page",
+				elems: li,
+			})
+		);
+	}
+
+	var eToc = window.performance.now();
+
+	var eAll = window.performance.now();
+
+	var processtime = document.getElementById("processtime");
+	processtime.innerText = `Complete in ${(eAll - sAll).toFixed(1)} ms | Build in ${(
+		eBuild -
+		sBuild +
+		(eToc - sToc)
+	).toFixed(1)} ms`;
 }
 
 function focusExample(id) {
@@ -7939,5 +8181,5 @@ $(document).ready(() => {
 		}),
 	]);
 
-	showexample(null, "e_grid");
+	showexample(null, "e_column");
 });
