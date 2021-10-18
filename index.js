@@ -751,6 +751,139 @@ var e_introduction = [
 	]),
 ];
 
+var e_gutter = [
+	ns.example({
+		title: "Gutters",
+		msg: "Gutters are the padding between your columns, used to responsively space and align content in the Bootstrap grid system.",
+		anchor: false,
+	}),
+
+	ns.example({
+		title: "How they work",
+		msg: ns.ul([
+			ns.li(
+				"<b>Gutters are the gaps between column content, created by horizontal {{padding}}.</b> We set {{padding-right}} and {{padding-left}} on each column, and use negative margin to offset that at the start and end of each row to align content."
+			),
+			ns.li(
+				"<b>Gutters start at {{1.5rem }}({{24px}}) wide.</b> This allows us to match our grid to the <a href='https://getbootstrap.com/docs/5.0/utilities/spacing/'>padding and margin spacers</a> scale."
+			),
+			ns.li(
+				"<b>Gutters can be responsively adjusted.</b> Use breakpoint-specific gutter classes to modify horizontal gutters, vertical gutters, and all gutters."
+			),
+		]),
+	}),
+
+	ns.example({
+		title: "Horizontal gutters",
+		msg: "{{.gx-*}} classes can be used to control the horizontal gutter widths. The {{.container}} or {{.container-fluid}} parent may need to be adjusted if larger gutters are used too to avoid unwanted overflow, using a matching padding utility. For example, in the following example we’ve increased the padding with {{.px-4}}:",
+		container: function (elems) {
+			return elems;
+		},
+		code: function () {
+			return ns.div("container px-4", [
+				ns.div("row gx-5", [
+					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		msg: "An alternative solution is to add a wrapper around the {{.row}} with the {{.overflow-hidden}} class:",
+		container: function (elems) {
+			return elems;
+		},
+		code: function () {
+			return ns.div("container overflow-hidden", [
+				ns.div("row gx-5", [
+					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Vertical gutters",
+		msg: "{{.gy-*}} classes can be used to control the vertical gutter widths. Like the horizontal gutters, the vertical gutters can cause some overflow below the {{.row}} at the end of a page. If this occurs, you add a wrapper around {{.row}} with the {{.overflow-hidden}} class:",
+		container: function (elems) {
+			return elems;
+		},
+		code: function () {
+			return ns.div("container overflow-hidden", [
+				ns.div("row gy-5", [
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Horizontal & vertical gutters",
+		msg: "{{.g-*}} classes can be used to control the horizontal gutter widths, for the following example we use a smaller gutter width, so there won’t be a need to add the {{.overflow-hidden}} wrapper class.",
+		container: function (elems) {
+			return elems;
+		},
+		code: function () {
+			return ns.div("container", [
+				ns.div("row g-2", [
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Row columns gutters",
+		msg: "Gutter classes can also be added to <a href='https://getbootstrap.com/docs/5.0/layout/grid/#row-columns'>row columns</a>. In the following example, we use responsive row columns and responsive gutter classes.",
+		container: function (elems) {
+			return elems;
+		},
+		code: function () {
+			return ns.div("container", [
+				ns.div("row row-cols-2 row-cols-lg-5 g-2 g-lg-3", [
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "No gutters",
+		msg: [
+			"The gutters between columns in our predefined grid classes can be removed with {{.g-0}}. This removes the negative {{margins}} from {{.row}} and the horizontal {{padding}} from all immediate children columns.",
+			"<b>Need an edge-to-edge design?</b> Drop the parent {{.container}} or {{.container-fluid.}}",
+			"In practice, here’s how it looks. Note you can continue to use this with all other predefined grid classes (including column widths, responsive tiers, reorders, and more).",
+		],
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col",
+		code: function () {
+			return ns.div("row g-0", [
+				ns.div("col-sm-6 col-md-8", ".col-sm-6 .col-md-8"),
+				ns.div("col-6 col-md-4", ".col-6 .col-md-4"),
+			]);
+		},
+	}),
+];
+
 var e_column = [
 	ns.example({
 		title: "Columns",
@@ -790,7 +923,7 @@ var e_column = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col ns-higlight-row",
+		pclass: "ns-higlight-col ns-higlight-row px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row align-items-start", null, { minHeight: "10rem" }, [
@@ -817,7 +950,7 @@ var e_column = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col ns-higlight-row",
+		pclass: "ns-higlight-col ns-higlight-row px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", null, { minHeight: "10rem" }, [
@@ -834,7 +967,7 @@ var e_column = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row justify-content-start", [
@@ -871,7 +1004,7 @@ var e_column = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [
@@ -892,7 +1025,7 @@ var e_column = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [
@@ -911,7 +1044,7 @@ var e_column = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [
@@ -921,6 +1054,131 @@ var e_column = [
 					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
 					ns.div("col-6 col-sm-3", ".col-6 .col-sm-3"),
 				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Reordering",
+	}),
+
+	ns.example({
+		title: "Order classes",
+		msg: "Use {{.order-}} classes for controlling the <b>visual order</b> of your content. These classes are responsive, so you can set the {{order}} by breakpoint (e.g., {{.order-1.order-md-2}}). Includes support for 1 through 5 across all six grid tiers.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col px-1",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col", "First in DOM, no order applied"),
+					ns.div("col order-5", "Second in DOM, with a larger order"),
+					ns.div("col order-1", "Third in DOM, with an order of 1"),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Offsetting columns",
+		msg: "You can offset grid columns in two ways: our responsive {{.offset-}} grid classes and our margin utilities. Grid classes are sized to match columns while margins are more useful for quick layouts where the width of the offset is variable.",
+	}),
+
+	ns.example({
+		title: "Offset classes",
+		msg: "Move columns to the right using {{.offset-md-*}} classes. These classes increase the left margin of a column by {{*}} columns. For example, {{.offset-md-4}} moves {{.col-md-4}} over four columns.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col px-1",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col-md-4", ".col-md-4"),
+					ns.div("col-md-4 offset-md-4", ".col-md-4 .offset-md-4"),
+				]),
+				ns.div("row", [
+					ns.div("col-md-3 offset-md-3", ".col-md-3 .offset-md-3"),
+					ns.div("col-md-3 offset-md-3", ".col-md-3 .offset-md-3"),
+				]),
+				ns.div("row", [ns.div("col-md-6 offset-md-3", ".col-md-6 .offset-md-3")]),
+			]);
+		},
+	}),
+
+	ns.example({
+		msg: "In addition to column clearing at responsive breakpoints, you may need to reset offsets. See this in action in the grid example.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col px-1",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [
+					ns.div("col-sm-5 col-md-6", ".col-sm-5 .col-md-6"),
+					ns.div(
+						"col-sm-5 offset-sm-2 col-md-6 offset-md-0",
+						".col-sm-5 .offset-sm-2 .col-md-6 .offset-md-0"
+					),
+				]),
+				ns.div("row", [
+					ns.div("col-sm-6 col-md-5 col-lg-6", ".col-sm-6 .col-md-5 .col-lg-6"),
+					ns.div(
+						"col-sm-6 col-md-5 offset-md-2 col-lg-6 offset-lg-0",
+						".col-sm-6 .col-md-5 .offset-md-2 .col-lg-6 .offset-lg-0"
+					),
+				]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Margin utilities",
+		msg: "With the move to flexbox in v4, you can use margin utilities like .me-auto to force sibling columns away from one another.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col px-1",
+		code: function () {
+			return ns.div("container", [
+				ns.div("row", [ns.div("col-md-4", ".col-md-4"), ns.div("col-md-4 ms-auto", ".col-md-4 .ms-auto")]),
+				ns.div("row", [
+					ns.div("col-md-4 ms-auto", ".col-md-4 .ms-auto"),
+					ns.div("col-md-4 ms-auto", ".col-md-4 .ms-auto"),
+				]),
+				ns.div("row", [ns.div("col-auto ms-auto", ".col-auto .ms-auto"), ns.div("col-auto", ".col-auto")]),
+			]);
+		},
+	}),
+
+	ns.example({
+		title: "Standalone column classes",
+		msg: "The .col-* classes can also be used outside a .row to give an element a specific width. Whenever column classes are used as non direct children of a row, the paddings are omitted.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col px-3",
+		code: function () {
+			return [
+				ns.div("col-3 bg-light p-3 border", "  .col-3: width of 25%"),
+				ns.div("col-sm-9 bg-light p-3 border", " .col-sm-9: width of 75% above sm breakpoint"),
+			];
+		},
+	}),
+
+	ns.example({
+		msg: "The classes can be used together with utilities to create responsive floated images. Make sure to wrap the content in a .clearfix wrapper to clear the float if the text is shorter.",
+		container: function (elems) {
+			return elems;
+		},
+		pclass: "ns-higlight-col px-3",
+		code: function () {
+			return ns.div("clearfix", [
+				ns.img({ src: ex.sample.imgurl(200, 200), class: "col-md-6 float-md-end mb-3 ms-md-3" }),
+				ns.p(ex.sample.text()),
+				ns.p(ex.sample.text()),
+				ns.p(ex.sample.text()),
 			]);
 		},
 	}),
@@ -945,7 +1203,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div(
 				"container",
@@ -960,7 +1218,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [ns.div("col", "1 of 2"), ns.div("col", "2 of 2")]),
@@ -975,7 +1233,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [ns.div("col", "1 of 3"), ns.div("col-6", "2 of 3 (wider)"), ns.div("col", "3 of 3")]),
@@ -990,7 +1248,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row justify-content-md-center", [
@@ -1013,7 +1271,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [ns.div("col", "col"), ns.div("col", "col"), ns.div("col", "col"), ns.div("col", "col")]),
@@ -1028,7 +1286,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [ns.div("col-sm-8", "col-sm-8"), ns.div("col-sm-4", "col-sm-4")]),
@@ -1048,7 +1306,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				//Stack the columns on mobile by making one full-width and the other half-width
@@ -1074,7 +1332,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row row-cols-2", [
@@ -1091,7 +1349,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row row-cols-3", [
@@ -1108,7 +1366,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row row-cols-auto", [
@@ -1125,7 +1383,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row row-cols-4", [
@@ -1142,7 +1400,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row row-cols-4", [
@@ -1159,7 +1417,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row row-cols-1 row-cols-sm-2 row-cols-md-4", [
@@ -1178,7 +1436,7 @@ var e_grid = [
 		container: function (elems) {
 			return elems;
 		},
-		pclass: "ns-higlight-col",
+		pclass: "ns-higlight-col px-1",
 		code: function () {
 			return ns.div("container", [
 				ns.div("row", [
@@ -1211,7 +1469,7 @@ var e_container = [
 			ns.ul([
 				ns.li("{{.container}}, which sets a {{max-width}} at each responsive breakpoint"),
 				ns.li("{{.container-fluid}}, which is {{width: 100%}} at all breakpoints"),
-				ns.li("{{.container-{breakpoint},}} which is {{width: 100%}} until the specified breakpoint"),
+				ns.li("{{.container-{breakpoint&#125;}} which is {{width: 100%}} until the specified breakpoint"),
 			]),
 			"The table below illustrates how each container’s {{max-width}} compares to the original {{.container}} and {{.container-fluid}} across each breakpoint.",
 			"See them in action and compare them in our <a href='https://getbootstrap.com/docs/5.1/examples/grid/#containers'>Grid example</a>.",
@@ -1440,8 +1698,28 @@ var e_icon = [
 
 	ns.example({
 		title: "Button",
+		container: ns.cont.stack,
 		code: function () {
-			return ns.button({ label: "Button", color: "primary", icon: ns.icon("fire") });
+			return [
+				ns.button({ label: "Button", color: "primary", icon: "fire" }),
+				ns.button({
+					label: "Button",
+					color: "primary",
+					icon: {
+						color: "danger",
+						icon: "fire",
+					},
+				}),
+				ns.button({
+					label: "Button",
+					color: "primary",
+					icon: ns.icon({
+						color: "danger",
+						icon: "fire",
+						spin: true,
+					}),
+				}),
+			];
 		},
 	}),
 
@@ -1449,19 +1727,76 @@ var e_icon = [
 		title: "Textbox",
 		container: ns.cont.stack,
 		code: function () {
-			return ns.input({ type: "text", before: ns.icon("fire") });
+			return [
+				ns.input({ type: "text", before: ns.icon("fire") }),
+				//ns.input before and after must use ns.icon
+				// ns.input({
+				// 	type: "text",
+				// 	before: {
+				// 		color: "danger",
+				// 		icon: "fire",
+				// 	},
+				// }),
+				ns.input({
+					type: "text",
+					before: ns.icon({
+						color: "danger",
+						icon: "fire",
+						spin: true,
+					}),
+				}),
+			];
 		},
 	}),
 
 	ns.example({
-		title: "Dropdown",
+		title: "Dropdown & item",
 		container: ns.cont.stack,
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Dropdown",
 				color: "primary",
-				icon: ns.icon("fire"),
-				option: ex.sample.dropdownitem(),
+				icon: "fire",
+				option: [
+					{ href: "javascript:void(0);", label: "Copy", icon: "copy" },
+					{ href: "javascript:void(0);", label: "Cut", icon: "cut" },
+					{ href: "javascript:void(0);", label: "Paste", icon: "paste" },
+					{ value: "-" },
+					{ href: "javascript:void(0);", label: "Setting", icon: "sliders-h" },
+				],
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Navbar",
+		container: ns.cont.stack,
+		code: function () {
+			return ns.navbar.container({
+				expand: "lg",
+				elems: [
+					ns.navbar.brand({
+						label: "Navbar",
+						icon: { icon: "fire", color: "danger" },
+						href: "javascript:void(0);",
+					}),
+				],
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Nav tab",
+		sample: { "ex.sample.text": ex.sample.text },
+		code: function () {
+			return ns.nav({
+				elems: [
+					{ icon: "fire", label: "First", elems: "This is first tab. " + ex.sample.text() },
+					{ label: "Second", elems: "This is second tab. " + ex.sample.text() },
+					{ label: "Third", elems: "This is third tab. " + ex.sample.text() },
+					{ label: "Disabled", disabled: true, elems: "This is last tab. " + ex.sample.text() },
+				],
 			});
 		},
 	}),
@@ -2298,7 +2633,7 @@ var e_offcanvas = [
 			ns.offcanvas({
 				close: true,
 				backdrop: true,
-				bgcolor: "light",
+				color: "light",
 				title: "Offcanvas",
 				elems: ex.sample.offcanvasbody(),
 			});
@@ -2318,7 +2653,7 @@ var e_offcanvas = [
 				close: true,
 				backdrop: true,
 				placement: "top",
-				bgcolor: "light",
+				color: "light",
 				title: "Offcanvas",
 				elems: ex.sample.offcanvasbody(),
 			});
@@ -2334,7 +2669,7 @@ var e_offcanvas = [
 				close: true,
 				backdrop: true,
 				placement: "bottom",
-				bgcolor: "light",
+				color: "light",
 				title: "Offcanvas",
 				elems: ex.sample.offcanvasbody(),
 			});
@@ -2350,7 +2685,7 @@ var e_offcanvas = [
 				close: true,
 				backdrop: true,
 				placement: "end",
-				bgcolor: "light",
+				color: "light",
 				title: "Offcanvas",
 				elems: ex.sample.offcanvasbody(),
 			});
@@ -2371,7 +2706,7 @@ var e_offcanvas = [
 							close: true,
 							scroll: true,
 							backdrop: false,
-							bgcolor: "light",
+							color: "light",
 							title: "Offcanvas",
 							elems: ex.sample.offcanvasbody(),
 						});
@@ -2386,7 +2721,7 @@ var e_offcanvas = [
 							close: true,
 							scroll: false,
 							backdrop: true,
-							bgcolor: "light",
+							color: "light",
 							title: "Offcanvas",
 							elems: ex.sample.offcanvasbody(),
 						});
@@ -2401,7 +2736,7 @@ var e_offcanvas = [
 							close: true,
 							backdrop: true,
 							scroll: true,
-							bgcolor: "light",
+							color: "light",
 							title: "Offcanvas",
 							elems: ex.sample.offcanvasbody(),
 						});
@@ -3095,20 +3430,11 @@ var e_tab = [
 
 	ns.example({
 		title: "Base nav",
+		sample: { "ex.sample.tab": ex.sample.tab },
 		code: function () {
 			return ns.nav({
 				style: null,
-				elems: [
-					//sample tab
-					{ label: "First", elems: "This is first tab. " + ex.sample.text() },
-					{ label: "Second", elems: "This is second tab. " + ex.sample.text() },
-					{ label: "Third", elems: "This is third tab. " + ex.sample.text() },
-					{
-						label: "Disabled",
-						disabled: true,
-						elems: "This is last tab. " + ex.sample.text(),
-					},
-				],
+				elems: ex.sample.tab(),
 			});
 		},
 	}),
@@ -3423,7 +3749,7 @@ var e_dlg = [
 				.then((d) => {
 					ns.toast({
 						delay: 10000,
-						bgcolor: "success",
+						color: "success",
 						textcolor: "light",
 						icon: "dove",
 						title: "Result",
@@ -3487,6 +3813,7 @@ var e_dlg = [
 	ns.example({
 		title: "Scrolling long content",
 		label: "Show modal dialog",
+		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			ns.dlg
 				.box({
@@ -3530,6 +3857,7 @@ var e_dlg = [
 	ns.example({
 		title: "Vertically centered scrollable dialog",
 		label: "Show modal dialog",
+		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			ns.dlg
 				.box({
@@ -3633,33 +3961,8 @@ var e_dlg = [
 	ns.example({
 		title: "Varying modal content",
 		container: ns.cont.stack,
+		sample: { "ex.sample.dlgFn": ex.sample.dlgFn },
 		code: function () {
-			var dlgFn = function (reipient) {
-				ns.dlg
-					.box({
-						title: "Modal title",
-						elems: ns.cont.singlecolumn([
-							ns.input({
-								type: "text",
-								name: "reipient",
-								label: "Recipient:",
-								value: reipient,
-							}),
-							ns.input({
-								type: "textarea",
-								name: "message",
-								label: "Message:",
-								value: "",
-							}),
-						]),
-						button: "sendmessageclose",
-					})
-					.then((data) => {
-						ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
-					})
-					.catch((err) => {});
-			};
-
 			return [
 				ns.button({
 					label: "Message for @mdo",
@@ -3683,6 +3986,10 @@ var e_dlg = [
 	ns.example({
 		title: "Toggle between modals",
 		label: "Show first modal",
+		sample: {
+			"ex.sample.dlgFirstModal": ex.sample.dlgFirstModal,
+			"ex.sample.dlgSecondModal": ex.sample.dlgSecondModal,
+		},
 		code: function () {
 			var dlgFirstModal = function () {
 				ns.dlg.box({
@@ -3893,18 +4200,7 @@ var e_listgroup = [
 			return ns.listgroup.container({
 				numbered: true,
 				elems: [
-					ns.listgroup.item({
-						//ex.sample.listgroupitemcustomcontent
-						class: "d-flex justify-content-between align-items-start",
-						elems: [
-							ns.div("ms-2 me-auto", [ns.div("fw-bold", "Subheading"), "Cras justo odio"]),
-							ns.badge({
-								pill: true,
-								color: "primary",
-								label: "14",
-							}),
-						],
-					}),
+					ns.listgroup.item(ex.sample.listgroupitemcustomcontent()),
 					ns.listgroup.item(ex.sample.listgroupitemcustomcontent()),
 					ns.listgroup.item(ex.sample.listgroupitemcustomcontent()),
 				],
@@ -3919,12 +4215,7 @@ var e_listgroup = [
 			return [
 				ns.listgroup.container({
 					horizontal: true,
-					elems: [
-						//ex.sample.listgroupitem3
-						ns.listgroup.item("An item"),
-						ns.listgroup.item("A second item"),
-						ns.listgroup.item("A third item"),
-					],
+					elems: ex.sample.listgroupitem3(),
 				}),
 
 				ns.listgroup.container({
@@ -4180,18 +4471,12 @@ var e_dropdown = [
 
 	ns.example({
 		title: "Single button",
+		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
 			return ns.dropdown({
 				label: "Drowdown button",
 				color: "secondary",
-				option: [
-					//simpledrowdownitem
-					{ href: "javascript:void(0);", label: "Action" },
-					{ href: "javascript:void(0);", label: "Another action" },
-					{ href: "javascript:void(0);", label: "Something else here" },
-					{ value: "-" },
-					{ href: "javascript:void(0);", label: "Separated link" },
-				],
+				option: ex.sample.dropdownitem(),
 			});
 		},
 	}),
@@ -5489,6 +5774,7 @@ var e_card = [
 	ns.example({
 		title: "Tab in card",
 		msg: "{{ns.nav}} is working navbar in card",
+		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			return ns.nav({
 				style: "tab",
@@ -5513,6 +5799,7 @@ var e_card = [
 
 	ns.example({
 		title: "Pill style tab",
+		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			return ns.nav({
 				style: "pill",
@@ -5608,7 +5895,7 @@ var e_card = [
 						left: [
 							ns.card.img({
 								placement: "top",
-								src: ex.sample.imgurl(400, 400),
+								src: ex.sample.imgurl(400, 800),
 							}),
 						],
 						right: [
@@ -6807,6 +7094,7 @@ var e_accordion = [
 	ns.example({
 		title: "Example",
 		msg: "Click the accordions below to expand/collapse the accordion content.",
+		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			return ns.accordion({
 				item: [
@@ -6830,6 +7118,7 @@ var e_accordion = [
 	ns.example({
 		title: "Flush",
 		msg: "Set {{flush:true}} to remove the default background-color, some borders, and some rounded corners to render accordions edge-to-edge with their parent container.",
+		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			return ns.accordion({
 				flush: true,
@@ -6854,6 +7143,7 @@ var e_accordion = [
 	ns.example({
 		title: "Always open",
 		msg: "Set {{autoclose:false}} to make accordion items stay open when another item is opened.",
+		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			return ns.accordion({
 				autoclose: false,
@@ -7060,18 +7350,13 @@ var e_select = [
 
 	ns.example({
 		title: "Default",
+		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
 			return [
 				ns.input({
 					hiddenlabel: "Default select example",
 					type: "select",
-					option: [
-						//ex.sample.optionitem
-						{ value: "", label: "Open this select menu", selected: true },
-						{ value: "1", label: "One" },
-						{ value: "2", label: "Two" },
-						{ value: "3", label: "Three" },
-					],
+					option: ex.sample.optionitem(),
 				}),
 			];
 		},
@@ -7913,7 +8198,7 @@ var e_floatinglabel = [
 						label: "Validate",
 						color: "primary",
 						onclick: function (sender) {
-							ns.core.validate($(sender).closest(".card-body"));
+							ns.validate($(sender).closest(".card-body"));
 						},
 					}),
 				}),
@@ -7964,88 +8249,85 @@ var e_floatinglabel = [
 	}),
 ];
 
-var menu_c1 = [{ label: "Introduction", onclick: "showexample(this,'e_introduction')" }];
+var menu = [
+	[{ label: "Introduction", onclick: "showexample(this,'e_introduction')" }],
+	[
+		{ label: "Containers", onclick: "showexample(this,'e_container')" },
+		{ label: "Grid", onclick: "showexample(this,'e_grid')" },
+		{ label: "Columns", onclick: "showexample(this,'e_column')" },
+		{ label: "Gutter", onclick: "showexample(this,'e_gutter')" },
+	],
+	[
+		{ label: "Form control", onclick: "showexample(this,'e_input')" },
+		{ label: "Select", onclick: "showexample(this,'e_select')" },
+		{ label: "Check &amp; radios", onclick: "showexample(this,'e_radio')" },
+		{ label: "Range", onclick: "showexample(this,'e_range')" },
+		{ label: "Input group", onclick: "showexample(this,'e_inputgroup')" },
+		{ label: "Floating label", onclick: "showexample(this,'e_floatinglabel')" },
+	],
+	[
+		{ label: "Accordion", onclick: "showexample(this,'e_accordion')" },
+		{ label: "Alert", onclick: "showexample(this,'e_alert')" },
+		{ label: "Badge", onclick: "showexample(this,'e_badge')" },
+		{ label: "Breadcrumb", onclick: "showexample(this,'e_breadcrumb')" },
+		{ label: "Button", onclick: "showexample(this,'e_btn')" },
+		{ label: "Button group", onclick: "showexample(this,'e_btngroup')" },
+		{ label: "Card", onclick: "showexample(this,'e_card')" },
+		{ label: "Carosel", onclick: "showexample(this,'e_carosel')" },
+		{ label: "Close button", onclick: "showexample(this,'e_close')" },
+		{ label: "Collapse", onclick: "showexample(this,'e_collapse')" },
+		{ label: "Dropdown", onclick: "showexample(this,'e_dropdown')" },
+		{ label: "List group", onclick: "showexample(this,'e_listgroup')" },
+		{ label: "Modal", onclick: "showexample(this,'e_dlg')" },
+		{ label: "Tab", onclick: "showexample(this,'e_tab')" },
+		{ label: "Navbar", onclick: "showexample(this,'e_navbar')" },
+		{ label: "Offcanvas", onclick: "showexample(this,'e_offcanvas')" },
+		{ label: "Paging", onclick: "showexample(this,'e_paging')" },
+		{ label: "Popover", onclick: "showexample(this,'e_popover')" },
+		{ label: "Progress", onclick: "showexample(this,'e_progress')" },
+		{ label: "Spinners", onclick: "showexample(this,'e_spinner')" },
+		{ label: "Toast", onclick: "showexample(this,'e_toast')" },
+		{ label: "Tooltips", onclick: "showexample(this,'e_tooltip')" },
 
-var menu_c2 = [
-	{ label: "Containers", onclick: "showexample(this,'e_container')" },
-	{ label: "Grid", onclick: "showexample(this,'e_grid')" },
-	{ label: "Columns", onclick: "showexample(this,'e_column')", active: true },
-];
-
-var menu_c3 = [
-	{ label: "Form control", onclick: "showexample(this,'e_input')" },
-	{ label: "Select", onclick: "showexample(this,'e_select')" },
-	{ label: "Check &amp; radios", onclick: "showexample(this,'e_radio')" },
-	{ label: "Range", onclick: "showexample(this,'e_range')" },
-	{ label: "Input group", onclick: "showexample(this,'e_inputgroup')" },
-	{ label: "Floating label", onclick: "showexample(this,'e_floatinglabel')" },
-];
-
-var menu_c4 = [
-	{ label: "Accordion", onclick: "showexample(this,'e_accordion')" },
-	{ label: "Alert", onclick: "showexample(this,'e_alert')" },
-	{ label: "Badge", onclick: "showexample(this,'e_badge')" },
-	{ label: "Breadcrumb", onclick: "showexample(this,'e_breadcrumb')" },
-	{ label: "Button", onclick: "showexample(this,'e_btn')" },
-	{ label: "Button group", onclick: "showexample(this,'e_btngroup')" },
-	{ label: "Card", onclick: "showexample(this,'e_card')" },
-	{ label: "Carosel", onclick: "showexample(this,'e_carosel')" },
-	{ label: "Close button", onclick: "showexample(this,'e_close')" },
-	{ label: "Collapse", onclick: "showexample(this,'e_collapse')" },
-	{ label: "Dropdown", onclick: "showexample(this,'e_dropdown')" },
-	{ label: "List group", onclick: "showexample(this,'e_listgroup')" },
-	{ label: "Modal", onclick: "showexample(this,'e_dlg')" },
-	{ label: "Tab", onclick: "showexample(this,'e_tab')" },
-	{ label: "Navbar", onclick: "showexample(this,'e_navbar')" },
-	{ label: "Offcanvas", onclick: "showexample(this,'e_offcanvas')" },
-	{ label: "Paging", onclick: "showexample(this,'e_paging')" },
-	{ label: "Popover", onclick: "showexample(this,'e_popover')" },
-	{ label: "Progress", onclick: "showexample(this,'e_progress')" },
-	{ label: "Spinners", onclick: "showexample(this,'e_spinner')" },
-	{ label: "Toast", onclick: "showexample(this,'e_toast')" },
-	{ label: "Tooltips", onclick: "showexample(this,'e_tooltip')" },
-
-	// { label: "Icon", onclick: "showexample(this,'e_icon')" },
-	// { label: "Image", onclick: "showexample(this,'e_img')" },
-	// { label: "Link", onclick: "showexample(this,'e_link')" },
-	// { label: "List", onclick: "showexample(this,'e_listctl')" },
-	// { label: "Table", onclick: "showexample(this,'e_table')" },
-];
-
-var menu_c5 = [{ label: "Icon", onclick: "showexample(this,'e_icon')" }];
-
-var menu_c8 = [
-	{ label: "Home", icon: "home", onclick: "window.location='index.html'" },
-	{ label: "List query test", icon: "flask", onclick: "window.location='list_query_test.html'" },
-];
-
-var menu_c9 = [
-	{ onclick: "changeTheme(this,null);", label: "Default", active: true },
-	{ onclick: "changeTheme(this,'cerulean');", label: "Cerulean (L|G)" },
-	{ onclick: "changeTheme(this,'cosmo');", label: "Cosmo (L|S)" },
-	{ onclick: "changeTheme(this,'cyborg');", label: "Cyborg (D|S)" },
-	{ onclick: "changeTheme(this,'darkly');", label: "Darkly (D|S)" },
-	{ onclick: "changeTheme(this,'flatly');", label: "Flatly (L|S)" },
-	{ onclick: "changeTheme(this,'journal');", label: "Journal (L|S)" },
-	{ onclick: "changeTheme(this,'litera');", label: "Litera (L|S)" },
-	{ onclick: "changeTheme(this,'lumen');", label: "Lumen (L|S)" },
-	{ onclick: "changeTheme(this,'lux');", label: "Lux (L|S)" },
-	{ onclick: "changeTheme(this,'materia');", label: "Materia (L|G)" },
-	{ onclick: "changeTheme(this,'minty');", label: "Minty (L|S)" },
-	{ onclick: "changeTheme(this,'morph');", label: "Morph (L|G)" },
-	{ onclick: "changeTheme(this,'pulse');", label: "Pulse (L|S)" },
-	{ onclick: "changeTheme(this,'quartz');", label: "Quartz (D|G)" },
-	{ onclick: "changeTheme(this,'sandstone');", label: "Sandstone (L|S)" },
-	{ onclick: "changeTheme(this,'simplex');", label: "Simplex (L|G)" },
-	{ onclick: "changeTheme(this,'sketchy');", label: "Sketchy (L|S)" },
-	{ onclick: "changeTheme(this,'slate');", label: "Slate (D|G)" },
-	{ onclick: "changeTheme(this,'solar');", label: "Solar (D|S)" },
-	{ onclick: "changeTheme(this,'spacelab');", label: "Spacelab (L|G)" },
-	{ onclick: "changeTheme(this,'superhero');", label: "Superhero (D|S)" },
-	{ onclick: "changeTheme(this,'united');", label: "United (L|S)" },
-	{ onclick: "changeTheme(this,'vapor');", label: "Vapor (D|G)" },
-	{ onclick: "changeTheme(this,'yeti');", label: "Yeti (L|S)" },
-	{ onclick: "changeTheme(this,'zephyr');", label: "Zephyr (L|S)" },
+		// { label: "Icon", onclick: "showexample(this,'e_icon')" },
+		// { label: "Image", onclick: "showexample(this,'e_img')" },
+		// { label: "Link", onclick: "showexample(this,'e_link')" },
+		// { label: "List", onclick: "showexample(this,'e_listctl')" },
+		// { label: "Table", onclick: "showexample(this,'e_table')" },
+	],
+	[{ label: "Icon", onclick: "showexample(this,'e_icon')" }],
+	[
+		{ label: "Home", icon: "home", onclick: "window.location='index.html'" },
+		{ label: "List query test", icon: "flask", onclick: "window.location='list_query_test.html'" },
+	],
+	[
+		{ onclick: "changeTheme(this,null);", label: "Default", active: true },
+		{ onclick: "changeTheme(this,'cerulean');", label: "Cerulean (L|G)" },
+		{ onclick: "changeTheme(this,'cosmo');", label: "Cosmo (L|S)" },
+		{ onclick: "changeTheme(this,'cyborg');", label: "Cyborg (D|S)" },
+		{ onclick: "changeTheme(this,'darkly');", label: "Darkly (D|S)" },
+		{ onclick: "changeTheme(this,'flatly');", label: "Flatly (L|S)" },
+		{ onclick: "changeTheme(this,'journal');", label: "Journal (L|S)" },
+		{ onclick: "changeTheme(this,'litera');", label: "Litera (L|S)" },
+		{ onclick: "changeTheme(this,'lumen');", label: "Lumen (L|S)" },
+		{ onclick: "changeTheme(this,'lux');", label: "Lux (L|S)" },
+		{ onclick: "changeTheme(this,'materia');", label: "Materia (L|G)" },
+		{ onclick: "changeTheme(this,'minty');", label: "Minty (L|S)" },
+		{ onclick: "changeTheme(this,'morph');", label: "Morph (L|G)" },
+		{ onclick: "changeTheme(this,'pulse');", label: "Pulse (L|S)" },
+		{ onclick: "changeTheme(this,'quartz');", label: "Quartz (D|G)" },
+		{ onclick: "changeTheme(this,'sandstone');", label: "Sandstone (L|S)" },
+		{ onclick: "changeTheme(this,'simplex');", label: "Simplex (L|G)" },
+		{ onclick: "changeTheme(this,'sketchy');", label: "Sketchy (L|S)" },
+		{ onclick: "changeTheme(this,'slate');", label: "Slate (D|G)" },
+		{ onclick: "changeTheme(this,'solar');", label: "Solar (D|S)" },
+		{ onclick: "changeTheme(this,'spacelab');", label: "Spacelab (L|G)" },
+		{ onclick: "changeTheme(this,'superhero');", label: "Superhero (D|S)" },
+		{ onclick: "changeTheme(this,'united');", label: "United (L|S)" },
+		{ onclick: "changeTheme(this,'vapor');", label: "Vapor (D|G)" },
+		{ onclick: "changeTheme(this,'yeti');", label: "Yeti (L|S)" },
+		{ onclick: "changeTheme(this,'zephyr');", label: "Zephyr (L|S)" },
+	],
 ];
 
 function showexample(sender, arg) {
@@ -8054,54 +8336,69 @@ function showexample(sender, arg) {
 	if (sender) {
 		$(".exmenu .active").removeClass("active");
 		$(sender).addClass("active");
+	} else {
+		$(`.exmenu [onclick="showexample(this,'${arg}')"]`).addClass("active");
 	}
 
-	var root = document.getElementById("root");
-	while (root.firstChild && root.removeChild(root.firstChild)); //$(root).empty();
+	setTimeout(
+		function (arg, sAll) {
+			var root = document.getElementById("root");
+			while (root.firstChild && root.removeChild(root.firstChild)); //$(root).empty();
 
-	var sBuild = window.performance.now();
-	ns.build.append(root, window[arg]);
-	var eBuild = window.performance.now();
-	ns.build.init(root);
-	PR.prettyPrint();
+			var sBuild = window.performance.now();
+			ns.build.append(root, window[arg]);
+			var eBuild = window.performance.now();
+			ns.build.init(root);
+			PR.prettyPrint();
 
-	//build TOC
-	var nextbar = document.getElementById("nextbar");
-	while (nextbar.firstChild && nextbar.removeChild(nextbar.firstChild));
+			//build TOC
+			var nextbar = document.getElementById("nextbar");
+			while (nextbar.firstChild && nextbar.removeChild(nextbar.firstChild));
 
-	var li = [];
-	var anchor = [].slice.call(root.getElementsByClassName("anchorjs-link"));
-	if (anchor && anchor.length > 0) {
-		anchor.forEach(function (el) {
-			let parent = el.parentElement;
-			let id = parent.id;
-			li.push({
-				label: parent.innerText,
-				onclick: `focusExample("${id}");`,
-				level: parent.nodeName === "H3" ? 1 : 0,
-			});
-		});
+			var li = [];
+			var anchor = [].slice.call(root.getElementsByClassName("anchorjs-link"));
+			if (anchor && anchor.length > 0) {
+				anchor.forEach(function (el) {
+					let parent = el.parentElement;
+					let id = parent.id;
+					li.push({
+						label: parent.innerText,
+						onclick: `focusExample("${id}");`,
+						level: parent.nodeName === "H3" ? 1 : 0,
+					});
+				});
 
-		var sToc = window.performance.now();
-		ns.build.append(
-			nextbar,
-			ns.toc({
-				label: "On this page",
-				elems: li,
-			})
-		);
-	}
+				var sToc = window.performance.now();
+				ns.build.append(
+					nextbar,
+					ns.toc({
+						label: "On this page",
+						elems: li,
+					})
+				);
+			}
 
-	var eToc = window.performance.now();
+			var eToc = window.performance.now();
 
-	var eAll = window.performance.now();
+			var eAll = window.performance.now();
 
-	var processtime = document.getElementById("processtime");
-	processtime.innerText = `Complete in ${(eAll - sAll).toFixed(1)} ms | Build in ${(
-		eBuild -
-		sBuild +
-		(eToc - sToc)
-	).toFixed(1)} ms`;
+			var processtime = document.getElementById("processtime");
+			while (processtime.firstChild && processtime.removeChild(processtime.firstChild));
+
+			ns.build.append(processtime, [
+				ns.div("d-block d-md-inline", `All : <b>${(eAll - sAll).toFixed(1)} ms</b>`),
+				ns.span("d-none d-md-inline", " | "),
+				ns.div(
+					"d-block d-md-inline",
+					`ns.build : <b>${(eBuild - sBuild + (sToc ? eToc - sToc : 0)).toFixed(1)} ms</b>`
+				),
+				ns.span("d-none d-md-inline", " | "),
+			]);
+		},
+		1,
+		arg,
+		sAll
+	);
 }
 
 function focusExample(id) {
@@ -8147,39 +8444,39 @@ $(document).ready(() => {
 		ns.menu.container({
 			title: "Getting started",
 			class: "exmenu",
-			item: ns.menu.item(menu_c1),
+			item: ns.menu.item(menu[0]),
 		}),
 		ns.menu.container({
 			active: true,
 			title: "Layout",
 			class: "exmenu",
-			item: ns.menu.item(menu_c2),
+			item: ns.menu.item(menu[1]),
 		}),
 		ns.menu.container({
 			title: "Forms",
 			class: "exmenu",
-			item: ns.menu.item(menu_c3),
+			item: ns.menu.item(menu[2]),
 		}),
 		ns.menu.container({
 			title: "Components",
 			class: "exmenu",
-			item: ns.menu.item(menu_c4),
+			item: ns.menu.item(menu[3]),
 		}),
 		ns.menu.container({
 			title: "Extend",
 			class: "exmenu",
-			item: ns.menu.item(menu_c5),
+			item: ns.menu.item(menu[4]),
 		}),
 		ns.menu.container({
 			title: "Others",
-			item: ns.menu.item(menu_c8),
+			item: ns.menu.item(menu[menu.length - 2]),
 		}),
 		ns.menu.container({
 			title: "Theme",
 			class: "thememenu",
-			item: ns.menu.item(menu_c9),
+			item: ns.menu.item(menu[menu.length - 1]),
 		}),
 	]);
 
-	showexample(null, "e_column");
+	showexample(null, "e_gutter");
 });
