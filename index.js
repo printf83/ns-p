@@ -8418,7 +8418,7 @@ $(document).ready(() => {
 		navbar,
 		ns.navbar.container({
 			expand: "md",
-			color: "dark",
+			color: "primary",
 			light: "dark",
 			// position: "fixed-top",
 			containerfluid: "lg",
