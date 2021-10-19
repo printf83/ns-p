@@ -66,7 +66,7 @@ li.L9 {
 	/* punctuation */
 
 	.pun {
-		color: var(--bs-body-color);
+		color: var(--bs-secondary);
 	}
 
 	/* lisp open bracket */
@@ -90,13 +90,13 @@ li.L9 {
 	/* markup attribute name */
 
 	.atn {
-		color: var(--bs-danger);
+		color: var(--bs-primary);
 	}
 
 	/* markup attribute value */
 
 	.atv {
-		color: var(--bs-info);
+		color: var(--bs-success);
 	}
 
 	/* declaration */

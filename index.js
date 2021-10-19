@@ -780,12 +780,10 @@ var e_gutter = [
 			return elems;
 		},
 		code: function () {
-			return ns.div("container px-4", [
-				ns.div("row gx-5", [
-					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
-				]),
-			]);
+			return ns.div(
+				"container px-4",
+				ns.div("row gx-5", Array(2).fill(ns.div("col", ns.div("p-3 border bg-light", "Custom column padding"))))
+			);
 		},
 	}),
 
@@ -796,10 +794,13 @@ var e_gutter = [
 		},
 		code: function () {
 			return ns.div("container overflow-hidden", [
-				ns.div("row gx-5", [
-					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")),
-				]),
+				ns.div(
+					"row gx-5",
+					ns.div(
+						"row gx-5",
+						Array(2).fill(ns.div("col", ns.div("p-3 border bg-light", "Custom column padding")))
+					)
+				),
 			]);
 		},
 	}),
@@ -812,12 +813,10 @@ var e_gutter = [
 		},
 		code: function () {
 			return ns.div("container overflow-hidden", [
-				ns.div("row gy-5", [
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-				]),
+				ns.div(
+					"row gy-5",
+					Array(4).fill(ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")))
+				),
 			]);
 		},
 	}),
@@ -830,12 +829,10 @@ var e_gutter = [
 		},
 		code: function () {
 			return ns.div("container", [
-				ns.div("row g-2", [
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")),
-				]),
+				ns.div(
+					"row g-2",
+					Array(4).fill(ns.div("col-6", ns.div("p-3 border bg-light", "Custom column padding")))
+				),
 			]);
 		},
 	}),
@@ -848,18 +845,10 @@ var e_gutter = [
 		},
 		code: function () {
 			return ns.div("container", [
-				ns.div("row row-cols-2 row-cols-lg-5 g-2 g-lg-3", [
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-					ns.div("col-6", ns.div("p-3 border bg-light", "Row column")),
-				]),
+				ns.div(
+					"row row-cols-2 row-cols-lg-5 g-2 g-lg-3",
+					Array(10).fill(ns.div("col-6", ns.div("p-3 border bg-light", "Row column")))
+				),
 			]);
 		},
 	}),
@@ -925,23 +914,16 @@ var e_column = [
 		},
 		pclass: "ns-higlight-col ns-higlight-row px-1",
 		code: function () {
-			return ns.div("container", [
-				ns.div("row align-items-start", null, { minHeight: "10rem" }, [
-					ns.div("col", "One of three columns"),
-					ns.div("col", "One of three columns"),
-					ns.div("col", "One of three columns"),
-				]),
-				ns.div("row align-items-center", null, { minHeight: "10rem" }, [
-					ns.div("col", "One of three columns"),
-					ns.div("col", "One of three columns"),
-					ns.div("col", "One of three columns"),
-				]),
-				ns.div("row align-items-end", null, { minHeight: "10rem" }, [
-					ns.div("col", "One of three columns"),
-					ns.div("col", "One of three columns"),
-					ns.div("col", "One of three columns"),
-				]),
-			]);
+			return ns.div(
+				"container",
+				["row align-items-start", "row align-items-center", "row align-items-end"].map(function (i) {
+					return ns.div({
+						class: i,
+						style: { minHeight: "10rem" },
+						elems: Array(3).fill(ns.div("col", "One of three columns")),
+					});
+				})
+			);
 		},
 	}),
 
@@ -969,32 +951,19 @@ var e_column = [
 		},
 		pclass: "ns-higlight-col px-1",
 		code: function () {
-			return ns.div("container", [
-				ns.div("row justify-content-start", [
-					ns.div("col-4", "One of two columns"),
-					ns.div("col-4", "One of two columns"),
-				]),
-				ns.div("row justify-content-center", [
-					ns.div("col-4", "One of two columns"),
-					ns.div("col-4", "One of two columns"),
-				]),
-				ns.div("row justify-content-end", [
-					ns.div("col-4", "One of two columns"),
-					ns.div("col-4", "One of two columns"),
-				]),
-				ns.div("row justify-content-around", [
-					ns.div("col-4", "One of two columns"),
-					ns.div("col-4", "One of two columns"),
-				]),
-				ns.div("row justify-content-between", [
-					ns.div("col-4", "One of two columns"),
-					ns.div("col-4", "One of two columns"),
-				]),
-				ns.div("row justify-content-evenly", [
-					ns.div("col-4", "One of two columns"),
-					ns.div("col-4", "One of two columns"),
-				]),
-			]);
+			return ns.div(
+				"container",
+				[
+					"row justify-content-start",
+					"row justify-content-center",
+					"row justify-content-end",
+					"row justify-content-around",
+					"row justify-content-between",
+					"row justify-content-evenly",
+				].map(function (i) {
+					return ns.div(i, Array(2).fill(ns.div("col-4", "One of two columns")));
+				})
+			);
 		},
 	}),
 
@@ -1704,7 +1673,7 @@ var e_icon = [
 				ns.button({ label: "Button", color: "primary", icon: "fire" }),
 				ns.button({
 					label: "Button",
-					color: "primary",
+					color: "warning",
 					icon: {
 						color: "danger",
 						icon: "fire",
@@ -1712,11 +1681,10 @@ var e_icon = [
 				}),
 				ns.button({
 					label: "Button",
-					color: "primary",
+					color: "success",
 					icon: ns.icon({
-						color: "danger",
+						color: "warning",
 						icon: "fire",
-						spin: true,
 					}),
 				}),
 			];
@@ -1729,20 +1697,11 @@ var e_icon = [
 		code: function () {
 			return [
 				ns.input({ type: "text", before: ns.icon("fire") }),
-				//ns.input before and after must use ns.icon
-				// ns.input({
-				// 	type: "text",
-				// 	before: {
-				// 		color: "danger",
-				// 		icon: "fire",
-				// 	},
-				// }),
 				ns.input({
 					type: "text",
 					before: ns.icon({
 						color: "danger",
 						icon: "fire",
-						spin: true,
 					}),
 				}),
 			];
@@ -1791,6 +1750,7 @@ var e_icon = [
 		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
 			return ns.nav({
+				style: "tab",
 				elems: [
 					{ icon: "fire", label: "First", elems: "This is first tab. " + ex.sample.text() },
 					{ label: "Second", elems: "This is second tab. " + ex.sample.text() },
@@ -6837,48 +6797,42 @@ var e_breadcrumb = [
 	ns.example({
 		title: "Divider",
 		code: function () {
-			return [
-				ns.breadcrumb({
-					divider: "'>'",
-					item: [
-						{ label: "Home", href: "javascript:void(0);" },
-						{ label: "Library", href: "javascript:void(0);" },
-						{ label: "Data", active: true, href: "javascript:void(0);" },
-					],
-				}),
-			];
+			return ns.breadcrumb({
+				divider: "'>'",
+				item: [
+					{ label: "Home", href: "javascript:void(0);" },
+					{ label: "Library", href: "javascript:void(0);" },
+					{ label: "Data", active: true, href: "javascript:void(0);" },
+				],
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Divider URL",
 		code: function () {
-			return [
-				ns.breadcrumb({
-					divider: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E")`,
-					item: [
-						{ label: "Home", href: "javascript:void(0);" },
-						{ label: "Library", href: "javascript:void(0);" },
-						{ label: "Data", active: true, href: "javascript:void(0);" },
-					],
-				}),
-			];
+			return ns.breadcrumb({
+				divider: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E")`,
+				item: [
+					{ label: "Home", href: "javascript:void(0);" },
+					{ label: "Library", href: "javascript:void(0);" },
+					{ label: "Data", active: true, href: "javascript:void(0);" },
+				],
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Divider None",
 		code: function () {
-			return [
-				ns.breadcrumb({
-					divider: "''",
-					item: [
-						{ label: "Home", href: "javascript:void(0);" },
-						{ label: "Library", href: "javascript:void(0);" },
-						{ label: "Data", active: true, href: "javascript:void(0);" },
-					],
-				}),
-			];
+			return ns.breadcrumb({
+				divider: "''",
+				item: [
+					{ label: "Home", href: "javascript:void(0);" },
+					{ label: "Library", href: "javascript:void(0);" },
+					{ label: "Data", active: true, href: "javascript:void(0);" },
+				],
+			});
 		},
 	}),
 ];
@@ -6921,39 +6875,35 @@ var e_badge = [
 	ns.example({
 		title: "Positioned",
 		code: function () {
-			return [
-				ns.button({
-					label: "Inbox",
-					color: "primary",
-					relativeposition: true,
-					badge: {
-						label: "99+",
-						color: "danger",
-						notification: true,
-						pill: true,
-					},
-				}),
-			];
+			return ns.button({
+				label: "Inbox",
+				color: "primary",
+				relativeposition: true,
+				badge: {
+					label: "99+",
+					color: "danger",
+					notification: true,
+					pill: true,
+				},
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Notification",
 		code: function () {
-			return [
-				ns.button({
-					label: "Profile",
-					color: "primary",
-					relativeposition: true,
-					badge: {
-						border: "light",
-						color: "danger",
-						notification: true,
-						asst: "New Message", //required
-						pill: true,
-					},
-				}),
-			];
+			return ns.button({
+				label: "Profile",
+				color: "primary",
+				relativeposition: true,
+				badge: {
+					border: "light",
+					color: "danger",
+					notification: true,
+					asst: "New Message", //required
+					pill: true,
+				},
+			});
 		},
 	}),
 
@@ -7002,24 +6952,16 @@ var e_alert = [
 	ns.example({
 		title: "Example",
 		code: function () {
-			return [
-				ns.alert.container("primary", "A simple primary alert—check it out!"),
-				ns.alert.container("secondary", "A simple secondary alert—check it out!"),
-				ns.alert.container("success", "A simple success alert—check it out!"),
-				ns.alert.container("danger", "A simple danger alert—check it out!"),
-				ns.alert.container("warning", "A simple warning alert—check it out!"),
-				ns.alert.container("info", "A simple info alert—check it out!"),
-				ns.alert.container("light", "A simple light alert—check it out!"),
-				ns.alert.container("dark", "A simple dark alert—check it out!"),
-			];
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+				return ns.alert.container(i, `A simple ${i} alert—check it out!`);
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Link color",
 		code: function () {
-			var color = ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"];
-			return color.map(function (i) {
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
 				return ns.alert.container({
 					color: i,
 					elems: [
@@ -7035,24 +6977,22 @@ var e_alert = [
 	ns.example({
 		title: "Additional content",
 		code: function () {
-			return [
-				ns.alert.container({
-					color: "success",
-					elems: [
-						ns.alert.header("Well done!"),
-						{
-							tag: "p",
-							elems: "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.",
-						},
-						{ tag: "hr", elems: "" },
-						{
-							tag: "p",
-							class: "mb-0",
-							elems: "Whenever you need to, be sure to use margin utilities to keep things nice and tidy.",
-						},
-					],
-				}),
-			];
+			return ns.alert.container({
+				color: "success",
+				elems: [
+					ns.alert.header("Well done!"),
+					{
+						tag: "p",
+						elems: "Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.",
+					},
+					{ tag: "hr", elems: "" },
+					{
+						tag: "p",
+						class: "mb-0",
+						elems: "Whenever you need to, be sure to use margin utilities to keep things nice and tidy.",
+					},
+				],
+			});
 		},
 	}),
 
@@ -7073,13 +7013,11 @@ var e_alert = [
 	ns.example({
 		title: "Dismissing",
 		code: function () {
-			return [
-				ns.alert.container({
-					dismissible: true,
-					color: "warning",
-					elems: "<strong>Holy guacamole!</strong> You should check in on some of those fields below.",
-				}),
-			];
+			return ns.alert.container({
+				dismissible: true,
+				color: "warning",
+				elems: "<strong>Holy guacamole!</strong> You should check in on some of those fields below.",
+			});
 		},
 	}),
 ];
@@ -7234,13 +7172,11 @@ var e_input = [
 	ns.example({
 		title: "Readonly",
 		code: function () {
-			return [
-				ns.input({
-					readonly: true,
-					type: "text",
-					placeholder: "Readonly input here...",
-				}),
-			];
+			return ns.input({
+				readonly: true,
+				type: "text",
+				placeholder: "Readonly input here...",
+			});
 		},
 	}),
 
@@ -7310,6 +7246,7 @@ var e_input = [
 	ns.example({
 		title: "File Input",
 		msg: "This control is {{link}} to backend",
+		container: ns.cont.formcontainer,
 		code: function () {
 			return ns.file.ctl({
 				label: "Picture",
@@ -7322,21 +7259,20 @@ var e_input = [
 
 	ns.example({
 		title: "Color",
+		container: ns.cont.formcontainer,
 		code: function () {
-			return [ns.input({ label: "Color picker", type: "color" })];
+			return ns.input({ label: "Color picker", type: "color" });
 		},
 	}),
 
 	ns.example({
 		title: "Datalist",
 		code: function () {
-			return [
-				ns.input({
-					label: "Datalist example",
-					type: "text",
-					option: ["San Francisco", "New York", "Seattle", "Los Angeles", "Chicago"],
-				}),
-			];
+			return ns.input({
+				label: "Datalist example",
+				type: "text",
+				option: ["San Francisco", "New York", "Seattle", "Los Angeles", "Chicago"],
+			});
 		},
 	}),
 ];
@@ -7352,13 +7288,11 @@ var e_select = [
 		title: "Default",
 		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
-			return [
-				ns.input({
-					hiddenlabel: "Default select example",
-					type: "select",
-					option: ex.sample.optionitem(),
-				}),
-			];
+			return ns.input({
+				hiddenlabel: "Default select example",
+				type: "select",
+				option: ex.sample.optionitem(),
+			});
 		},
 	}),
 
@@ -7387,14 +7321,12 @@ var e_select = [
 		title: "Multiple",
 		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
-			return [
-				ns.input({
-					multiple: true,
-					hiddenlabel: "Multiple select example",
-					type: "select",
-					option: ex.sample.optionitem(),
-				}),
-			];
+			return ns.input({
+				multiple: true,
+				hiddenlabel: "Multiple select example",
+				type: "select",
+				option: ex.sample.optionitem(),
+			});
 		},
 	}),
 
@@ -7402,14 +7334,12 @@ var e_select = [
 		title: "Size",
 		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
-			return [
-				ns.input({
-					size: 3,
-					hiddenlabel: "Size 3 select example",
-					type: "select",
-					option: ex.sample.optionitem(),
-				}),
-			];
+			return ns.input({
+				size: 3,
+				hiddenlabel: "Size 3 select example",
+				type: "select",
+				option: ex.sample.optionitem(),
+			});
 		},
 	}),
 
@@ -7417,14 +7347,12 @@ var e_select = [
 		title: "Disabled",
 		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
-			return [
-				ns.input({
-					disabled: true,
-					hiddenlabel: "Disabled select example",
-					type: "select",
-					option: ex.sample.optionitem(),
-				}),
-			];
+			return ns.input({
+				disabled: true,
+				hiddenlabel: "Disabled select example",
+				type: "select",
+				option: ex.sample.optionitem(),
+			});
 		},
 	}),
 ];
@@ -7683,58 +7611,50 @@ var e_range = [
 	ns.example({
 		title: "Example Range",
 		code: function () {
-			return [
-				ns.input({
-					label: "Simple Range",
-					type: "range",
-					value: 50,
-				}),
-			];
+			return ns.input({
+				label: "Simple Range",
+				type: "range",
+				value: 50,
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Disable",
 		code: function () {
-			return [
-				ns.input({
-					label: "Disable Range",
-					type: "range",
-					disabled: true,
-					value: 50,
-				}),
-			];
+			return ns.input({
+				label: "Disable Range",
+				type: "range",
+				disabled: true,
+				value: 50,
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Min and max",
 		code: function () {
-			return [
-				ns.input({
-					label: "Example Range",
-					type: "range",
-					value: 2.5,
-					min: 0,
-					max: 5,
-				}),
-			];
+			return ns.input({
+				label: "Example Range",
+				type: "range",
+				value: 2.5,
+				min: 0,
+				max: 5,
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Step",
 		code: function () {
-			return [
-				ns.input({
-					label: "Example Range",
-					type: "range",
-					value: 2.5,
-					min: 0,
-					max: 5,
-					step: 0.5,
-				}),
-			];
+			return ns.input({
+				label: "Example Range",
+				type: "range",
+				value: 2.5,
+				min: 0,
+				max: 5,
+				step: 0.5,
+			});
 		},
 	}),
 ];
@@ -8171,65 +8091,57 @@ var e_floatinglabel = [
 	ns.example({
 		title: "Value already defind",
 		code: function () {
-			return [
-				ns.input({
-					type: "email",
-					label: "Email address",
-					floatinglabel: true,
-					value: "user@example.com",
-				}),
-			];
+			return ns.input({
+				type: "email",
+				label: "Email address",
+				floatinglabel: true,
+				value: "user@example.com",
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Validation",
 		code: function () {
-			return [
-				ns.input({
-					type: "email",
-					name: "email",
-					label: "Email address",
-					floatinglabel: true,
-					required: true,
-					invalid: "Please provide email",
-					aftertype: "button",
-					after: ns.button({
-						label: "Validate",
-						color: "primary",
-						onclick: function (sender) {
-							ns.validate($(sender).closest(".card-body"));
-						},
-					}),
+			return ns.input({
+				type: "email",
+				name: "email",
+				label: "Email address",
+				floatinglabel: true,
+				required: true,
+				invalid: "Please provide email",
+				aftertype: "button",
+				after: ns.button({
+					label: "Validate",
+					color: "primary",
+					onclick: function (sender) {
+						ns.validate($(sender).closest(".card-body"));
+					},
 				}),
-			];
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Textareas",
 		code: function () {
-			return [
-				ns.input({
-					type: "textarea",
-					label: "Comments",
-					floatinglabel: true,
-				}),
-			];
+			return ns.input({
+				type: "textarea",
+				label: "Comments",
+				floatinglabel: true,
+			});
 		},
 	}),
 
 	ns.example({
 		title: "Textareas With Height Setting",
 		code: function () {
-			return [
-				ns.input({
-					type: "textarea",
-					label: "Comments",
-					style: { height: "100px" },
-					floatinglabel: true,
-				}),
-			];
+			return ns.input({
+				type: "textarea",
+				label: "Comments",
+				style: { height: "100px" },
+				floatinglabel: true,
+			});
 		},
 	}),
 
@@ -8237,14 +8149,12 @@ var e_floatinglabel = [
 		title: "Select",
 		sample: { "ex.sample.optionitem": ex.sample.optionitem },
 		code: function () {
-			return [
-				ns.input({
-					label: "Works with selects",
-					type: "select",
-					floatinglabel: true,
-					option: ex.sample.optionitem(),
-				}),
-			];
+			return ns.input({
+				label: "Works with selects",
+				type: "select",
+				floatinglabel: true,
+				option: ex.sample.optionitem(),
+			});
 		},
 	}),
 ];
@@ -8426,10 +8336,7 @@ $(document).ready(() => {
 				ns.navbar.toggler("sidebar"),
 				ns.navbar.brand({
 					label: "BS5 Js Builder",
-					icon: {
-						icon: "fire",
-						color: "danger",
-					},
+					icon: "fire",
 					href: "javascript:void(0);",
 					onclick: function () {
 						ns.core.focus(document.body);

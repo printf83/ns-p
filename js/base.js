@@ -652,6 +652,25 @@ String.prototype.capitalize = function () {
 	 * ns.build.obj([])
 	 */
 	var fn = {
+		formatHTML: function (node, level) {
+			var indentBefore = new Array(level++ + 1).join("    "),
+				indentAfter = new Array(level - 1).join("    "),
+				textNode;
+
+			for (var i = 0; i < node.children.length; i++) {
+				textNode = document.createTextNode("\n" + indentBefore);
+				node.insertBefore(textNode, node.children[i]);
+
+				fn.formatHTML(node.children[i], level);
+
+				if (node.lastElementChild == node.children[i]) {
+					textNode = document.createTextNode("\n" + indentAfter);
+					node.appendChild(textNode);
+				}
+			}
+
+			return node;
+		},
 		codeprocess: function (str) {
 			if (str) {
 				str = str.replace(/({{).+?(}})/gi, "<code>$&</code>");
@@ -771,37 +790,43 @@ String.prototype.capitalize = function () {
 	};
 
 	ns.build = {
-		html: function (elems, debug) {
+		html: function (elems, format) {
 			var t = document.createElement("div");
 
-			if (debug) console.time("ns.build");
+			//if (debug) console.time("ns.build");
 
 			t = fn.build(t, elems);
 
-			if (debug) console.timeEnd("ns.build");
+			//if (debug) console.timeEnd("ns.build");
 
-			return t.innerHTML;
+			if (format) {
+				var result = fn.formatHTML(t, 0).innerHTML;
+				console.log(result);
+				return result;
+			} else {
+				return t.innerHTML;
+			}
 		},
-		obj: function (elems, debug) {
+		obj: function (elems) {
 			//create temporary container
 			var t = document.createElement("div");
 
 			//insert element to temp container
-			if (debug) console.time("ns.obj");
+			// if (debug) console.time("ns.obj");
 
 			t = fn.build(t, elems);
 
-			if (debug) console.timeEnd("ns.obj");
+			// if (debug) console.timeEnd("ns.obj");
 
 			//return child inside container
 
 			return t.childNodes;
 		},
-		append: function (container, elems, debug) {
+		append: function (container, elems) {
 			//var t = document.createElement("div");
 
 			//insert element to temp container
-			if (debug) console.time("ns.append");
+			// if (debug) console.time("ns.append");
 
 			if (Array.isArray(container)) {
 				container[0] = fn.build(container[0], elems);
@@ -809,7 +834,7 @@ String.prototype.capitalize = function () {
 				container = fn.build(container, elems);
 			}
 
-			if (debug) console.timeEnd("ns.append");
+			// if (debug) console.timeEnd("ns.append");
 
 			return container;
 			// direct append element to container
@@ -823,12 +848,12 @@ String.prototype.capitalize = function () {
 			// 	//return fn.build(container, elems);
 			// }
 		},
-		prepend: function (container, elems, debug) {
-			if (debug) console.time("ns.prepend");
+		prepend: function (container, elems) {
+			// if (debug) console.time("ns.prepend");
 
 			var t = ns.build.obj(elems);
 
-			if (debug) console.timeEnd("ns.prepend");
+			// if (debug) console.timeEnd("ns.prepend");
 
 			if (t && t.length > 0) {
 				if (Array.isArray(container)) {
@@ -842,12 +867,12 @@ String.prototype.capitalize = function () {
 				return container;
 			}
 		},
-		replace: function (container, elems, debug) {
-			if (debug) console.time("ns.replace");
+		replace: function (container, elems) {
+			// if (debug) console.time("ns.replace");
 
 			var t = ns.build.obj(elems);
 
-			if (debug) console.timeEnd("ns.replace");
+			// if (debug) console.timeEnd("ns.replace");
 
 			if (t && t.length > 0) {
 				if (Array.isArray(container)) {
@@ -861,7 +886,7 @@ String.prototype.capitalize = function () {
 				return container;
 			}
 		},
-		init: function (container, debug) {
+		init: function (container) {
 			//** Some bootstrap element need this */
 
 			// $(container)
@@ -878,7 +903,7 @@ String.prototype.capitalize = function () {
 			// 	});
 
 			//img
-			if (debug) console.time("ns.init");
+			// if (debug) console.time("ns.init");
 
 			$(container)
 				.find("img[data-ns-src]")
@@ -904,7 +929,7 @@ String.prototype.capitalize = function () {
 					new bootstrap.Popover(item);
 				});
 
-			if (debug) console.timeEnd("ns.init");
+			// if (debug) console.timeEnd("ns.init");
 		},
 	};
 })(ns);
@@ -3236,7 +3261,50 @@ var ns_global_data = {};
 })(ns);
 //author: printf83@gmail.com (c) 2020 - 2021
 (function (ns) {
-	var fn = {};
+	var fn = {
+		codetoggle: function (id, title) {
+			return ns.div(
+				"d-flex justify-content-between py-1 px-3 flex-wrap bg-light",
+				{
+					"data-bs-toggle": "collapse",
+					"aria-expanded": "false",
+					"aria-controls": id,
+					"data-bs-target": `#${id}`,
+					role: "button",
+				},
+				[
+					{
+						tag: "small",
+						class: "text-primary font-monospace d-flex align-items-center",
+						elems: `${title}`,
+					},
+					{
+						tag: "button",
+						class: "btn-clipboard btn btn-outline-primary btn-sm", //"btn-clipboard btn btn-outline-primary btn-sm end-0 me-3 position-absolute"
+						elems: "Show",
+						attr: {
+							role: "button",
+						},
+					},
+				]
+			);
+		},
+		codecontainer: function (id, type, code, beautify) {
+			return ns.div("collapse card-body ns-code bg-light pt-0", { id: id }, [
+				{
+					tag: "code",
+					class: "overflow-auto d-block",
+					elems: {
+						tag: "pre",
+						attr: { lang: type },
+						class: `prettyprint lang-${type}`,
+						// elems: beautify(code),
+						elems: type === "js" ? beautify(code) : beautify(code),
+					},
+				},
+			]);
+		},
+	};
 
 	ns.example = function (opt) {
 		opt = $.extend(
@@ -3254,18 +3322,24 @@ var ns_global_data = {};
 				code: null,
 				dark: false,
 				sample: null,
-				beautify: function (str) {
-					var opt = {
+				beautifyjs: function (str) {
+					let optJS = {
 						preserve_newlines: true,
-						max_preserve_newlines: 180,
+						max_preserve_newlines: 100,
 						keep_array_indentation: false,
 						brace_style: "collapse,preserve-inline",
 					};
 
 					//js_beautify need to add into html page
-					// <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.0/beautify.min.js"></script>
-					// <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false&style=sunburst"></script>
-					return js_beautify(str, opt);
+					//<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.0/beautify.min.js"></script>
+					//<script src="https://cdn.jsdelivr.net/npm/code-prettify@0.1.0/src/prettify.min.js?style=default"></script>;
+					var result = js_beautify(str, optJS);
+					return result;
+				},
+				beautifyhtml: function (str) {
+					// return str
+					str = str.replace(/\</g, "&lt;").replace(/\>/g, "&gt;").replace(/\"/g, "&quot;");
+					return str;
 				},
 				container: ns.cont.singlecolumn,
 			},
@@ -3322,51 +3396,19 @@ var ns_global_data = {};
 
 		if (opt.code) {
 			var samplecode = [];
+			//add html code
+			if (!opt.label) {
+				var htmlid = ns.core.UUID();
+				samplecode.push(fn.codetoggle(htmlid, `html:`));
+				samplecode.push(fn.codecontainer(htmlid, "html", ns.build.html(opt.code(), true), opt.beautifyhtml));
+			}
+
 			if (opt.sample) {
 				Object.keys(opt.sample).forEach((sampleKey) => {
-					var sampleid = ns.core.UUID();
-					var strSampleCode = opt.sample[sampleKey].toString(); //"(" + opt.sample[sampleKey] + ")();";
-					// strSampleCode = strSampleCode.substring(opt.cstart, strSampleCode.length - opt.cend);
-
-					// if (strSampleCode.startsWith("return")) {
-					// 	strSampleCode = strSampleCode.substring(7, strSampleCode.length);
-					// }
-
-					// console.log(strSampleCode);
-					samplecode.push(
-						ns.div(
-							"d-flex justify-content-start py-1 px-3 flex-wrap bg-light",
-							{
-								"data-bs-toggle": "collapse",
-								"aria-expanded": "false",
-								"aria-controls": sampleid,
-								"data-bs-target": `#${sampleid}`,
-								role: "button",
-							},
-							[
-								{
-									tag: "code",
-									class: "d-flex align-items-center",
-									elems: `${sampleKey}()`,
-								},
-							]
-						)
-					);
-
-					samplecode.push(
-						ns.div("collapse card-body ns-code bg-light pt-0", { id: sampleid }, [
-							{
-								tag: "code",
-								class: "overflow-auto d-block",
-								elems: {
-									tag: "pre",
-									attr: { lang: "js" },
-									class: "prettyprint lang-js linenums",
-									elems: opt.beautify(strSampleCode),
-								},
-							},
-						])
-					);
+					let sampleid = ns.core.UUID();
+					let strSampleCode = opt.sample[sampleKey].toString(); //"(" + opt.sample[sampleKey] + ")();";
+					samplecode.push(fn.codetoggle(sampleid, `${sampleKey}:`));
+					samplecode.push(fn.codecontainer(sampleid, "js", strSampleCode, opt.beautifyjs));
 				});
 			}
 
@@ -3398,13 +3440,17 @@ var ns_global_data = {};
 								  })
 								: opt.container(opt.code())
 						),
-						opt.sample
+						samplecode && samplecode.length > 0
 							? {
 									elems: samplecode,
 							  }
 							: null,
 						ns.div("d-flex justify-content-between py-1 px-3 flex-wrap bg-light", [
-							{ tag: "code", class: "d-flex align-items-center", elems: "code()" },
+							{
+								tag: "small",
+								class: "text-primary font-monospace d-flex align-items-center",
+								elems: "ns.build:",
+							},
 							{
 								tag: "button",
 								class: "btn-clipboard btn btn-outline-primary btn-sm", //"btn-clipboard btn btn-outline-primary btn-sm end-0 me-3 position-absolute"
@@ -3424,8 +3470,8 @@ var ns_global_data = {};
 								elems: {
 									tag: "pre",
 									attr: { lang: "js" },
-									class: "prettyprint lang-js linenums",
-									elems: opt.beautify(strCode),
+									class: "prettyprint lang-js",
+									elems: opt.beautifyjs(strCode),
 								},
 							},
 						]),
