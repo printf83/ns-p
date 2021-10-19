@@ -84,6 +84,96 @@ const ex = {};
 			];
 		},
 
+		form: function () {
+			return ns.cont.singlecolumn([
+				ns.input({
+					label: "Name",
+					required: true,
+					invalid: "Please provide name",
+					name: "name",
+					type: "text",
+				}),
+				ns.input({
+					label: "Age",
+					required: true,
+					invalid: "Please provide age",
+					name: "age",
+					type: "number",
+					min: 13,
+					max: 100,
+					after: "Years old",
+				}),
+				ns.listgroup.container({
+					label: "Sex",
+					type: "div",
+					elems: [
+						ns.listgroup.item({
+							check: "radio",
+							name: "sex",
+							value: "s",
+							elems: "Secret",
+							active: true,
+						}),
+						ns.listgroup.item({
+							check: "radio",
+							name: "sex",
+							value: "m",
+							elems: "Male",
+						}),
+						ns.listgroup.item({
+							check: "radio",
+							name: "sex",
+							value: "f",
+							elems: "Female",
+						}),
+					],
+				}),
+				ns.listgroup.container({
+					label: "Interest",
+					type: "div",
+					elems: [
+						ns.listgroup.item({
+							check: "checkbox",
+							name: "interest",
+							value: "sports",
+							elems: "Sports",
+						}),
+						ns.listgroup.item({
+							check: "checkbox",
+							name: "interest",
+							value: "business",
+							elems: "Business",
+						}),
+						ns.listgroup.item({
+							check: "checkbox",
+							name: "interest",
+							value: "social",
+							elems: "Social",
+						}),
+						ns.listgroup.item({
+							check: "checkbox",
+							name: "interest",
+							value: "internet",
+							elems: "Internet",
+						}),
+					],
+				}),
+				ns.input({
+					label: "Country",
+					required: true,
+					invalid: "Please choose country",
+					name: "country",
+					type: "select",
+					option: [
+						{ value: "", label: "" },
+						{ value: "my", label: "Malaysia" },
+						{ value: "in", label: "Indonesia" },
+						{ value: "sg", label: "Singapore" },
+					],
+				}),
+			]);
+		},
+
 		dlgFn: function (recipient) {
 			ns.dlg
 				.box({
@@ -1532,11 +1622,11 @@ var e_icon = [
 		title: "Base icon",
 		container: ns.cont.stack,
 		code: function () {
-			return ["i", "!-danger", "!!", "!", "?", "-", "x", "/", "save", "delete", "lock", "shield", "logout"].map(
-				function (i) {
-					return ns.icon(i);
-				}
-			);
+			return ["i", "!!", "!", "?", "-", "x", "/", "dosave", "dodelete", "lock", "shield", "logout"].map(function (
+				i
+			) {
+				return ns.icon(i);
+			});
 		},
 	}),
 
@@ -1877,38 +1967,29 @@ var e_toast = [
 		title: "Base icon",
 		container: ns.cont.stack,
 		code: function () {
+			//"i", "!!", "!", "?", "-", "x", "/", "dosave", "dodelete", "lock", "shield", "logout"
 			return [
-				ns.button({
-					color: "primary",
-					label: "primary",
+				{ icon: "i", label: "Info", color: "primary" },
+				{ icon: "!!", label: "Warning", color: "danger" },
+				{ icon: "!", label: "Exclamination", color: "warning" },
+				{ icon: "?", label: "Question", color: "success" },
+				{ icon: "-", label: "Stop", color: "danger" },
+				{ icon: "x", label: "Critical", color: "danger" },
+				{ icon: "/", label: "Check", color: "success" },
+				{ icon: "dosave", label: "Save", color: "success" },
+				{ icon: "dodelete", label: "Delete", color: "danger" },
+				{ icon: "lock", label: "Lock", color: "secondary" },
+				{ icon: "shield", label: "Shield", color: "secondary" },
+				{ icon: "logout", label: "Logout", color: "secondary" },
+			].map(function (i) {
+				return ns.button({
+					color: i.color,
+					label: i.label,
 					onclick: function () {
-						ns.toast("i", "Example primary toast");
+						ns.toast(i.icon, `Example <b>${i.icon}</b> icon toast`);
 					},
-				}),
-				ns.button({
-					color: "warning",
-					label: "Warning",
-					onclick: function () {
-						ns.toast("!", "Example warning toast");
-					},
-				}),
-
-				ns.button({
-					color: "success",
-					label: "Success",
-					onclick: function () {
-						ns.toast("/", "Example success toast");
-					},
-				}),
-
-				ns.button({
-					color: "danger",
-					label: "Danger",
-					onclick: function () {
-						ns.toast("x", "Example danger toast");
-					},
-				}),
-			];
+				});
+			});
 		},
 	}),
 
@@ -1916,54 +1997,18 @@ var e_toast = [
 		title: "Color",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				ns.button({
-					color: "primary",
-					label: "primary",
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+				return ns.button({
+					color: i,
+					label: i.capitalize(),
 					onclick: function () {
 						ns.toast({
-							color: "primary",
-							textcolor: "light",
-							msg: "Example primary toast",
+							color: i,
+							msg: `Example <b>${i}</b> toast`,
 						});
 					},
-				}),
-				ns.button({
-					color: "warning",
-					label: "Warning",
-					onclick: function () {
-						ns.toast({
-							color: "warning",
-							textcolor: "dark",
-							msg: "Example warning toast",
-						});
-					},
-				}),
-
-				ns.button({
-					color: "success",
-					label: "Success",
-					onclick: function () {
-						ns.toast({
-							color: "success",
-							textcolor: "light",
-							msg: "Example success toast",
-						});
-					},
-				}),
-
-				ns.button({
-					color: "danger",
-					label: "Danger",
-					onclick: function () {
-						ns.toast({
-							color: "danger",
-							textcolor: "light",
-							msg: "Example danger toast",
-						});
-					},
-				}),
-			];
+				});
+			});
 		},
 	}),
 
@@ -2016,7 +2061,6 @@ var e_toast = [
 			ns.toast({
 				delay: 10000,
 				color: "primary",
-				textcolor: "light",
 				icon: { icon: "fire", color: "info" },
 				title: "Toast header",
 				msg: "This toast will close in 10 seconds.",
@@ -3552,185 +3596,185 @@ var e_dlg = [
 	}),
 
 	ns.example({
-		title: "Simple dialog box",
-		container: ns.cont.stack,
+		title: "Example",
+	}),
+
+	ns.example({
+		title: "Simple msgbox components",
+		msg: "Below is a static modal example (meaning its position and display have been overridden). Included are the modal header, modal body (required for padding), and modal footer (optional). We ask that you include modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.",
+		pclass: "ns-modal-preview",
 		code: function () {
-			return [
-				ns.button({
-					label: "Info",
-					color: "primary",
-					onclick: function () {
-						ns.dlg.msgbox("i", "This is example msgbox").then(() => {
-							ns.toast("i", "After user click <b>Okay</b> button");
-						});
-					},
-				}),
-				ns.button({
-					label: "Question",
-					color: "success",
-					onclick: function () {
-						ns.dlg.msgbox("?", "This is example msgbox").then(() => {
-							ns.toast("?", "After user click <b>Okay</b> button");
-						});
-					},
-				}),
-				ns.button({
-					label: "Warning",
-					color: "warning",
-					onclick: function () {
-						ns.dlg.msgbox("!", "This is example msgbox").then(() => {
-							ns.toast("!", "After user click <b>Okay</b> button");
-						});
-					},
-				}),
-				ns.button({
-					label: "Error",
-					color: "danger",
-					onclick: function () {
-						ns.dlg.msgbox("x", "This is example msgbox").then(() => {
-							ns.toast("x", "After user click <b>Okay</b> button");
-						});
-					},
-				}),
-			];
+			return ns.dlg.msgbox("i", "This is example msgbox", "okayonly", true);
 		},
 	}),
 
 	ns.example({
-		title: "Input box",
-		msg: "Input box with single input",
-		label: "Show simple inputbox",
+		title: "Simple msgbox live",
+		container: ns.cont.stack,
 		code: function () {
-			ns.dlg.inputbox("text", "Type anything").then((d) => {
-				if (d?.value) {
-					ns.toast("/", `You type <b>${d.value}</b> in inputbox`);
-				} else {
-					ns.toast("x", `You not type anything in inputbox`);
-				}
+			return [
+				{ label: "Info", icon: "i" },
+				{ label: "Question", icon: "?" },
+				{ label: "Warning", icon: "!" },
+				{ label: "Error", icon: "x" },
+			].map(function (i) {
+				return ns.button({
+					label: i.label,
+					icon: i.icon,
+					onclick: function () {
+						ns.dlg
+							.msgbox(i.icon, `This is example msgbox with <b>${i.icon}</b> icon`)
+							.then(() => {
+								ns.toast(i.icon, "After user click <b>Okay</b> button");
+							})
+							.catch(() => {});
+					},
+				});
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Simple inputbox components",
+		msg: "Below is a static modal example (meaning its position and display have been overridden). Included are the modal header, modal body (required for padding), and modal footer (optional). We ask that you include modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.",
+		pclass: "ns-modal-preview",
+		code: function () {
+			return ns.dlg.inputbox("text", "This is example inputbox", "yesno", null, true);
+		},
+	}),
+
+	ns.example({
+		title: "Simple inputbox components with select",
+		msg: "Below is a static modal example (meaning its position and display have been overridden). Included are the modal header, modal body (required for padding), and modal footer (optional). We ask that you include modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.",
+		pclass: "ns-modal-preview",
+		code: function () {
+			return ns.dlg.inputbox(
+				ns.input({ type: "select", name: "value", option: ex.sample.optionitem() }),
+				"This is example inputbox",
+				"yesno",
+				null,
+				true
+			);
+		},
+	}),
+
+	ns.example({
+		title: "Simple inputbox live",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				{ label: "Text", type: "text" },
+				{ label: "Number", type: "number" },
+				{ label: "Date", type: "date" },
+				{ label: "Range", type: "range" },
+				{ label: "Textarea", type: "textarea" },
+				{ label: "Select", type: "select", option: ex.sample.optionitem() },
+			].map(function (i) {
+				return ns.button({
+					label: i.label,
+					color: "primary",
+					onclick: function () {
+						ns.dlg
+							.inputbox(
+								i.hasOwnProperty("option")
+									? ns.input({ type: "select", option: i.option, name: "value" })
+									: i.type,
+								`This is example inputbox with <b>${i.type}</b> input`
+							)
+							.then((d) => {
+								if (d?.value) {
+									ns.toast("/", `You give <b>${d.value}</b> in inputbox`);
+								} else {
+									ns.toast("x", `You not give anything in inputbox`);
+								}
+							})
+							.catch(() => {});
+					},
+				});
 			});
 		},
 	}),
 
 	ns.example({
 		title: "Inputbox with multiple input",
+		msg: "Below is a static modal example (meaning its position and display have been overridden). Included are the modal header, modal body (required for padding), and modal footer (optional). We ask that you include modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.",
+		pclass: "ns-modal-preview",
+		sample: { "ex.sample.form": ex.sample.form },
+		code: function () {
+			return ns.dlg.inputbox(ex.sample.form(), null, "yesno", null, true);
+		},
+	}),
+
+	ns.example({
+		title: "Inputbox with multiple input live",
 		msg: "First agrument can handle type {{[ns.input()]}}.",
 		label: "Show multiple input inputbox",
+		sample: { "ex.sample.form": ex.sample.form },
 		code: function () {
 			ns.dlg
-				.inputbox(
-					ns.cont.singlecolumn([
-						ns.input({
-							label: "Name",
-							required: true,
-							invalid: "Please provide name",
-							name: "name",
-							type: "text",
-						}),
-						ns.input({
-							label: "Age",
-							required: true,
-							invalid: "Please provide age",
-							name: "age",
-							type: "number",
-							min: 13,
-							max: 100,
-							after: "Years old",
-						}),
-						ns.listgroup.container({
-							label: "Sex",
-							type: "div",
-							elems: [
-								ns.listgroup.item({
-									check: "radio",
-									name: "sex",
-									value: "s",
-									elems: "Secret",
-									active: true,
-								}),
-								ns.listgroup.item({
-									check: "radio",
-									name: "sex",
-									value: "m",
-									elems: "Male",
-								}),
-								ns.listgroup.item({
-									check: "radio",
-									name: "sex",
-									value: "f",
-									elems: "Female",
-								}),
-							],
-						}),
-						ns.listgroup.container({
-							label: "Interest",
-							type: "div",
-							elems: [
-								ns.listgroup.item({
-									check: "checkbox",
-									name: "interest",
-									value: "sports",
-									elems: "Sports",
-								}),
-								ns.listgroup.item({
-									check: "checkbox",
-									name: "interest",
-									value: "business",
-									elems: "Business",
-								}),
-								ns.listgroup.item({
-									check: "checkbox",
-									name: "interest",
-									value: "social",
-									elems: "Social",
-								}),
-								ns.listgroup.item({
-									check: "checkbox",
-									name: "interest",
-									value: "internet",
-									elems: "Internet",
-								}),
-							],
-						}),
-						ns.input({
-							label: "Country",
-							required: true,
-							invalid: "Please choose country",
-							name: "country",
-							type: "select",
-							option: [
-								{ value: "", label: "" },
-								{ value: "my", label: "Malaysia" },
-								{ value: "in", label: "Indonesia" },
-								{ value: "sg", label: "Singapore" },
-							],
-						}),
-					])
-				)
+				.inputbox(ex.sample.form())
 				.then((d) => {
 					ns.toast({
 						delay: 10000,
 						color: "success",
-						textcolor: "light",
 						icon: "dove",
 						title: "Result",
 						msg: `${JSON.stringify(d)}`,
 					});
-				});
+				})
+				.catch(() => {});
 		},
 	}),
 
 	ns.example({
 		title: "Confirmbox",
-		label: "Show simple confirmbox",
+		msg: "Below is a static modal example (meaning its position and display have been overridden). Included are the modal header, modal body (required for padding), and modal footer (optional). We ask that you include modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.",
+		pclass: "ns-modal-preview",
 		code: function () {
-			ns.dlg
-				.confirmbox("?", "This is example msgbox with <b>yesno</b> button", "yesno")
-				.then((d) => {
-					ns.toast("/", `"Yes" button pressed`);
-				})
-				.catch((err) => {
-					ns.toast("x", `"No" button pressed`);
+			return ns.dlg.confirmbox("?", "This is example msgbox with <b>yesno</b> button", "yesno", null, true);
+		},
+	}),
+
+	ns.example({
+		title: "Simple msgbox live",
+		container: ns.cont.stack,
+		code: function () {
+			return [
+				{ label: "Info", icon: "i" },
+				{ label: "Question", icon: "?" },
+				{ label: "Warning", icon: "!" },
+				{ label: "Error", icon: "x" },
+			].map(function (i) {
+				return ns.button({
+					label: i.label,
+					icon: i.icon,
+					onclick: function () {
+						ns.dlg
+							.confirmbox(i.icon, `This is example confirmbox with <b>${i.icon}</b> icon`, "yesno")
+							.then(() => {
+								ns.toast("/", "After user click <b>Yes</b> button");
+							})
+							.catch(() => {
+								ns.toast("x", "After user not click <b>Yes</b> button");
+							});
+					},
 				});
+			});
+		},
+	}),
+
+	ns.example({
+		title: "Dialog box",
+		msg: "Below is a static modal example (meaning its position and display have been overridden). Included are the modal header, modal body (required for padding), and modal footer (optional). We ask that you include modal headers with dismiss actions whenever possible, or provide another explicit dismiss action.",
+		pclass: "ns-modal-preview",
+		code: function () {
+			return ns.dlg.box({
+				title: "Modal title",
+				elems: "Modal body text goes here.",
+				button: "savechangesclose",
+				static: false, //by default static backdrop is on
+				show: true, //for preview only (should be false or null for live version)
+			});
 		},
 	}),
 
@@ -3748,7 +3792,7 @@ var e_dlg = [
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
-				.catch((err) => {});
+				.catch(() => {});
 		},
 	}),
 
@@ -4471,20 +4515,10 @@ var e_dropdown = [
 		container: ns.cont.stack,
 		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
-			return [
-				{ color: "primary", textcolor: "light" },
-				{ color: "secondary", textcolor: "light" },
-				{ color: "success", textcolor: "light" },
-				{ color: "danger", textcolor: "light" },
-				{ color: "warning", textcolor: "dark" },
-				{ color: "info", textcolor: "dark" },
-				{ color: "light", textcolor: "dark" },
-				{ color: "dark", textcolor: "light" },
-			].map(function (i) {
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
 				return ns.dropdown({
-					label: i.color.capitalize(),
-					color: i.color,
-					textcolor: i.textcolor,
+					label: i.capitalize(),
+					color: i,
 					option: ex.sample.dropdownitem(),
 				});
 			});
@@ -4509,21 +4543,11 @@ var e_dropdown = [
 		container: ns.cont.stack,
 		sample: { "ex.sample.dropdownitem": ex.sample.dropdownitem },
 		code: function () {
-			return [
-				{ color: "primary", textcolor: "light" },
-				{ color: "secondary", textcolor: "light" },
-				{ color: "success", textcolor: "light" },
-				{ color: "danger", textcolor: "light" },
-				{ color: "warning", textcolor: "dark" },
-				{ color: "info", textcolor: "dark" },
-				{ color: "light", textcolor: "dark" },
-				{ color: "dark", textcolor: "light" },
-			].map(function (i) {
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
 				return ns.dropdown({
-					label: i.color.capitalize(),
-					color: i.color,
-					textcolor: i.textcolor,
 					segmenttoggle: true,
+					label: i.capitalize(),
+					color: i,
 					option: ex.sample.dropdownitem(),
 				});
 			});
@@ -5903,31 +5927,23 @@ var e_card = [
 		title: "Example background and color",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				{ color: "primary", textcolor: "light" },
-				{ color: "secondary", textcolor: "light" },
-				{ color: "success", textcolor: "light" },
-				{ color: "danger", textcolor: "light" },
-				{ color: "warning", textcolor: "dark" },
-				{ color: "info", textcolor: "dark" },
-				{ color: "light", textcolor: "dark" },
-				{ color: "dark", textcolor: "light" },
-			].map(function (i) {
-				return ns.card.container({
-					color: i.color,
-					textcolor: i.textcolor,
-					style: { width: "18rem" },
-					elems: [
-						ns.card.header("Header"),
-						ns.card.body([
-							ns.card.title(`${i.color.capitalize()} card title`),
-							ns.card.text(
-								"Some quick example text to build on the card title and make up the bulk of the card's content."
-							),
-						]),
-					],
-				});
-			});
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark", "link"].map(
+				function (i) {
+					return ns.card.container({
+						color: i,
+						style: { width: "18rem" },
+						elems: [
+							ns.card.header("Header"),
+							ns.card.body([
+								ns.card.title(`${i.capitalize()} card title`),
+								ns.card.text(
+									`Some quick example text to build on the ${i} card title and make up the bulk of the card's content.`
+								),
+							]),
+						],
+					});
+				}
+			);
 		},
 	}),
 
@@ -6534,17 +6550,11 @@ var e_btn = [
 		title: "Examples",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				ns.button({ label: "Primary", color: "primary" }),
-				ns.button({ label: "Secondary", color: "secondary" }),
-				ns.button({ label: "Success", color: "success" }),
-				ns.button({ label: "Danger", color: "danger" }),
-				ns.button({ label: "Warning", color: "warning" }),
-				ns.button({ label: "Info", color: "info" }),
-				ns.button({ label: "Light", color: "light" }),
-				ns.button({ label: "Dark", color: "dark" }),
-				ns.button({ label: "Link", color: "link" }),
-			];
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark", "link"].map(
+				function (i) {
+					return ns.button({ label: i.capitalize(), color: i });
+				}
+			);
 		},
 	}),
 
@@ -6592,17 +6602,11 @@ var e_btn = [
 		title: "Outline buttons",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				ns.button({ outline: true, label: "Primary", color: "primary" }),
-				ns.button({ outline: true, label: "Secondary", color: "secondary" }),
-				ns.button({ outline: true, label: "Success", color: "success" }),
-				ns.button({ outline: true, label: "Danger", color: "danger" }),
-				ns.button({ outline: true, label: "Warning", color: "warning" }),
-				ns.button({ outline: true, label: "Info", color: "info" }),
-				ns.button({ outline: true, label: "Light", color: "light" }),
-				ns.button({ outline: true, label: "Dark", color: "dark" }),
-				ns.button({ outline: true, label: "Link", color: "link" }),
-			];
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark", "link"].map(
+				function (i) {
+					return ns.button({ ouline: true, label: i.capitalize(), color: i });
+				}
+			);
 		},
 	}),
 
@@ -6911,16 +6915,9 @@ var e_badge = [
 		title: "Background color",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				ns.badge({ color: "primary", label: "Primary" }),
-				ns.badge({ color: "secondary", label: "Secondary" }),
-				ns.badge({ color: "success", label: "Success" }),
-				ns.badge({ color: "danger", label: "Danger" }),
-				ns.badge({ color: "warning", label: "Warning" }),
-				ns.badge({ color: "info", label: "Info" }),
-				ns.badge({ color: "light", label: "Light", class: "text-dark" }),
-				ns.badge({ color: "dark", label: "Dark" }),
-			];
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+				return ns.badge({ label: i.capitalize(), color: i });
+			});
 		},
 	}),
 
@@ -6928,16 +6925,9 @@ var e_badge = [
 		title: "Pill badge",
 		container: ns.cont.stack,
 		code: function () {
-			return [
-				ns.badge({ pill: true, color: "primary", label: "Primary" }),
-				ns.badge({ pill: true, color: "secondary", label: "Secondary" }),
-				ns.badge({ pill: true, color: "success", label: "Success" }),
-				ns.badge({ pill: true, color: "danger", label: "Danger" }),
-				ns.badge({ pill: true, color: "warning", label: "Warning" }),
-				ns.badge({ pill: true, color: "info", label: "Info" }),
-				ns.badge({ pill: true, color: "light", label: "Light", class: "text-dark" }),
-				ns.badge({ pill: true, color: "dark", label: "Dark" }),
-			];
+			return ["primary", "secondary", "success", "danger", "warning", "info", "light", "dark"].map(function (i) {
+				return ns.badge({ pill: true, label: i.capitalize(), color: i });
+			});
 		},
 	}),
 ];
@@ -6999,14 +6989,11 @@ var e_alert = [
 	ns.example({
 		title: "Icons",
 		code: function () {
-			return [
-				ns.alert.container("/", "An example alert with an icon"),
-				ns.alert.container("i", "An example alert with an icon"),
-				ns.alert.container("x", "An example alert with an icon"),
-				ns.alert.container("-", "An example alert with an icon"),
-				ns.alert.container("!", "An example alert with an icon"),
-				ns.alert.container("!!", "An example alert with an icon"),
-			];
+			return ["i", "!!", "!", "?", "-", "x", "/", "dosave", "dodelete", "lock", "shield", "logout"].map(function (
+				i
+			) {
+				return ns.alert.container(i, `An example alert with an <b>"${i}"</b> icon code`);
+			});
 		},
 	}),
 

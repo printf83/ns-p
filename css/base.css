@@ -331,6 +331,18 @@ pre.prettyprint {
 	}
 }
 
+.ns-modal-preview {
+	background-color: var(--bs-light);
+	padding: 0;
+}
+
+.ns-modal-preview .modal {
+	position: static !important;
+	top: auto !important;
+	left: auto !important;
+	display: block !important;
+}
+
 /* .ns-higlight-col .col-1,
 .ns-higlight-col .col-2,
 .ns-higlight-col .col-3,

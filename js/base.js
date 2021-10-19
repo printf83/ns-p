@@ -476,8 +476,8 @@ String.prototype.capitalize = function () {
 					pill: false,
 					notification: false,
 					color: "secondary",
+					textcolor: null,
 					border: null,
-					darktext: false,
 					asst: null,
 					tooltip: null,
 					tooltipplace: null,
@@ -485,13 +485,22 @@ String.prototype.capitalize = function () {
 				opt
 			);
 
+			//generate textcolor base on color
+			if (opt.color && !opt.textcolor) {
+				if (["primary", "secondary", "danger", "success", "dark"].indexOf(opt.color) > -1) {
+					opt.textcolor = "light";
+				} else if (["warning", "light"].indexOf(opt.color) > -1) {
+					opt.textcolor = "dark";
+				}
+			}
+
 			return {
 				tag: "span",
 				class: [
 					"badge",
 					opt.class ? opt.class : null,
 					opt.color ? `bg-${opt.color}` : null,
-					opt.darktext ? "text-dark" : null,
+					opt.textcolor ? `text-${opt.textcolor}` : null,
 					opt.pill ? "rounded-pill" : null,
 					opt.notification ? "position-absolute top-0 start-100 translate-middle" : null,
 					opt.notification && !opt.label ? "p-2" : null,
@@ -499,7 +508,10 @@ String.prototype.capitalize = function () {
 					opt.label ? null : "rounded-circle",
 				],
 				attr: { id: opt.id },
-				elems: [opt.label ? opt.label.toString() : "", opt.asst ? { tag: "span", class: "visually-hidden", elems: opt.asst } : null],
+				elems: [
+					opt.label ? opt.label.toString() : "",
+					opt.asst ? { tag: "span", class: "visually-hidden", elems: opt.asst } : null,
+				],
 			};
 		} else {
 			return ns.badge({
@@ -801,8 +813,7 @@ String.prototype.capitalize = function () {
 
 			if (format) {
 				var result = fn.formatHTML(t, 0).innerHTML;
-				console.log(result);
-				return result;
+				return result.trim();
 			} else {
 				return t.innerHTML;
 			}
@@ -983,6 +994,31 @@ String.prototype.capitalize = function () {
 
 				//generate id
 				opt.id = opt.id ? opt.id : ns.core.UUID();
+
+				//generate color base on icon if color not provided
+				if (!opt.color && opt.icon) {
+					var si = ns.sIcon(opt.icon);
+					if (si) {
+						if (opt.outline) {
+							opt.color = si.color;
+							opt.textcolor = si.color;
+							opt.icon = si.icon;
+						} else {
+							opt.color = si.color;
+							opt.textcolor = si.textcolor;
+							opt.icon = si.icon;
+						}
+					}
+				}
+
+				//generate textcolor base on color
+				if (opt.color && !opt.textcolor && !opt.outline) {
+					if (["primary", "secondary", "danger", "success", "dark"].indexOf(opt.color) > -1) {
+						opt.textcolor = "light";
+					} else if (["warning", "light"].indexOf(opt.color) > -1) {
+						opt.textcolor = "dark";
+					}
+				}
 
 				var res = [];
 
@@ -1213,6 +1249,15 @@ String.prototype.capitalize = function () {
 					opt
 				);
 
+				//generate textcolor base on color
+				if (opt.color && !opt.textcolor) {
+					if (["primary", "secondary", "danger", "success", "dark"].indexOf(opt.color) > -1) {
+						opt.textcolor = "light";
+					} else if (["warning", "light"].indexOf(opt.color) > -1) {
+						opt.textcolor = "dark";
+					}
+				}
+
 				return ns.div(
 					[
 						"card",
@@ -1245,6 +1290,15 @@ String.prototype.capitalize = function () {
 					opt
 				);
 
+				//generate textcolor base on color
+				if (opt.color && !opt.textcolor) {
+					if (["primary", "secondary", "danger", "success", "dark"].indexOf(opt.color) > -1) {
+						opt.textcolor = "light";
+					} else if (["warning", "light"].indexOf(opt.color) > -1) {
+						opt.textcolor = "dark";
+					}
+				}
+
 				return ns.div(
 					[
 						"card-header",
@@ -1271,10 +1325,7 @@ String.prototype.capitalize = function () {
 					opt
 				);
 
-				return ns.div(
-					["card-body", opt.textcolor ? `text-${opt.textcolor}` : null, opt.class],
-					opt.elems
-				);
+				return ns.div(["card-body", opt.textcolor ? `text-${opt.textcolor}` : null, opt.class], opt.elems);
 			}
 		},
 		footer: function (opt) {
@@ -1293,6 +1344,15 @@ String.prototype.capitalize = function () {
 					},
 					opt
 				);
+
+				//generate textcolor base on color
+				if (opt.color && !opt.textcolor) {
+					if (["primary", "secondary", "danger", "success", "dark"].indexOf(opt.color) > -1) {
+						opt.textcolor = "light";
+					} else if (["warning", "light"].indexOf(opt.color) > -1) {
+						opt.textcolor = "dark";
+					}
+				}
 
 				return ns.div(
 					[
@@ -1321,10 +1381,7 @@ String.prototype.capitalize = function () {
 					opt
 				);
 
-				return ns.div(
-					["card-group", opt.textcolor ? `text-${opt.textcolor}` : null, opt.class],
-					opt.elems
-				);
+				return ns.div(["card-group", opt.textcolor ? `text-${opt.textcolor}` : null, opt.class], opt.elems);
 			}
 		},
 
@@ -1344,11 +1401,7 @@ String.prototype.capitalize = function () {
 
 				return {
 					tag: "h5",
-					class: [
-						"card-title",
-						opt.textcolor ? `text-${opt.textcolor}` : null,
-						opt.class,
-					],
+					class: ["card-title", opt.textcolor ? `text-${opt.textcolor}` : null, opt.class],
 					elems: opt.elems,
 				};
 			}
@@ -1527,11 +1580,7 @@ String.prototype.capitalize = function () {
 			);
 
 			return ns.div(
-				[
-					"row",
-					opt.textcolor ? `text-${opt.textcolor}` : null,
-					opt.gap ? `g-${opt.gap}` : null,
-				],
+				["row", opt.textcolor ? `text-${opt.textcolor}` : null, opt.gap ? `g-${opt.gap}` : null],
 				[ns.div(opt.size, opt.left), ns.div("col", opt.right)]
 			);
 		},
@@ -2043,7 +2092,7 @@ String.prototype.capitalize = function () {
 		UUID: function () {
 			// UUID format "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
 			// nsUUID format "el-xxxxxxxxxxxx" ;)
-			return "el_xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+			return "el-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
 				var r = (Math.random() * 16) | 0,
 					v = c === "x" ? r : (r & 0x3) | 0x8;
 				return v.toString(16);
@@ -2588,7 +2637,7 @@ var ns_global_data = {};
 					});
 
 					//hide previous modal
-					var allModal = $(".modal");
+					var allModal = $(".modal:not(.show)");
 					if (allModal && allModal.length > 1) {
 						var prevModal = allModal[allModal.length - 2];
 						$(prevModal).removeClass("show");
@@ -2764,45 +2813,57 @@ var ns_global_data = {};
 		 * ns.dlg.msgbox("i","msg").then().catch()
 		 * ns.dlg.msgbox("i","msg","okayonly").then().catch()
 		 */
-		msgbox: function (icon, msg, button) {
-			return new Promise((res, rej) => {
-				try {
-					button = button ? button : "okayonly";
-					var id = ns.core.UUID();
+		msgbox: function (icon, msg, button, show) {
+			//set container for preview only
 
-					ns.build.append(
-						document.body,
-						fn.build({
-							id: id,
-							title: document.title,
-							button: button,
-							elems: fn.dlgmsg(icon, msg),
-						})
-					);
+			button = button ? button : "okayonly";
+			var id = ns.core.UUID();
 
-					fn.show(
-						`#${id}`,
-						function () {
-							res();
-							return true;
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
-							return true;
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
-							return true;
-						}
-					);
-				} catch (err) {
-					rej(err);
-				}
-			});
+			if (!show) {
+				return new Promise((res, rej) => {
+					try {
+						ns.build.append(
+							document.body,
+							fn.build({
+								id: id,
+								title: document.title,
+								button: button,
+								elems: fn.dlgmsg(icon, msg),
+							})
+						);
+
+						fn.show(
+							`#${id}`,
+							function () {
+								res();
+								return true;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
+								return true;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
+								return true;
+							}
+						);
+					} catch (err) {
+						rej(err);
+					}
+				});
+			} else {
+				return fn.build({
+					id: id,
+					show: true,
+					title: document.title,
+					button: button,
+					elems: fn.dlgmsg(icon, msg),
+				});
+			}
 		},
 		/**
 		 *
@@ -2810,45 +2871,77 @@ var ns_global_data = {};
 		 * ns.dlg.confirmbox("i","msg").then().catch()
 		 * ns.dlg.confirmbox("i","msg","okaycancel").then().catch()
 		 */
-		confirmbox: function (icon, msg, button) {
-			return new Promise((res, rej) => {
-				try {
-					button = button ? button : "yesnocancel";
-					var id = ns.core.UUID();
+		confirmbox: function (icon, msg, button, validation, show) {
+			button = button ? button : "yesnocancel";
+			var id = ns.core.UUID();
 
-					ns.build.append(
-						document.body,
-						fn.build({
-							id: id,
-							title: document.title,
-							button: button,
-							elems: fn.dlgmsg(icon, msg),
-						})
-					);
+			if (!show) {
+				return new Promise((res, rej) => {
+					try {
+						ns.build.append(
+							document.body,
+							fn.build({
+								id: id,
+								title: document.title,
+								button: button,
+								elems: fn.dlgmsg(icon, msg),
+							})
+						);
 
-					fn.show(
-						`#${id}`,
-						function (container) {
-							res(container);
-							return true;
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
-							return true;
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
-							return true;
-						}
-					);
-				} catch (err) {
-					rej(err);
-				}
-			});
+						fn.show(
+							`#${id}`,
+							function (container) {
+								fn.validate(container, validation)
+									.then(() => {
+										var data = fn.getvalue(container);
+										if (data) {
+											if (!data.dlg) {
+												data.dlg = `#${$(container).attr("id")}`;
+											} else {
+												console.warn(
+													"ns.dlg has input with name dlg that should be used to send container"
+												);
+											}
+										} else {
+											data = {};
+											data.dlg = `#${$(container).attr("id")}`;
+										}
+
+										fn.hide(`#${$(container).attr("id")}`);
+										res(data);
+									})
+									.catch(() => {
+										rej();
+									});
+
+								return false;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
+								return true;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
+								return true;
+							}
+						);
+					} catch (err) {
+						rej(err);
+					}
+				});
+			} else {
+				return fn.build({
+					id: id,
+					show: true,
+					title: document.title,
+					button: button,
+					elems: fn.dlgmsg(icon, msg),
+				});
+			}
 		},
 		/**
 		 *
@@ -2858,132 +2951,122 @@ var ns_global_data = {};
 		 * ns.dlg.inputbox(ns.input(),"msg").then(data).catch()
 		 * ns.dlg.inputbox(ns.input(),"msg","okaycancel").then(data).catch()
 		 */
-		inputbox: function (type, msg, button, validation) {
-			return new Promise((res, rej) => {
-				try {
-					button = button ? button : "okaycancel";
-					var id = ns.core.UUID();
+		inputbox: function (type, msg, button, validation, show) {
+			button = button ? button : "okaycancel";
+			var id = ns.core.UUID();
 
-					var ctl = [];
+			var ctl = [];
 
-					//msg
-					if (msg) {
-						ctl.push({
-							tag: "p",
-							elems: msg,
-						});
-					}
+			//msg
+			if (msg) {
+				ctl.push({
+					tag: "p",
+					elems: msg,
+				});
+			}
 
-					//ctl
-					if (typeof type === "string") {
-						ctl.push(ns.input({ type: type, name: "value" }));
-					} else {
-						if (Array.isArray(type)) {
-							//combine multiple control into res
-							ctl = ctl.concat(type);
-						} else {
-							//just put one elem into res
-							ctl.push(type);
-						}
-					}
-
-					//put in modal
-					ns.build.append(
-						document.body,
-						fn.build({
-							id: id,
-							title: document.title,
-							button: button,
-							elems: {
-								elems: ctl,
-							},
-						})
-					);
-
-					$(`#${id}`).on("shown.bs.modal", function (event) {
-						var container = event.target;
-						var inputLast = $(container).find(".modal-body").find("[name]:last");
-						if (inputLast) {
-							$(inputLast).on("keyup", function (event) {
-								if (event.keyCode === 13) {
-									$(container).find(".modal-footer").find(".btn:last").click();
-								}
-							});
-						}
-
-						var inputFirst = $(container).find(".modal-body").find("[name]:first");
-						if (inputFirst) {
-							$(inputFirst).focus();
-						}
-					});
-
-					fn.show(
-						`#${id}`,
-						function (container) {
-							fn.validate(container, validation)
-								.then(() => {
-									var data = fn.getvalue(container);
-									if (data) {
-										if (!data.dlg) {
-											data.dlg = `#${$(container).attr("id")}`;
-										} else {
-											console.warn(
-												"ns.dlg has input with name dlg that should be used to send container"
-											);
-										}
-									} else {
-										data = {};
-										data.dlg = `#${$(container).attr("id")}`;
-									}
-
-									fn.hide(`#${$(container).attr("id")}`);
-									res(data);
-								})
-								.catch(() => {
-									rej();
-								});
-
-							return false;
-
-							// if (fn.validate(container)) {
-							// 	var data = fn.getvalue(container);
-
-							// 	if (data) {
-							// 		if (!data.dlg) {
-							// 			data.dlg = `#${$(container).attr("id")}`;
-							// 		} else {
-							// 			console.warn(
-							// 				"ns.dlg has input with name dlg that should be used to send container"
-							// 			);
-							// 		}
-							// 	} else {
-							// 		data = {};
-							// 		data.dlg = `#${$(container).attr("id")}`;
-							// 	}
-
-							// 	res(data);
-							// 	return true;
-							// } else {
-							// 	return false;
-							// }
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
-							return true;
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
-							return true;
-						}
-					);
-				} catch (err) {
-					rej(err);
+			//ctl
+			if (typeof type === "string") {
+				ctl.push(ns.input({ type: type, name: "value" }));
+			} else {
+				if (Array.isArray(type)) {
+					//combine multiple control into res
+					ctl = ctl.concat(type);
+				} else {
+					//just put one elem into res
+					ctl.push(type);
 				}
-			});
+			}
+
+			if (!show) {
+				return new Promise((res, rej) => {
+					try {
+						//put in modal
+						ns.build.append(
+							document.body,
+							fn.build({
+								id: id,
+								title: document.title,
+								button: button,
+								elems: {
+									elems: ctl,
+								},
+							})
+						);
+
+						$(`#${id}`).on("shown.bs.modal", function (event) {
+							var container = event.target;
+							var inputLast = $(container).find(".modal-body").find("[name]:last");
+							if (inputLast) {
+								$(inputLast).on("keyup", function (event) {
+									if (event.keyCode === 13) {
+										$(container).find(".modal-footer").find(".btn:last").click();
+									}
+								});
+							}
+
+							var inputFirst = $(container).find(".modal-body").find("[name]:first");
+							if (inputFirst) {
+								$(inputFirst).focus();
+							}
+						});
+
+						fn.show(
+							`#${id}`,
+							function (container) {
+								fn.validate(container, validation)
+									.then(() => {
+										var data = fn.getvalue(container);
+										if (data) {
+											if (!data.dlg) {
+												data.dlg = `#${$(container).attr("id")}`;
+											} else {
+												console.warn(
+													"ns.dlg has input with name dlg that should be used to send container"
+												);
+											}
+										} else {
+											data = {};
+											data.dlg = `#${$(container).attr("id")}`;
+										}
+
+										fn.hide(`#${$(container).attr("id")}`);
+										res(data);
+									})
+									.catch(() => {
+										rej();
+									});
+
+								return false;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
+								return true;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
+								return true;
+							}
+						);
+					} catch (err) {
+						rej(err);
+					}
+				});
+			} else {
+				return fn.build({
+					id: id,
+					show: true,
+					title: document.title,
+					button: button,
+					elems: {
+						elems: ctl,
+					},
+				});
+			}
 		},
 		/**
 		 *
@@ -2991,117 +3074,99 @@ var ns_global_data = {};
 		 * ns.dlg.box({id:"",button:"okaycancel",onshow:function(){}}).then(data).catch()
 		 */
 		box: function (opt) {
-			return new Promise((res, rej) => {
-				try {
-					opt = $.extend(
-						{},
-						{
-							id: null,
-							title: null,
-							button: null,
-							onshow: null,
-							fullscreen: false,
-							validation: null,
-						},
-						opt
-					);
-					opt.id = opt.id ? opt.id : ns.core.UUID();
+			opt = $.extend(
+				{},
+				{
+					id: null,
+					title: null,
+					button: null,
+					onshow: null,
+					fullscreen: false,
+					validation: null,
+					show: false,
+				},
+				opt
+			);
+			opt.id = opt.id ? opt.id : ns.core.UUID();
 
-					//put in modal
-					ns.build.append(document.body, fn.build(opt));
+			if (!opt.show) {
+				return new Promise((res, rej) => {
+					try {
+						//put in modal
+						ns.build.append(document.body, fn.build(opt));
 
-					//setup onshow dlg
-					$(`#${opt.id}`).on("shown.bs.modal", function (event) {
-						var container = event.target;
-						var inputLast = $(container).find(".modal-body").find("[name]:last");
-						if (inputLast) {
-							$(inputLast).on("keyup", function (event) {
-								if (event.keyCode === 13) {
-									$(container).find(".modal-footer").find(".btn:last").click();
-								}
-							});
-						}
-
-						var inputFirst = $(container).find(".modal-body").find("[name]:first");
-						if (inputFirst) {
-							$(inputFirst).focus();
-						}
-
-						if (ns.core.isFunction(opt.onshow)) {
-							opt.onshow($(`#${opt.id}`));
-						}
-					});
-
-					//show modal
-					fn.show(
-						`#${opt.id}`,
-						function (container) {
-							fn.validate(container, opt.validation)
-								.then(() => {
-									var data = fn.getvalue(container);
-									if (data) {
-										if (!data.dlg) {
-											data.dlg = `#${$(container).attr("id")}`;
-										} else {
-											console.warn(
-												"ns.dlg has input with name dlg that should be used to send container"
-											);
-										}
-									} else {
-										data = {};
-										data.dlg = `#${$(container).attr("id")}`;
+						//setup onshow dlg
+						$(`#${opt.id}`).on("shown.bs.modal", function (event) {
+							var container = event.target;
+							var inputLast = $(container).find(".modal-body").find("[name]:last");
+							if (inputLast) {
+								$(inputLast).on("keyup", function (event) {
+									if (event.keyCode === 13) {
+										$(container).find(".modal-footer").find(".btn:last").click();
 									}
-
-									fn.hide(`#${$(container).attr("id")}`);
-									res(data);
-								})
-								.catch(() => {
-									rej();
 								});
+							}
 
-							return false;
+							var inputFirst = $(container).find(".modal-body").find("[name]:first");
+							if (inputFirst) {
+								$(inputFirst).focus();
+							}
 
-							// if (fn.validate(container)) {
-							// 	var data = fn.getvalue(container);
+							if (ns.core.isFunction(opt.onshow)) {
+								opt.onshow($(`#${opt.id}`));
+							}
+						});
 
-							// 	if (data) {
-							// 		if (!data.dlg) {
-							// 			data.dlg = `#${$(container).attr("id")}`;
-							// 		} else {
-							// 			console.warn(
-							// 				"ns.dlg has input with name dlg that should be used to send container"
-							// 			);
-							// 		}
-							// 	} else {
-							// 		data = {};
-							// 		data.dlg = `#${$(container).attr("id")}`;
-							// 	}
+						//show modal
+						fn.show(
+							`#${opt.id}`,
+							function (container) {
+								fn.validate(container, opt.validation)
+									.then(() => {
+										var data = fn.getvalue(container);
+										if (data) {
+											if (!data.dlg) {
+												data.dlg = `#${$(container).attr("id")}`;
+											} else {
+												console.warn(
+													"ns.dlg has input with name dlg that should be used to send container"
+												);
+											}
+										} else {
+											data = {};
+											data.dlg = `#${$(container).attr("id")}`;
+										}
 
-							// 	res(data);
+										fn.hide(`#${$(container).attr("id")}`);
+										res(data);
+									})
+									.catch(() => {
+										rej();
+									});
 
-							// 	return true;
-							// } else {
-							// 	return false;
-							// }
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
+								return false;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
 
-							return true;
-						},
-						function () {
-							try {
-								rej();
-							} catch (ex) {}
-							return true;
-						}
-					);
-				} catch (err) {
-					rej(err);
-				}
-			});
+								return true;
+							},
+							function () {
+								try {
+									rej();
+								} catch (ex) {}
+								return true;
+							}
+						);
+					} catch (err) {
+						rej(err);
+					}
+				});
+			} else {
+				return fn.build(opt);
+			}
 		},
 	};
 })(ns);
@@ -3155,6 +3220,31 @@ var ns_global_data = {};
 
 		//generate id
 		opt.id = opt.id ? opt.id : ns.core.UUID();
+
+		//generate color base on icon if color not provided
+		if (!opt.color && opt.icon) {
+			var si = ns.sIcon(opt.icon);
+			if (si) {
+				if (opt.outline) {
+					opt.color = si.color;
+					opt.textcolor = si.color;
+					opt.icon = si.icon;
+				} else {
+					opt.color = si.color;
+					opt.textcolor = si.textcolor;
+					opt.icon = si.icon;
+				}
+			}
+		}
+
+		//generate textcolor base on color
+		if (opt.color && !opt.textcolor && !opt.outline) {
+			if (["primary", "secondary", "danger", "success", "dark"].indexOf(opt.color) > -1) {
+				opt.textcolor = "light";
+			} else if (["warning", "light"].indexOf(opt.color) > -1) {
+				opt.textcolor = "dark";
+			}
+		}
 
 		if (opt.navlink) {
 			opt.container = "nav-item";
@@ -3262,35 +3352,22 @@ var ns_global_data = {};
 //author: printf83@gmail.com (c) 2020 - 2021
 (function (ns) {
 	var fn = {
-		codetoggle: function (id, title) {
+		codetoggle: function (id, title, expanded) {
 			return ns.div(
-				"d-flex justify-content-between py-1 px-3 flex-wrap bg-light",
+				//"bg-secondary text-light rounded-0 btn-toggle",
+				"rounded-0 btn-toggle bg-light",
 				{
 					"data-bs-toggle": "collapse",
-					"aria-expanded": "false",
+					"aria-expanded": expanded ? "true" : "false",
 					"aria-controls": id,
 					"data-bs-target": `#${id}`,
 					role: "button",
 				},
-				[
-					{
-						tag: "small",
-						class: "text-primary font-monospace d-flex align-items-center",
-						elems: `${title}`,
-					},
-					{
-						tag: "button",
-						class: "btn-clipboard btn btn-outline-primary btn-sm", //"btn-clipboard btn btn-outline-primary btn-sm end-0 me-3 position-absolute"
-						elems: "Show",
-						attr: {
-							role: "button",
-						},
-					},
-				]
+				`${title}`
 			);
 		},
 		codecontainer: function (id, type, code, beautify) {
-			return ns.div("collapse card-body ns-code bg-light pt-0", { id: id }, [
+			return ns.div("collapse card-body ns-code bg-light", { id: id }, [
 				{
 					tag: "code",
 					class: "overflow-auto d-block",
@@ -3399,7 +3476,7 @@ var ns_global_data = {};
 			//add html code
 			if (!opt.label) {
 				var htmlid = ns.core.UUID();
-				samplecode.push(fn.codetoggle(htmlid, `html:`));
+				samplecode.push(fn.codetoggle(htmlid, `HTML Output`));
 				samplecode.push(fn.codecontainer(htmlid, "html", ns.build.html(opt.code(), true), opt.beautifyhtml));
 			}
 
@@ -3407,7 +3484,7 @@ var ns_global_data = {};
 				Object.keys(opt.sample).forEach((sampleKey) => {
 					let sampleid = ns.core.UUID();
 					let strSampleCode = opt.sample[sampleKey].toString(); //"(" + opt.sample[sampleKey] + ")();";
-					samplecode.push(fn.codetoggle(sampleid, `${sampleKey}:`));
+					samplecode.push(fn.codetoggle(sampleid, `Function ${sampleKey}`));
 					samplecode.push(fn.codecontainer(sampleid, "js", strSampleCode, opt.beautifyjs));
 				});
 			}
@@ -3418,6 +3495,8 @@ var ns_global_data = {};
 			// if (strCode.startsWith("return")) {
 			// 	strCode = strCode.substring(7, strCode.length);
 			// }
+
+			var codeid = ns.core.UUID();
 
 			el.push(
 				ns.div(
@@ -3445,36 +3524,34 @@ var ns_global_data = {};
 									elems: samplecode,
 							  }
 							: null,
-						ns.div("d-flex justify-content-between py-1 px-3 flex-wrap bg-light", [
-							{
-								tag: "small",
-								class: "text-primary font-monospace d-flex align-items-center",
-								elems: "ns.build:",
-							},
-							{
-								tag: "button",
-								class: "btn-clipboard btn btn-outline-primary btn-sm", //"btn-clipboard btn btn-outline-primary btn-sm end-0 me-3 position-absolute"
-								elems: "Copy",
-								attr: {
-									role: "button",
-									onclick: function (sender) {
-										ns.core.copyToClipboard(strCode, "Code copied to clipboard");
+						fn.codetoggle(codeid, `Code`, true),
+						ns.div({
+							class: "collapse show card-body ns-code bg-light rounded-bottom",
+							attr: { id: codeid },
+							elems: [
+								{
+									tag: "button",
+									class: "btn-clipboard btn btn-outline-primary btn-sm end-0 me-3 position-absolute",
+									elems: "Copy",
+									attr: {
+										role: "button",
+										onclick: function () {
+											ns.core.copyToClipboard(strCode, "Code copied to clipboard");
+										},
 									},
 								},
-							},
-						]),
-						ns.div("card-body ns-code bg-light rounded-bottom pt-0", [
-							{
-								tag: "code",
-								class: "overflow-auto d-block",
-								elems: {
-									tag: "pre",
-									attr: { lang: "js" },
-									class: "prettyprint lang-js",
-									elems: opt.beautifyjs(strCode),
+								{
+									tag: "code",
+									class: "overflow-auto d-block",
+									elems: {
+										tag: "pre",
+										attr: { lang: "js" },
+										class: "prettyprint lang-js",
+										elems: opt.beautifyjs(strCode),
+									},
 								},
-							},
-						]),
+							],
+						}),
 					].removeEmpty()
 				)
 			);
@@ -4021,79 +4098,73 @@ var ns_global_data = {};
 			key: "i",
 			icon: "info-circle",
 			color: "primary",
-			textcolor: "white",
-		},
-		{
-			key: "!-danger",
-			icon: "exclamation-triangle",
-			color: "danger",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
 			key: "!!",
 			icon: "exclamation-triangle",
 			color: "danger",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
 			key: "!",
 			icon: "exclamation-triangle",
 			color: "warning",
-			textcolor: null,
+			textcolor: "dark",
 		},
 		{
 			key: "?",
 			icon: "question-circle",
 			color: "success",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
 			key: "-",
 			icon: "minus-circle",
 			color: "danger",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
 			key: "x",
 			icon: "times-circle",
 			color: "danger",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
 			key: "/",
 			icon: "check-circle",
 			color: "success",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
-			key: "save",
+			key: "dosave",
 			icon: "save",
 			color: "success",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
-			key: "delete",
+			key: "dodelete",
 			icon: "trash",
 			color: "danger",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
 			key: "lock",
-			icon: "lock",
+			icon: "key",
 			color: "warning",
-			textcolor: null,
+			textcolor: "dark",
 		},
 		{
 			key: "shield",
 			icon: "shield-alt",
 			color: "danger",
-			textcolor: "white",
+			textcolor: "light",
 		},
 		{
 			key: "logout",
 			icon: "door-open",
 			color: "secondary",
-			textcolor: null,
+			textcolor: "white",
 		},
 	];
 
@@ -4770,7 +4841,7 @@ var ns_global_data = {};
 						[
 							opt.label && opt.btncheck ? null : "form-check",
 							opt.label && opt.inline ? "form-check-inline" : null,
-							opt.type === "switch" ? " form-switch" : null,
+							opt.type === "switch" ? "form-switch" : null,
 							opt.valid || opt.invalid ? "has-validation" : null,
 						],
 						ctl
@@ -9759,7 +9830,7 @@ var ns_global_data = {};
 					{
 						id: null,
 						msg: null,
-						color: true,
+						color: null,
 						textcolor: null,
 						delay: null,
 						position: "top-0 end-0",
@@ -9768,6 +9839,15 @@ var ns_global_data = {};
 				);
 
 				opt.id = opt.id || ns.core.UUID();
+
+				//generate textcolor base on color
+				if (opt.color && !opt.textcolor) {
+					if (["primary", "secondary", "danger", "success", "dark"].indexOf(opt.color) > -1) {
+						opt.textcolor = "light";
+					} else if (["warning", "light"].indexOf(opt.color) > -1) {
+						opt.textcolor = "dark";
+					}
+				}
 
 				//document.querySelector(".toast-container");
 				var containerquery = [
