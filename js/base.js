@@ -2579,7 +2579,7 @@ var ns_global_data = {};
 							id: opt.id,
 							tabindex: "-1",
 							"data-bs-backdrop": opt.static ? "static" : null,
-							"data-bs-keyboard": opt.static ? "false" : null,
+							"data-bs-keyboard": opt.static ? "false" : "true",
 							"data-bs-focus": opt.focus ? "true" : null,
 						},
 						ns.div(
@@ -3476,7 +3476,7 @@ var ns_global_data = {};
 			//add html code
 			if (!opt.label) {
 				var htmlid = ns.core.UUID();
-				samplecode.push(fn.codetoggle(htmlid, `HTML Output`));
+				samplecode.push(fn.codetoggle(htmlid, `html output`));
 				samplecode.push(fn.codecontainer(htmlid, "html", ns.build.html(opt.code(), true), opt.beautifyhtml));
 			}
 
@@ -3484,7 +3484,7 @@ var ns_global_data = {};
 				Object.keys(opt.sample).forEach((sampleKey) => {
 					let sampleid = ns.core.UUID();
 					let strSampleCode = opt.sample[sampleKey].toString(); //"(" + opt.sample[sampleKey] + ")();";
-					samplecode.push(fn.codetoggle(sampleid, `Function ${sampleKey}`));
+					samplecode.push(fn.codetoggle(sampleid, `function ${sampleKey}`));
 					samplecode.push(fn.codecontainer(sampleid, "js", strSampleCode, opt.beautifyjs));
 				});
 			}
@@ -3524,7 +3524,7 @@ var ns_global_data = {};
 									elems: samplecode,
 							  }
 							: null,
-						fn.codetoggle(codeid, `Code`, true),
+						fn.codetoggle(codeid, `ns.build`, true),
 						ns.div({
 							class: "collapse show card-body ns-code bg-light rounded-bottom",
 							attr: { id: codeid },

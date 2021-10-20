@@ -197,7 +197,7 @@ const ex = {};
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
-				.catch((err) => {});
+				.catch(() => {});
 		},
 
 		dlgFirstModal: function () {
@@ -833,8 +833,20 @@ var e_introduction = [
 		ns.icon({ style: "fab", icon: "node-js" }),
 		ns.icon("leaf"),
 	]),
-	ns.div("text-center mt-5", "This is an alpha version. Don't used it. Build Bootstrap 5 using Javascript :)"),
-	ns.div("text-center", [
+	ns.div("text-center mt-5", "This is an alpha version. Don't used it on production."),
+	ns.div(
+		"text-center",
+		"Build Full Stack Web Application using JS, Bootstrap, Fontawesome, NodeJS, And Mongodb using NS"
+	),
+	ns.div("text-center", "For Pro JS Developer only"),
+	ns.div("text-center mt-5", "{{ns.build.append(container,nshelper|nstag)}}"),
+	ns.div("text-center", "{{ns.build.prepend(container,nshelper|nstag)}}"),
+	ns.div("text-center", "{{ns.build.replace(container,nshelper|nstag)}}"),
+	ns.div("text-center", "{{ns.build.html(container,nshelper|nstag)}}"),
+	ns.div("text-center mt-5", "Example : "),
+	ns.div("text-center", "{{ns.build.append(document.body,ns.button({label:'Hello World', color:'primary'}))}}"),
+	ns.div("text-center", "{{ns.build.append(document.body,{tag:'p',elems:'Hello World'})}}"),
+	ns.div("text-center mt-5", [
 		ns.a("Download base.js", "js/base.min.js"),
 		" | ",
 		ns.a("Github", "https://github.com/printf83/ns-p"),
@@ -3772,14 +3784,13 @@ var e_dlg = [
 				title: "Modal title",
 				elems: "Modal body text goes here.",
 				button: "savechangesclose",
-				static: false, //by default static backdrop is on
 				show: true, //for preview only (should be false or null for live version)
 			});
 		},
 	}),
 
 	ns.example({
-		title: "Example",
+		title: "Live example",
 		label: "Show modal dialog",
 		code: function () {
 			ns.dlg
@@ -3787,7 +3798,6 @@ var e_dlg = [
 					title: "Modal title",
 					elems: "Modal body text goes here.",
 					button: "savechangesclose",
-					static: false, //by default static backdrop is on
 				})
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
@@ -3797,25 +3807,43 @@ var e_dlg = [
 	}),
 
 	ns.example({
-		title: "Static backdrop",
+		title: "Checkbox in footer",
 		label: "Show modal dialog",
 		code: function () {
 			ns.dlg
 				.box({
 					title: "Modal title",
-					elems: "I will not close if you click outside me. Don't even try to press escape key.",
-					button: "understandclose",
-					static: true,
+					elems: "Modal body text goes here.",
+					button: "savechangesclose",
+					footer: ns.input({ type: "switch", name: "showagain", label: "Show again" }),
 				})
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
-				.catch((err) => {});
+				.catch(() => {});
 		},
 	}),
 
 	ns.example({
-		title: "Scrolling long content",
+		title: "Disable static backdrop",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: "By default, modal dialog will not close if you click outside or press escape key. To allow modal dialog to close when click outside or press escape key, set {{static: false}} option",
+					button: "understandclose",
+					static: false,
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch(() => {});
+		},
+	}),
+
+	ns.example({
+		title: "Disable scrolling long content",
 		label: "Show modal dialog",
 		sample: { "ex.sample.text": ex.sample.text },
 		code: function () {
@@ -3823,6 +3851,9 @@ var e_dlg = [
 				.box({
 					title: "Modal title",
 					elems: [
+						ns.p(
+							"By default, modal dialog will activate scrolling inside modal dialog. To disabled it, set {{scrollable: false}} option."
+						),
 						ex.sample.text("p"),
 						ex.sample.text("p"),
 						ex.sample.text("p"),
@@ -3830,57 +3861,137 @@ var e_dlg = [
 						ex.sample.text("p"),
 					],
 					button: "understandclose",
+					scrollable: false,
+				})
+				.then((data) => {
+					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+				})
+				.catch(() => {});
+		},
+	}),
+
+	ns.example({
+		title: "Disable vertically centered",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: "By default, modal dialog will vertically centered when shown. To disabled it, set {{center: false}} option.",
+					button: "savechangesclose",
 					center: false,
-					scrollable: true,
 				})
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
-				.catch((err) => {});
+				.catch(() => {});
 		},
 	}),
 
 	ns.example({
-		title: "Vertically centered",
-		label: "Show modal dialog",
+		title: "Base button",
 		code: function () {
-			ns.dlg
-				.box({
-					title: "Modal title",
-					elems: "This is a vertically centered modal.",
-					button: "savechangesclose",
-					center: true,
-				})
-				.then((data) => {
-					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
-				})
-				.catch((err) => {});
-		},
-	}),
-
-	ns.example({
-		title: "Vertically centered scrollable dialog",
-		label: "Show modal dialog",
-		sample: { "ex.sample.text": ex.sample.text },
-		code: function () {
-			ns.dlg
-				.box({
-					title: "Modal title",
-					elems: [
-						ex.sample.text("p"),
-						ex.sample.text("p"),
-						ex.sample.text("p"),
-						ex.sample.text("p"),
-						ex.sample.text("p"),
+			return [
+				ns.input({
+					type: "select",
+					before: "button:",
+					aftertype: "button",
+					after: ns.button({
+						label: "Show",
+						color: "primary",
+						onclick: function (sender) {
+							var btn = ns.core.getvalue($(sender).parent().find("select"));
+							ns.dlg
+								.box({
+									elems: `Dialog box with base button <b>${btn}</b>.`,
+									button: btn,
+								})
+								.then((data) => {
+									ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
+								})
+								.catch(() => {});
+						},
+					}),
+					option: [
+						"okay",
+						"close",
+						"cancel",
+						"okayonly",
+						"closeonly",
+						"cancelonly",
+						"savechangesclose",
+						"understandclose",
+						"sendmessageclose",
+						"searchcancel",
+						"sortcancel",
+						"yesno",
+						"yescancel",
+						"yescontinue",
+						"yescontinueno",
+						"yescontinuecancel",
+						"yescontinueclose",
+						"yessaveno",
+						"yessavecancel",
+						"yessaveclose",
+						"yesdeleteno",
+						"yesdeletecancel",
+						"yesdeletenoclose",
+						"continueno",
+						"continuecancel",
+						"continueclose",
+						"saveno",
+						"savecancel",
+						"saveclose",
+						"deleteno",
+						"deletecancel",
+						"deleteclose",
+						"okaycancel",
+						"okayclose",
+						"okaycontinuecancel",
+						"okaycontinueclose",
+						"okaysavecancel",
+						"okaysaveclose",
+						"okaydeletecancel",
+						"okaydeleteclose",
+						"yesnocancel",
+						"yesnoclose",
+						"yescontinuecancel",
+						"yescontinueclose",
+						"yessavenocancel",
+						"yessavenoclose",
+						"yesdeletenocancel",
+						"yesdeletenoclose",
+						"continuenocancel",
+						"continuenoclose",
+						"savenocancel",
+						"savenoclose",
+						"deletenocancel",
+						"deletenoclose",
 					],
-					button: "savechangesclose",
-					center: true,
-					scrollable: true,
+				}),
+			];
+		},
+	}),
+
+	ns.example({
+		title: "Custom button",
+		label: "Show modal dialog",
+		code: function () {
+			ns.dlg
+				.box({
+					title: "Modal title",
+					elems: "Custom button dialog",
+					button: [
+						{ label: "Yesss!", color: "primary", icon: "fire" },
+						{ label: "Noooo!", color: "danger" },
+						{ label: "Cancel", color: "info" },
+						{ icon: "?", onclick: "ns.toast('?', 'Question button pressed');" },
+					],
 				})
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
-				.catch((err) => {});
+				.catch(() => {});
 		},
 	}),
 
@@ -3941,7 +4052,7 @@ var e_dlg = [
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
-				.catch((err) => {});
+				.catch(() => {});
 		},
 	}),
 
@@ -3951,14 +4062,33 @@ var e_dlg = [
 		code: function () {
 			ns.dlg
 				.box({
-					title: "Modal title",
-					elems: `todo : ns.grid`,
+					title: "Grids in modal",
+					elems: ns.div("container-fluid ns-higlight-col", [
+						ns.div("row", [
+							ns.div("col-md-4", ".col-md-4"),
+							ns.div("col-md-4 ms-auto", ".col-md-4 .ms-auto"),
+						]),
+						ns.div("row", [
+							ns.div("col-md-3 ms-auto", ".col-md-3 .ms-auto"),
+							ns.div("col-md-2 ms-auto", ".col-md-2 .ms-auto"),
+						]),
+						ns.div("row", [ns.div("col-md-6 ms-auto", ".col-md-6 .ms-auto")]),
+						ns.div("row", [
+							ns.div("col-sm-9", [
+								"Level 1: .col-md-9",
+								ns.div("row", [
+									ns.div("col-8 col-sm-6", "Level 2: .col-8 .col-sm-6"),
+									ns.div("col-4 col-sm-6", "Level 2: .col-4 .col-sm-6"),
+								]),
+							]),
+						]),
+					]),
 					button: "savechangesclose",
 				})
 				.then((data) => {
 					ns.toast("i", `Result from dialog is <b>${JSON.stringify(data)}</b>`);
 				})
-				.catch((err) => {});
+				.catch(() => {});
 		},
 	}),
 
@@ -8198,7 +8328,7 @@ var menu = [
 		{ label: "List query test", icon: "flask", onclick: "window.location='list_query_test.html'" },
 	],
 	[
-		{ onclick: "changeTheme(this,null);", label: "Default", active: true },
+		{ onclick: "changeTheme(this,null);", label: "Default" },
 		{ onclick: "changeTheme(this,'cerulean');", label: "Cerulean (L|G)" },
 		{ onclick: "changeTheme(this,'cosmo');", label: "Cosmo (L|S)" },
 		{ onclick: "changeTheme(this,'cyborg');", label: "Cyborg (D|S)" },
@@ -8213,7 +8343,7 @@ var menu = [
 		{ onclick: "changeTheme(this,'morph');", label: "Morph (L|G)" },
 		{ onclick: "changeTheme(this,'pulse');", label: "Pulse (L|S)" },
 		{ onclick: "changeTheme(this,'quartz');", label: "Quartz (D|G)" },
-		{ onclick: "changeTheme(this,'sandstone');", label: "Sandstone (L|S)" },
+		{ onclick: "changeTheme(this,'sandstone');", label: "Sandstone (L|S)", active: true },
 		{ onclick: "changeTheme(this,'simplex');", label: "Simplex (L|G)" },
 		{ onclick: "changeTheme(this,'sketchy');", label: "Sketchy (L|S)" },
 		{ onclick: "changeTheme(this,'slate');", label: "Slate (D|G)" },
@@ -8336,12 +8466,12 @@ $(document).ready(() => {
 	var sidebar = document.getElementById("sidebar"); //$("#sidebar").get();
 	ns.build.append(sidebar, [
 		ns.menu.container({
+			active: true,
 			title: "Getting started",
 			class: "exmenu",
 			item: ns.menu.item(menu[0]),
 		}),
 		ns.menu.container({
-			active: true,
 			title: "Layout",
 			class: "exmenu",
 			item: ns.menu.item(menu[1]),
@@ -8372,5 +8502,5 @@ $(document).ready(() => {
 		}),
 	]);
 
-	showexample(null, "e_gutter");
+	showexample(null, "e_introduction");
 });
