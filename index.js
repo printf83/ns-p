@@ -826,7 +826,7 @@ var e_menu = [
 
 var e_introduction = [
 	ns.div("text-center display-1", "Hello World"),
-	ns.div("text-center display-5", [
+	ns.div("text-center display-5 text-primary", [
 		ns.icon({ style: "fab", icon: "bootstrap" }),
 		ns.icon("swatchbook"),
 		ns.icon({ style: "fab", icon: "font-awesome-flag" }),
